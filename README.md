@@ -40,3 +40,13 @@ Further, if enough people share their catches the whole data could be interestin
 > - Motivation for the bootcamp: I want to fullfill my old dream to be an developer. I was always interested in programming since I wrote my first programms with basic on my C64 back in the days.
 > - For more information about me visit my [personal website](https://personal-website-react-five.vercel.app/), currently only available in german language. I don't have the time to make an english version of it, maybe after the capstone project.
 > - Please feel free to get in contact if you want to know more. 
+
+<br>
+
+### Info for Devs
+- there are two env files, one on the main folder and one in the client folder. Please see both env.EXAMPLE for info how to fill
+- "npm run dev" will start client on localhost:3000(default) and server on localhost:4000(default) 
+- "npm run server" will start backend server only (default port 4000)
+- "npm run client" will start frontend only (default port 3000)
+- "npm run build" will build Frontend Client with Vite.js
+- if build was done "npm server" will start server on localhost:4000(default) and will deliver client as static asset. Please note if you're not using port 4000 change proxy in vite.config.js (client folder)

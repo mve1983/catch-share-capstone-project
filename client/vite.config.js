@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/data': 'http://fish-finder-germany.herokuapp.com/',
+      '/data': 'http://localhost:4000',
     },
   },
 })
