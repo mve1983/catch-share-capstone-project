@@ -41,9 +41,9 @@ const AppNavbar = styled.nav`
   align-items: center;
 
   a {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     flex-grow: 1;
-    padding: 1.3rem 0 1.3rem 0;
+    padding: 1rem 0 1rem 0;
     text-align: center;
     color: black;
     text-decoration: none;
