@@ -6,7 +6,7 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
-import "@reach/combobox/styles.css";
+import "../lib/combobox-styles.css";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -44,6 +44,7 @@ export default function Search({ onGoTo }) {
         }}
       >
         <ComboboxInput
+          className="input-combobox"
           value={value}
           onChange={(event) => {
             setValue(event.target.value);
@@ -73,3 +74,5 @@ const SearchbarWrapper = styled.div`
   left: 1rem;
   top: 1rem;
 `;
+
+

@@ -20,7 +20,7 @@ export default function Navbar() {
 // styled components from here to end
 
 const Footer = styled.footer`
-  background-color: var(--background-two);
+  background-color: var(--color-three);
   display: flex;
   justify-content: center;
   align-content: center;
@@ -41,11 +41,14 @@ const AppNavbar = styled.nav`
   align-items: center;
 
   a {
+    color: var(--color-two);
+    text-shadow: -1px -1px 0 var(--color-one),
+    1px -1px 0 var(--color-one), -1px 1px 0 var(--color-one),
+    1px 1px 0 var(--color-one);
     font-size: 1.2rem;
     flex-grow: 1;
     padding: 1rem 0 1rem 0;
     text-align: center;
-    color: black;
     text-decoration: none;
   }
 

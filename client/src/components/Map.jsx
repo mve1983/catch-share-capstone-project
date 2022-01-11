@@ -86,6 +86,4 @@ const MapWrapper = styled.section`
   display: block;
   position: relative;
   margin: 6rem 1rem 1rem 1rem;
-  border: 0.3rem solid var(--color-one);
-  border-radius: 0.3rem;
  `;
