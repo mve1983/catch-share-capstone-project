@@ -1,0 +1,47 @@
+import mongoose from "mongoose";
+
+const catchCardSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+      },
+      fishtype: {
+        type: String,
+        required: true
+      },
+      date: {
+        type: String,
+        required: true
+      },
+      time: {
+        type: String,
+        required: true
+      },
+      length: {
+        type: Number,
+        required: true
+      },
+      weight: {
+        type: Number,
+        required: true
+      },
+      lat: {
+        type: Number,
+        required: true
+      },
+      lng: {
+        type: Number,
+        required: true
+      },
+      bait: String,
+      depth: Number,
+      tackle: String,
+      img: {
+         data: Buffer,
+         contentType: String,
+     }
+})
+
+const CatchCard = mongoose.model("CatchCard", catchCardSchema);
+
+export default CatchCard;
