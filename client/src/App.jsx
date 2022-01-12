@@ -6,8 +6,36 @@ import Home from "./components/Home";
 import Map from "./components/Map";
 import Weather from "./components/Weather";
 import Account from "./components/Account";
+import { useState } from "react";
 
 export default function App() {
+  const initialCatchCard = {
+    name: "TestUser",
+    fishtype: "",
+    date: [],
+    length: 0,
+    weight: 0,
+    lat: 0,
+    lng: 0,
+    bait: "",
+    depth: 0,
+    tackle: "",
+  };
+
+  const [singleCatchCard, setSingleCatchCard] = useState(initialCatchCard);
+  const [catchCards, setCatchCards] = useState([]);
+
+  const handleInputChange = (name, value) => {
+    setSingleCatchCard({
+      ...singleCatchCard,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <>
       <Header />
@@ -15,7 +43,16 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="map" element={<Map />} />
+        <Route
+          path="map"
+          element={
+            <Map
+              catchCard={singleCatchCard}
+              onHandleSubmit={handleSubmit}
+              onInputChange={handleInputChange}
+            />
+          }
+        />
         <Route path="weather" element={<Weather />} />
         <Route path="account" element={<Account />} />
       </Routes>

@@ -74,5 +74,3 @@ const SearchbarWrapper = styled.div`
   left: 1rem;
   top: 1rem;
 `;
-
-

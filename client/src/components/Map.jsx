@@ -1,9 +1,10 @@
-import {useState, useCallback, useRef} from "react";
+import { useState, useCallback, useRef } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import styled from "styled-components";
 import mapStyle from "../lib/mapStyle";
 import libraries from "../lib/googleLibs";
 import Search from "./MapSearch";
+import CatchForm from "./catchCardForm/CatchForm";
 
 const mapContainerStyle = {
   width: "100%",
@@ -21,7 +22,7 @@ const mapOptions = {
   zoomControl: true,
 };
 
-export default function Map() {
+export default function Map({ catchCard, onHandleSubmit, onInputChange }) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
     libraries,
@@ -59,31 +60,49 @@ export default function Map() {
     anchor: new google.maps.Point(15, 15),
   };
   return (
-    <MapWrapper>
-      <Search onGoTo={goTo} />
-
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={8}
-        center={mapCenter}
-        options={mapOptions}
-        onClick={addNewMapMarker}
-        onLoad={onMapLoad}
-      >
-        {mapMarkers.map((marker, index) => (
-          <Marker
-            key={index}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            icon={fishMarker}
-          />
-        ))}
-      </GoogleMap>
-    </MapWrapper>
+    <>
+      <MapWrapper>
+        <Search onGoTo={goTo} />
+        <CatchForm
+          catchCard={catchCard}
+          onHandleSubmit={onHandleSubmit}
+          onInputChange={onInputChange}
+        />
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={8}
+          center={mapCenter}
+          options={mapOptions}
+          onClick={addNewMapMarker}
+          onLoad={onMapLoad}
+        >
+          {mapMarkers.map((marker, index) => (
+            <Marker
+              key={index}
+              position={{ lat: marker.lat, lng: marker.lng }}
+              icon={fishMarker}
+            />
+          ))}
+        </GoogleMap>
+        <div>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta quam
+          labore deserunt asperiores cupiditate voluptatum nemo itaque ab
+          quaerat, nostrum maiores odit sunt in incidunt vel porro fugit rerum
+          perspiciatis possimus esse doloribus eaque enim. Esse libero tenetur
+          dicta eos, minima nisi, doloribus suscipit aut, totam laudantium ex
+          similique! Pariatur!{" "}
+        </div>
+      </MapWrapper>
+    </>
   );
 }
 
 const MapWrapper = styled.section`
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
   position: relative;
   margin: 6rem 1rem 1rem 1rem;
- `;
+`;

@@ -5,11 +5,11 @@ export default function Navbar() {
   return (
     <Footer>
       <AppNavbar>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/">Start</NavLink>
 
-        <NavLink to="map">Map</NavLink>
+        <NavLink to="map">Karte</NavLink>
 
-        <NavLink to="weather">Weather</NavLink>
+        <NavLink to="weather">Wetter</NavLink>
 
         <NavLink to="account">Account</NavLink>
       </AppNavbar>
