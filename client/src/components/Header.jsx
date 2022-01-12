@@ -14,7 +14,7 @@ export default function Header() {
 // styled components from here to end
 
 const AppHeader = styled.header`
-  background-color: var(--background-two);
+  background-color: var(--color-three);
   display: flex;
   align-items: center;
   align-self: center;
