@@ -103,6 +103,9 @@ const dates = {
   ],
 };
 
-const tackle = ["Grundangeln", "Spinnfischen", "Fliegenfischen", "Posenangeln"];
+const tackle = ["A n d e r e", "Grundangeln", "Spinnfischen", "Fliegenfischen", "Posenangeln"];
+
+
+
 
 export { fishtypes, dates, tackle };

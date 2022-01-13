@@ -9,13 +9,10 @@ const catchCardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  date: [
-    { type: String, required: true },
-    { type: String, required: true },
-    { type: String, required: true },
-    { type: String, required: true },
-  ],
-
+  date: {
+    type: String,
+    required: true,
+  },
   length: {
     type: Number,
     required: true,

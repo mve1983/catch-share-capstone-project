@@ -12,18 +12,21 @@ export default function App() {
   const initialCatchCard = {
     name: "TestUser",
     fishtype: "",
-    date: [],
-    length: 0,
-    weight: 0,
+    date: "",
+    length: 1,
+    weight: 0.23,
     lat: 0,
     lng: 0,
     bait: "",
-    depth: 0,
+    depth: 1.2,
     tackle: "",
+    img: {},
   };
 
   const [singleCatchCard, setSingleCatchCard] = useState(initialCatchCard);
   const [catchCards, setCatchCards] = useState([]);
+
+console.log(singleCatchCard);
 
   const handleInputChange = (name, value) => {
     setSingleCatchCard({
@@ -44,7 +47,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
-          path="map"
+          path="/map"
           element={
             <Map
               catchCard={singleCatchCard}
@@ -53,8 +56,8 @@ export default function App() {
             />
           }
         />
-        <Route path="weather" element={<Weather />} />
-        <Route path="account" element={<Account />} />
+        <Route path="/weather" element={<Weather />} />
+        <Route path="/account" element={<Account />} />
       </Routes>
 
       <Navbar />
