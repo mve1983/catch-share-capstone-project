@@ -20,13 +20,13 @@ export default function App() {
     bait: "",
     depth: 1.2,
     tackle: "",
-    img: {},
+    img: "",
   };
 
   const [singleCatchCard, setSingleCatchCard] = useState(initialCatchCard);
   const [catchCards, setCatchCards] = useState([]);
 
-console.log(singleCatchCard);
+  console.log(singleCatchCard);
 
   const handleInputChange = (name, value) => {
     setSingleCatchCard({

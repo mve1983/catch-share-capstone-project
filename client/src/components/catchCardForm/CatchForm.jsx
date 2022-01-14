@@ -1,48 +1,26 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { fishtypes, dates, tackle } from "../../lib/catchFormHelpers.js";
-import { FilePond, registerPlugin } from "react-filepond";
-import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-import "filepond/dist/filepond.min.css";
-
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
+import { fishtypes, dates, tackle } from "../../lib/catchFormArrays.js";
+import PhotoPicker from "./FileUpload.jsx";
 
 export default function CatchForm({
   catchCard,
   onHandleSubmit,
   onInputChange,
 }) {
-  const [files, setFiles] = useState([]);
-
   function handleChangeString(event) {
     onInputChange(event.target.name, event.target.value);
   }
 
   function handleChangeDate(event) {
-    let catchDate = Date();
-    switch (event.target.name) {
-      case "year":
-        catchDate.setFullYear(parseInt(event.target.value));
-        break;
-      // case "month":
-      //   catchDate.setMonth(dates.indexOf(event.target.value)+1);
-      //   break;
-      case "day":
-        catchDate.setDay(parseInt(event.target.value));
-        break;
-      case "time":
-        catchDate.setHours(parseInt(event.target.value.substring(0, 2)));
-        break;
-    }
-    catchDate.setMinutes(0);
-    catchDate.setMilliseconds(0);
+    catchCard.date = Date();
+    // NEEEDS WORK HERE
     onInputChange("date", catchDate);
   }
 
   function handleChangeFloat(event) {
     let inputValue = 0;
+    if (event.target.value === "") return 0;
     if (event.target.name === "weight") {
       inputValue =
         Math.round((parseFloat(event.target.value) + Number.EPSILON) * 100) /
@@ -244,15 +222,7 @@ export default function CatchForm({
               </label>
             </FormItem>
 
-            <FilePond
-              files={files}
-              onupdatefiles={setFiles}
-              allowMultiple={true}
-              maxFiles={3}
-              server="/api"
-              name="files"
-              labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-            />
+            <PhotoPicker catchCard={catchCard} />
           </form>
         </Fieldset>
 
