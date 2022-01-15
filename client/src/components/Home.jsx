@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export default function Home() {
   return <MapWrapper>Hello World</MapWrapper>;
 }
@@ -8,4 +7,4 @@ export default function Home() {
 const MapWrapper = styled.section`
   margin: 7rem 1rem 7rem 1rem;
   text-align: center;
-`
+`;

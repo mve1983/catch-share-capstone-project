@@ -66,8 +66,6 @@ export default function Search({ onGoTo }) {
   );
 }
 
-//styled components from here to end
-
 const SearchbarWrapper = styled.div`
   position: absolute;
   z-index: 5;

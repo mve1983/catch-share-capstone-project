@@ -33,6 +33,17 @@ text-shadow: -1px -1px 0 var(--color-one),
 input:focus {
   outline: none;
 }
+
+.form-div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 1rem 0.3rem 1rem 0.3rem; 
+}
+
 `;
 
 export default GlobalStyle;
