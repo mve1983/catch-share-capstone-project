@@ -8,14 +8,34 @@ export default function CatchForm({
   onHandleSubmit,
   onInputChange,
 }) {
-  function handleChangeString(event) {
-    onInputChange(event.target.name, event.target.value);
-  }
+
+  const [catchDate, setCatchDate] = useState("2021-01-01T00:00:00") ;
+  const monthHandle = parseInt(catchDate.substring(6,8)) - 1
+  const valueMonth = dates.months[monthHandle]
 
   function handleChangeDate(event) {
-    catchCard.date = Date();
-    // NEEEDS WORK HERE
-    onInputChange("date", catchDate);
+    switch (event.target.name) {
+      case "year":
+       setCatchDate(event.target.value + catchDate.substring(4, catchDate.length ))
+        break;
+      case "month":
+        let monthFinder = dates.months.indexOf(event.target.value) + 1;
+        monthFinder > 9
+          ? setCatchDate(catchDate.substring(0, 5) + monthFinder.toString() + catchDate.substring(7, catchDate.length))
+          : setCatchDate(catchDate.substring(0, 5) + "0" + monthFinder.toString() + catchDate.substring(7, catchDate.length))
+        break;
+      case "day":
+        setCatchDate(catchDate.substring(0,8) + event.target.value + catchDate.substring(10, catchDate.length))
+        break;
+      case "time":
+        setCatchDate(catchDate.substring(0,11) + event.target.value + catchDate.substring(16, catchDate.length))
+       break;
+    }
+    onInputChange("datetime", catchDate);
+  }
+
+  function handleChangeString(event) {
+    onInputChange(event.target.name, event.target.value);
   }
 
   function handleChangeFloat(event) {
@@ -78,7 +98,7 @@ export default function CatchForm({
                     onChange={handleChangeDate}
                     id="day"
                     name="day"
-                    value={catchCard.date[0]}
+                    value={catchDate.substring(8,10)}
                   >
                     {dates.days.map((day, _index) => (
                       <option key={_index} value={day}>
@@ -96,7 +116,7 @@ export default function CatchForm({
                     onChange={handleChangeDate}
                     id="month"
                     name="month"
-                    value={catchCard.date[1]}
+                    value={valueMonth}
                   >
                     {dates.months.map((month, _index) => (
                       <option key={_index} value={month}>
@@ -113,7 +133,7 @@ export default function CatchForm({
                     onChange={handleChangeDate}
                     id="year"
                     name="year"
-                    value={catchCard.date[2]}
+                    value={catchDate.substring(0,4)}
                   >
                     {dates.years.map((year, _index) => (
                       <option key={_index} value={year}>
@@ -131,7 +151,7 @@ export default function CatchForm({
                     onChange={handleChangeDate}
                     id="time"
                     name="time"
-                    value={catchCard.date[3]}
+                    value={catchDate.substring(11,16)}
                   >
                     {dates.times.map((time, _index) => (
                       <option key={_index} value={time}>

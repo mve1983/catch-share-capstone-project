@@ -11,6 +11,7 @@
     "@react-google-maps/api": "^2.7.0",
     "@uppy/core": "^2.1.4",
     "@uppy/react": "^2.1.2",
+    "@uppy/thumbnail-generator": "^2.0.6",
     "@uppy/xhr-upload": "^2.0.7",
     "dotenv": "^10.0.0",
     "react": "^17.0.2",

@@ -2,9 +2,11 @@ import styled from "styled-components";
 import Uppy from "@uppy/core";
 import XHRUpload from "@uppy/xhr-upload";
 import { DragDrop } from "@uppy/react";
+import ThumbnailGenerator from '@uppy/thumbnail-generator'
 import "@uppy/core/dist/style.css";
 import "@uppy/drag-drop/dist/style.css";
 import { useState } from "react";
+import confirm from "../../img/green-confirm.png";
 
 const catchUppy = new Uppy({
   id: "catchUppy",
@@ -23,8 +25,14 @@ catchUppy.use(XHRUpload, {
   formData: true,
 });
 
+catchUppy.use(ThumbnailGenerator, {
+  thumbnailWidth: 200,
+  waitForThumbnailsBeforeUpload: false,
+})
+
 export default function PhotoPicker({ catchCard }) {
   const [photoUploadDone, setPhotoUploadDone] = useState(false);
+  const [photoPreviewPath, setPhotoPreviewPath] = useState("")
 
   function photoUploadSwitch() {
     setPhotoUploadDone(!photoUploadDone);
@@ -36,10 +44,18 @@ export default function PhotoPicker({ catchCard }) {
     photoUploadSwitch();
   });
 
-  console.log(catchCard.img);
+
+
+  catchUppy.on('thumbnail:generated', (file, preview) => {
+    let photoPreview = preview
+    setPhotoPreviewPath(photoPreview)
+  })
+
 
   return (
-    <div>
+    <section>
+      <div>Photo teilen: <br />
+  <small>(1 Photo, max 3MB, Formate: jpg, png, gif)</small></div>
       {!photoUploadDone && (
         <DragDrop
           uppy={catchUppy}
@@ -54,11 +70,12 @@ export default function PhotoPicker({ catchCard }) {
       {photoUploadDone && (
         <PhotoPreview>
           <div>
-            <Img src={catchCard.img} alt="Ihr Fangbild" />
+            <img src={photoPreviewPath} alt="Preview Catch Photo" /> 
+          <span><ConfirmSignPhoto src={confirm} alt="confirm sign" /></span>
           </div>
         </PhotoPreview>
       )}
-    </div>
+    </section>
   );
 }
 
@@ -70,7 +87,7 @@ const PhotoPreview = styled.div`
   flex-basis: 100%;
 `;
 
-const Img = styled.img`
-  width: 200px;
+const ConfirmSignPhoto = styled.img`
+  width: 2rem;
   height: auto;
 `;

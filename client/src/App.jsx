@@ -12,7 +12,7 @@ export default function App() {
   const initialCatchCard = {
     name: "TestUser",
     fishtype: "",
-    date: "",
+    datetime: "",
     length: 1,
     weight: 0.23,
     lat: 0,
@@ -25,8 +25,6 @@ export default function App() {
 
   const [singleCatchCard, setSingleCatchCard] = useState(initialCatchCard);
   const [catchCards, setCatchCards] = useState([]);
-
-  console.log(singleCatchCard);
 
   const handleInputChange = (name, value) => {
     setSingleCatchCard({
