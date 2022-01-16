@@ -30,7 +30,7 @@ catchUppy.use(ThumbnailGenerator, {
   waitForThumbnailsBeforeUpload: false,
 });
 
-export default function PhotoPicker({ catchCard }) {
+export default function PhotoPicker({ catchCard, onInputChange }) {
   const [photoUploadDone, setPhotoUploadDone] = useState(false);
   const [photoPreviewPath, setPhotoPreviewPath] = useState("");
 
@@ -42,6 +42,7 @@ export default function PhotoPicker({ catchCard }) {
     let path = await response.body.photoPath;
     catchCard.img = path.substring(0, path.length - 1);
     photoUploadSwitch();
+    onInputChange("img", path)
   });
 
   catchUppy.on("thumbnail:generated", (file, preview) => {

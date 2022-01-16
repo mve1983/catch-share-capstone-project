@@ -111,12 +111,12 @@ export default function CatchForm({
               catchCard={catchCard}
               onHandleChangeString={handleChangeString}
             />
-            <PhotoPicker catchCard={catchCard} />
+            <PhotoPicker catchCard={catchCard} onInputChange={onInputChange} />
           </form>
         </Fieldset>
         <FormButtons>
           <button>Abbrechen</button>
-          <button>Veröffentlichen</button>
+          <button onClick={onHandleSubmit}>Veröffentlichen</button>
         </FormButtons>
       </FormSection>
     </>

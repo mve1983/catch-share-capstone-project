@@ -1,32 +1,13 @@
 import mongoose from "mongoose";
 
 const catchCardSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  fishtype: {
-    type: String,
-    required: true,
-  },
-  datetime: {
-    type: String,
-    required: true,
-  },
-  length: {
-    type: Number,
-    required: true,
-  },
-  weight: {
-    type: Number,
-    required: true,
-  },
-  lat: {
-    type: Number,
-    required: true,
-  },
-  lng: {
-    type: Number,
+  name: String,
+  fishtype: String,
+  datetime: String,
+  length: Number,
+  weight: Number,
+  latlng: {
+    type: [Number],
     required: true,
   },
   depth: Number,
