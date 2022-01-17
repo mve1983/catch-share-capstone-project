@@ -43,10 +43,10 @@ server.post("/image", uploadImage, (req, res) => {
 });
 
 server.post("/api/catchcards/onmarker", async (req, res) => {
-  let searchLat = req.body.lat
-  let searchLng = req.body.lng
-  const foundCatchCards = await CatchCard.find({latlng: {lat: searchLat, lng: searchLng}});
+  console.log(req.body)
+  const foundCatchCards = await CatchCard.find(req.body);
   res.json(foundCatchCards);
+  console.log(foundCatchCards)
 });
 server.post("/api/catchcards", async (req, res) => {
   let newMarker = new Marker({
