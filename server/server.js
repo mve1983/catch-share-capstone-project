@@ -5,7 +5,6 @@ import path from "path";
 import multer from "multer";
 import { CatchCard, Marker } from "./models/catchCard.model.js";
 import fs from "fs";
-import { runInNewContext } from "vm";
 
 dotenv.config();
 

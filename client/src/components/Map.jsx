@@ -29,7 +29,7 @@ export default function Map() {
     datetime: "",
     length: 1,
     weight: 0.23,
-    latlng: {lat: 0, lng: 0},
+    latlng: { lat: 0, lng: 0 },
     bait: "",
     depth: 1.2,
     tackle: "",
@@ -39,7 +39,7 @@ export default function Map() {
   const [singleCatchCard, setSingleCatchCard] = useState(initialCatchCard);
   const [catchCards, setCatchCards] = useState([]);
   const [mapClicked, setMapClicked] = useState(false);
-  const [clickedMarker, setClickedMarker] = useState({})
+  const [clickedMarker, setClickedMarker] = useState({});
   const [mapMarkers, setMapMarkers] = useState([]);
 
   async function fetchCatchCardsOnMarker(marker) {
@@ -50,17 +50,17 @@ export default function Map() {
       },
       body: JSON.stringify(marker),
     });
-   const resultJson = await result.json();
-   setCatchCards(resultJson);
+    const resultJson = await result.json();
+    setCatchCards(resultJson);
   }
 
   function activateMarker(marker) {
-    setClickedMarker(marker)
-    fetchCatchCardsOnMarker(marker)
+    setClickedMarker(marker);
+    fetchCatchCardsOnMarker(marker);
   }
-  
+
   function addCoordinatesToCatchCard(newlat, newlng) {
-    let latlng = {lat: newlat, lng: newlng};
+    let latlng = { lat: newlat, lng: newlng };
     handleInputChange("latlng", latlng);
   }
 
@@ -68,22 +68,21 @@ export default function Map() {
     event.preventDefault();
     setMapClicked(!mapClicked);
     setCatchCards([...catchCards, singleCatchCard]);
-  addCatchCardToDatabase(singleCatchCard);
+    addCatchCardToDatabase(singleCatchCard);
   };
 
-  const cancelSubmit = async (event) => {
+  const cancelSubmit = (event) => {
     event.preventDefault();
     setMapClicked(!mapClicked);
-    setMapMarkers(mapMarkers.slice(0,-1))
-    setSingleCatchCard(initialCatchCard)
-  }
+    setMapMarkers(mapMarkers.slice(0, -1));
+  };
 
-const handleInputChange = (name, value) => {
-  setSingleCatchCard({
-    ...singleCatchCard,
-    [name]: value,
-  });
-};
+  const handleInputChange = (name, value) => {
+    setSingleCatchCard({
+      ...singleCatchCard,
+      [name]: value,
+    });
+  };
   async function addCatchCardToDatabase(catchCard) {
     const result = await fetch("api/catchcards", {
       method: "POST",
@@ -102,7 +101,7 @@ const handleInputChange = (name, value) => {
 
   const addNewMapMarker = useCallback((event) => {
     setMapClicked(!mapClicked);
-      let newlat = event.latLng.lat();
+    let newlat = event.latLng.lat();
     let newlng = event.latLng.lng();
     setMapMarkers((currentMarkers) => [
       ...currentMarkers,
@@ -188,7 +187,6 @@ const handleInputChange = (name, value) => {
     </>
   );
 }
-
 
 const MapWrapper = styled.section`
   display: flex;

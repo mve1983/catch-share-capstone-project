@@ -14,7 +14,12 @@ export default function CatchForm({
   onCancelSubmit,
   onInputChange,
 }) {
+  const [photoUploadDone, setPhotoUploadDone] = useState(false);
   const [catchDate, setCatchDate] = useState("2021-01-01T00:00:00");
+
+  function initialPhotoUploadSetter() {
+    setPhotoUploadDone(!photoUploadDone);
+  }
 
   function handleChangeDate(event) {
     switch (event.target.name) {
@@ -88,7 +93,7 @@ export default function CatchForm({
               <u>Ihr Fang:</u>
             </strong>
           </legend>
-          <form onSubmit={onHandleSubmit}>
+          <form onSubmit={(event) => {onHandleSubmit(event); initialPhotoUploadSetter()}}>
             <div className="form-div">
               <div>Angler: {catchCard.name}</div>
             </div>
@@ -112,12 +117,17 @@ export default function CatchForm({
               catchCard={catchCard}
               onHandleChangeString={handleChangeString}
             />
-            <PhotoPicker catchCard={catchCard} onInputChange={onInputChange} />
+            <PhotoPicker
+              catchCard={catchCard}
+              onInputChange={onInputChange}
+              onPhotoUpload={initialPhotoUploadSetter}
+              photoUploadDone={photoUploadDone}
+            />
           </form>
         </Fieldset>
         <FormButtons>
-          <button onClick={onCancelSubmit}>Abbrechen</button>
-          <button onClick={onHandleSubmit}>Veröffentlichen</button>
+          <button onClick={(event) => {onCancelSubmit(event); initialPhotoUploadSetter()}}>Abbrechen</button>
+          <button onClick={(event) => {onHandleSubmit(event); initialPhotoUploadSetter()}}>Veröffentlichen</button>
         </FormButtons>
       </FormSection>
     </>

@@ -8,41 +8,40 @@ import "../../lib/uppy-dragdrop-styles.css";
 import { useState } from "react";
 import confirm from "../../img/green-confirm.png";
 
-const catchUppy = new Uppy({
-  id: "catchUppy",
-  meta: { type: "catchPhoto" },
-  restrictions: {
-    maxNumberOfFiles: 1,
-    maxFileSize: 3145728,
-    allowedFileTypes: ["image/*", ".jpg", ".jpeg", ".png", ".gif"],
-  },
-  autoProceed: true,
-});
+export default function PhotoPicker({
+  onInputChange,
+  photoUploadDone,
+  onPhotoUpload,
+}) {
+ 
+    const catchUppy = new Uppy({
+    id: "catchUppy",
+    meta: { type: "catchPhoto" },
+    restrictions: {
+      maxNumberOfFiles: 1,
+      maxFileSize: 3145728,
+      allowedFileTypes: ["image/*", ".jpg", ".jpeg", ".png", ".gif"],
+    },
+    autoProceed: true,
+  });
 
-catchUppy.use(XHRUpload, {
-  endpoint: "/image",
-  fieldName: "catchPhoto",
-  formData: true,
-});
-
-catchUppy.use(ThumbnailGenerator, {
-  thumbnailWidth: 200,
-  waitForThumbnailsBeforeUpload: false,
-});
-
-export default function PhotoPicker({ catchCard, onInputChange }) {
-  const [photoUploadDone, setPhotoUploadDone] = useState(false);
   const [photoPreviewPath, setPhotoPreviewPath] = useState("");
-
-  function photoUploadSwitch() {
-    setPhotoUploadDone(!photoUploadDone);
-  }
+  
+  catchUppy.use(XHRUpload, {
+    endpoint: "/image",
+    fieldName: "catchPhoto",
+    formData: true,
+  });
+  
+  catchUppy.use(ThumbnailGenerator, {
+    thumbnailWidth: 200,
+    waitForThumbnailsBeforeUpload: false,
+  });
 
   catchUppy.on("upload-success", async (_file, response) => {
     let path = await response.body.photoPath;
-    catchCard.img = path.substring(0, path.length - 1);
-    photoUploadSwitch();
-    onInputChange("img", path)
+    onPhotoUpload();
+    onInputChange("img", path);
   });
 
   catchUppy.on("thumbnail:generated", (file, preview) => {
