@@ -13,8 +13,7 @@ export default function PhotoPicker({
   photoUploadDone,
   onPhotoUpload,
 }) {
- 
-    const catchUppy = new Uppy({
+  const catchUppy = new Uppy({
     id: "catchUppy",
     meta: { type: "catchPhoto" },
     restrictions: {
@@ -26,13 +25,13 @@ export default function PhotoPicker({
   });
 
   const [photoPreviewPath, setPhotoPreviewPath] = useState("");
-  
+
   catchUppy.use(XHRUpload, {
     endpoint: "/image",
     fieldName: "catchPhoto",
     formData: true,
   });
-  
+
   catchUppy.use(ThumbnailGenerator, {
     thumbnailWidth: 200,
     waitForThumbnailsBeforeUpload: false,

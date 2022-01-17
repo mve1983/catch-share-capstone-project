@@ -93,7 +93,12 @@ export default function CatchForm({
               <u>Ihr Fang:</u>
             </strong>
           </legend>
-          <form onSubmit={(event) => {onHandleSubmit(event); initialPhotoUploadSetter()}}>
+          <form
+            onSubmit={(event) => {
+              onHandleSubmit(event);
+              initialPhotoUploadSetter();
+            }}
+          >
             <div className="form-div">
               <div>Angler: {catchCard.name}</div>
             </div>
@@ -126,8 +131,22 @@ export default function CatchForm({
           </form>
         </Fieldset>
         <FormButtons>
-          <button onClick={(event) => {onCancelSubmit(event); initialPhotoUploadSetter()}}>Abbrechen</button>
-          <button onClick={(event) => {onHandleSubmit(event); initialPhotoUploadSetter()}}>Veröffentlichen</button>
+          <button
+            onClick={(event) => {
+              onCancelSubmit(event);
+              initialPhotoUploadSetter();
+            }}
+          >
+            Abbrechen
+          </button>
+          <button
+            onClick={(event) => {
+              onHandleSubmit(event);
+              initialPhotoUploadSetter();
+            }}
+          >
+            Veröffentlichen
+          </button>
         </FormButtons>
       </FormSection>
     </>
