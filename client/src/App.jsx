@@ -6,7 +6,6 @@ import Home from "./components/Home";
 import Map from "./components/Map";
 import Weather from "./components/Weather";
 import Account from "./components/Account";
-import { useEffect, useState } from "react";
 
 export default function App() {
   return (

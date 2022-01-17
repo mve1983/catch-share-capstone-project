@@ -43,10 +43,8 @@ server.post("/image", uploadImage, (req, res) => {
 });
 
 server.post("/api/catchcards/onmarker", async (req, res) => {
-  console.log(req.body)
   const foundCatchCards = await CatchCard.find(req.body);
   res.json(foundCatchCards);
-  console.log(foundCatchCards)
 });
 server.post("/api/catchcards", async (req, res) => {
   let newMarker = new Marker({
