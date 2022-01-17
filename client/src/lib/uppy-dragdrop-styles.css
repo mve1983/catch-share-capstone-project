@@ -18,7 +18,8 @@
 
 .uppy-DragDrop-inner {
   margin: 0;
-  padding: 80px 20px;
+  /* (original 80 20) */
+  padding: 10px 5px; 
   line-height: 1.4;
   text-align: center;
 }

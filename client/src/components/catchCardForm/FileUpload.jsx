@@ -59,6 +59,8 @@ export default function PhotoPicker({ catchCard, onInputChange }) {
       {!photoUploadDone && (
         <DragDrop
           uppy={catchUppy}
+          width={200}
+          heigt={120}
           locale={{
             strings: {
               dropHereOr: "Drag&Drop oder %{browse}",
