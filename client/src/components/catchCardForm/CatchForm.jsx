@@ -11,6 +11,7 @@ import Tackle from "./Tackle.jsx";
 export default function CatchForm({
   catchCard,
   onHandleSubmit,
+  onCancelSubmit,
   onInputChange,
 }) {
   const [catchDate, setCatchDate] = useState("2021-01-01T00:00:00");
@@ -115,7 +116,7 @@ export default function CatchForm({
           </form>
         </Fieldset>
         <FormButtons>
-          <button>Abbrechen</button>
+          <button onClick={onCancelSubmit}>Abbrechen</button>
           <button onClick={onHandleSubmit}>Veröffentlichen</button>
         </FormButtons>
       </FormSection>

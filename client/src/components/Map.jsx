@@ -71,6 +71,13 @@ export default function Map() {
   addCatchCardToDatabase(singleCatchCard);
   };
 
+  const cancelSubmit = async (event) => {
+    event.preventDefault();
+    setMapClicked(!mapClicked);
+    setMapMarkers(mapMarkers.slice(0,-1))
+    setSingleCatchCard(initialCatchCard)
+  }
+
 const handleInputChange = (name, value) => {
   setSingleCatchCard({
     ...singleCatchCard,
@@ -135,6 +142,7 @@ const handleInputChange = (name, value) => {
             <CatchForm
               catchCard={singleCatchCard}
               onHandleSubmit={handleSubmit}
+              onCancelSubmit={cancelSubmit}
               onInputChange={handleInputChange}
             />
           </SmoothCatchFormFadeIn>
