@@ -3,8 +3,9 @@ import express from "express";
 import mongoose from "mongoose";
 import path from "path";
 import multer from "multer";
-import CatchCard from "./models/catchCard.model.js";
+import { CatchCard, Marker } from "./models/catchCard.model.js";
 import fs from "fs";
+import { runInNewContext } from "vm";
 
 dotenv.config();
 
@@ -41,14 +42,21 @@ server.post("/image", uploadImage, (req, res) => {
   res.send("Upload failed");
 });
 
-server.get("/api/catchcards", async (_req, res) => {
-  const catchCards = await CatchCard.find();
-  res.json(catchCards);
+server.post("/api/catchcards/onmarker", async (req, res) => {
+  let searchLat = req.body.lat
+  let searchLng = req.body.lng
+  const foundCatchCards = await CatchCard.find({latlng: {lat: searchLat, lng: searchLng}});
+  res.json(foundCatchCards);
 });
 server.post("/api/catchcards", async (req, res) => {
+  let newMarker = new Marker({
+    lat: req.body.latlng.lat,
+    lng: req.body.latlng.lng,
+  });
+
   let newCatch;
   if (req.body.img.length > 1) {
-     newCatch = new CatchCard({
+    newCatch = new CatchCard({
       name: req.body.name,
       fishtype: req.body.fishtype,
       datetime: req.body.datetime,
@@ -78,6 +86,7 @@ server.post("/api/catchcards", async (req, res) => {
   }
   try {
     const result = await newCatch.save();
+    await newMarker.save();
     res.json(result);
   } catch (error) {
     res.json(error.message);

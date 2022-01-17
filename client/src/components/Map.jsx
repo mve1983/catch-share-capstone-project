@@ -22,35 +22,86 @@ const mapOptions = {
   zoomControl: true,
 };
 
-export default function Map({
-  catchCard,
-  catchCards,
-  onHandleSubmit,
-  onInputChange,
-  onAddCoordinatesToCatchCard,
-  onMapClicked,
-  mapClicked,
-}) {
+export default function Map() {
+  const initialCatchCard = {
+    name: "TestUser",
+    fishtype: "",
+    datetime: "",
+    length: 1,
+    weight: 0.23,
+    latlng: {lat: 0, lng: 0},
+    bait: "",
+    depth: 1.2,
+    tackle: "",
+    img: "",
+  };
+
+  const [singleCatchCard, setSingleCatchCard] = useState(initialCatchCard);
+  const [catchCards, setCatchCards] = useState([]);
+  const [mapClicked, setMapClicked] = useState(false);
+  const [clickedMarker, setClickedMarker] = useState({})
+  const [mapMarkers, setMapMarkers] = useState([]);
+
+  async function fetchCatchCardsOnMarker(marker) {
+    const result = await fetch("api/catchcards/onmarker", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(marker),
+    });
+   const resultJson = await result.json();
+   setCatchCards(resultJson);
+  }
+
+  function activateMarker(marker) {
+    setClickedMarker(marker)
+    fetchCatchCardsOnMarker(marker)
+  }
+  
+  function addCoordinatesToCatchCard(newlat, newlng) {
+    let latlng = {lat: newlat, lng: newlng};
+    handleInputChange("latlng", latlng);
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setMapClicked(!mapClicked);
+    setCatchCards([...catchCards, singleCatchCard]);
+  addCatchCardToDatabase(singleCatchCard);
+  };
+
+const handleInputChange = (name, value) => {
+  setSingleCatchCard({
+    ...singleCatchCard,
+    [name]: value,
+  });
+};
+  async function addCatchCardToDatabase(catchCard) {
+    const result = await fetch("api/catchcards", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(catchCard),
+    });
+    return await result.json();
+  }
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
     libraries,
   });
 
-  const initialMarkers = catchCards.map((card) => {
-    return { lat: card.latlng[0], lng: card.latlng[1] };
-  });
-
-  const [mapMarkers, setMapMarkers] = useState(initialMarkers);
-  
   const addNewMapMarker = useCallback((event) => {
-    onMapClicked();
-    let newlat = event.latLng.lat();
+    setMapClicked(!mapClicked);
+      let newlat = event.latLng.lat();
     let newlng = event.latLng.lng();
     setMapMarkers((currentMarkers) => [
       ...currentMarkers,
       { lat: newlat, lng: newlng },
     ]);
-    onAddCoordinatesToCatchCard(newlat, newlng);
+    addCoordinatesToCatchCard(newlat, newlng);
   }, []);
 
   const mapRef = useRef();
@@ -82,9 +133,9 @@ export default function Map({
         {mapClicked && (
           <SmoothCatchFormFadeIn>
             <CatchForm
-              catchCard={catchCard}
-              onHandleSubmit={onHandleSubmit}
-              onInputChange={onInputChange}
+              catchCard={singleCatchCard}
+              onHandleSubmit={handleSubmit}
+              onInputChange={handleInputChange}
             />
           </SmoothCatchFormFadeIn>
         )}
@@ -101,8 +152,7 @@ export default function Map({
               key={index}
               position={{ lat: marker.lat, lng: marker.lng }}
               icon={fishMarker}
-              onClick={ShowCards}
-
+              onClick={() => activateMarker(marker)}
             />
           ))}
         </GoogleMap>
@@ -129,15 +179,6 @@ export default function Map({
       </MapWrapper>
     </>
   );
-}
-
-
-function ShowCards(event) {
-console.log(event);
-
-
-  return
-
 }
 
 
