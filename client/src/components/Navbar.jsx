@@ -7,7 +7,7 @@ export default function Navbar() {
       <AppNavbar>
         <NavLink to="/">Start</NavLink>
 
-        <NavLink to="map">Karte</NavLink>
+        <NavLink to="/map">Karte</NavLink>
 
         <NavLink to="weather">Wetter</NavLink>
 
