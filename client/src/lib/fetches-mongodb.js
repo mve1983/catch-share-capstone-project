@@ -6,8 +6,8 @@ async function fetchCatchCardsOnMarker(marker) {
     },
     body: JSON.stringify(marker),
   });
-  const resultJson = await result.json();
-  setCatchCards(resultJson);
+  await result.json();
+ return resultJson
 }
 
 async function addCatchCardToDatabase(catchCard) {
@@ -18,7 +18,8 @@ async function addCatchCardToDatabase(catchCard) {
     },
     body: JSON.stringify(catchCard),
   });
-  return await result.json();
+  const resultJson = await result.json();
+  return resultJson
 }
 
 async function fetchAllMapMarkers() {
