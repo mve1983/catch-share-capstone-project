@@ -90,7 +90,7 @@ export default function CatchForm({
         <Fieldset>
           <legend>
             <strong>
-              <u>Ihr Fang:</u>
+              Ihr Fang:
             </strong>
           </legend>
           <form
