@@ -15,9 +15,9 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="map" element={<Map />} />
-        <Route path="weather" element={<Weather />} />
-        <Route path="account" element={<Account />} />
+        <Route path="/map" element={<Map />} />
+        <Route path="/weather" element={<Weather />} />
+        <Route path="/account" element={<Account />} />
       </Routes>
 
       <Navbar />

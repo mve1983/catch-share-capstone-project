@@ -11,8 +11,6 @@ export default function Header() {
   );
 }
 
-// styled components from here to end
-
 const AppHeader = styled.header`
   background-color: var(--color-three);
   display: flex;
@@ -24,6 +22,7 @@ const AppHeader = styled.header`
   left: 0;
   right: 0;
   top: 0;
+  z-index: 5;
 
   img {
     border-radius: 100%;

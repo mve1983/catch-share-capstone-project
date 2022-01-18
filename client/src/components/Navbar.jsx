@@ -5,19 +5,17 @@ export default function Navbar() {
   return (
     <Footer>
       <AppNavbar>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/">Start</NavLink>
 
-        <NavLink to="map">Map</NavLink>
+        <NavLink to="/map">Karte</NavLink>
 
-        <NavLink to="weather">Weather</NavLink>
+        <NavLink to="/weather">Wetter</NavLink>
 
         <NavLink to="account">Account</NavLink>
       </AppNavbar>
     </Footer>
   );
 }
-
-// styled components from here to end
 
 const Footer = styled.footer`
   background-color: var(--color-three);
@@ -29,6 +27,7 @@ const Footer = styled.footer`
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 5;
 `;
 
 const AppNavbar = styled.nav`
@@ -42,9 +41,8 @@ const AppNavbar = styled.nav`
 
   a {
     color: var(--color-two);
-    text-shadow: -1px -1px 0 var(--color-one),
-    1px -1px 0 var(--color-one), -1px 1px 0 var(--color-one),
-    1px 1px 0 var(--color-one);
+    text-shadow: -1px -1px 0 var(--color-one), 1px -1px 0 var(--color-one),
+      -1px 1px 0 var(--color-one), 1px 1px 0 var(--color-one);
     font-size: 1.2rem;
     flex-grow: 1;
     padding: 1rem 0 1rem 0;
