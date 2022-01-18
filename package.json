@@ -21,9 +21,5 @@
   "engines": {
     "npm": "8.1.2",
     "node": "16.13.1"
-  },
-  "dependencies": {
-    "@uppy/core": "^2.1.4",
-    "@uppy/tus": "^2.2.0"
   }
 }

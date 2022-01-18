@@ -85,7 +85,7 @@ export default function CatchForm({
 
   return (
     <>
-      <FormDivBorderStyling> </FormDivBorderStyling>
+      <FormDivBorderStyling />
       <FormSection>
         <Fieldset>
           <legend>
