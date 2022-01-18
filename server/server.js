@@ -27,7 +27,7 @@ server.use(express.urlencoded({ extended: false }));
 
 const storage = multer.diskStorage({
   destination: `${__dirname}/uploads`,
-  filename: (req, file, cb) => {
+  filename: (_req, file, cb) => {
     const fileName = `${Date.now()}${file.originalname}`;
     cb(null, fileName);
   },
@@ -39,6 +39,11 @@ server.post("/image", uploadImage, (req, res) => {
   if (req.file)
     return res.json({ message: "Upload ok", photoPath: req.file.path });
   res.send("Upload failed");
+});
+
+server.get("/api/catchcards/markers", async (_req, res) => {
+  const allMarkers = await Marker.find();
+  res.json(allMarkers);
 });
 
 server.post("/api/catchcards/onmarker", async (req, res) => {
