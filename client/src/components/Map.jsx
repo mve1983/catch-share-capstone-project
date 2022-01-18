@@ -6,10 +6,11 @@ import libraries from "../lib/googleLibs";
 import Search from "./MapSearch";
 import CatchForm from "./catchCardForm/CatchForm";
 import {
-  fetchCatchCardsOnMarker,
   addCatchCardToDatabase,
   fetchAllMapMarkers,
+  fetchCatchCardsOnMarker,
 } from "../lib/fetches-mongodb";
+import MapCatchCards from "./MapCatchCards";
 
 const mapContainerStyle = {
   width: "100%",
@@ -49,8 +50,11 @@ export default function Map() {
 
   function activateMarker(marker) {
     setClickedMarker(marker);
-    fetchCatchCardsOnMarker(marker);
+    const allCatchCardsOnMarker = fetchCatchCardsOnMarker(marker)
+  console.log(allCatchCardsOnMarker);
   }
+
+
 
   function addCoordinatesToCatchCard(newlat, newlng) {
     let latlng = { lat: newlat, lng: newlng };
@@ -160,26 +164,7 @@ export default function Map() {
               />
             ))}
         </GoogleMap>
-        <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit
-          veniam consequatur fugiat vero explicabo repellat optio beatae ab
-          repellendus obcaecati, numquam praesentium, inventore in reiciendis
-          facilis quas odio? Fugiat labore ex, reprehenderit consectetur ipsa,
-          nihil adipisci, illo dolor similique modi corrupti iure excepturi
-          harum obcaecati vel laboriosam. Repellat quod officiis assumenda
-          accusantium, iste ratione quisquam perspiciatis? Consectetur sed
-          expedita deserunt soluta dolorem voluptatibus ratione natus fugit
-          excepturi eos, sit nam hic illo magnam aut repellat voluptatem quis
-          quas maiores ipsum dolores sapiente unde. Cupiditate et fugit dolore
-          necessitatibus maxime laboriosam consectetur? Eligendi, eum
-          reprehenderit atque maxime aliquid placeat ullam voluptas eaque
-          minima, iusto temporibus inventore qui voluptatum. Laudantium iure,
-          eligendi dolorem modi quia quis natus recusandae reiciendis provident
-          commodi a incidunt totam fugit! A magnam obcaecati vero natus dolores
-          odio eum recusandae excepturi quia dignissimos inventore officia
-          tenetur doloremque ab dicta est velit vel, mollitia deserunt eaque
-          perferendis assumenda at?
-        </div>
+        {catchCards.length > 1 && <MapCatchCards catchCards={catchCards} />}
       </MapWrapper>
     </>
   );

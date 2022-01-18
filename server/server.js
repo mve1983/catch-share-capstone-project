@@ -46,10 +46,15 @@ server.get("/api/catchcards/markers", async (_req, res) => {
   res.json(allMarkers);
 });
 
-server.post("/api/catchcards/onmarker", async (req, res) => {
-  const foundCatchCards = await CatchCard.find(req.body);
-  res.json(foundCatchCards);
+server.get("/api/catchcards/onmarker/:markerlatlng", async (req, res) => {
+  let splitter = req.params.markerlatlng.indexOf("_")
+  let searchlat = req.params.markerlatlng.substring(0,splitter)
+  let searchlng = req.params.markerlatlng.substring(splitter+1,req.params.markerlatlng.length)
+  const foundCatchCards = await CatchCard.find({ "latlng.lat": searchlat, "latlng.lng": searchlng });
+ res.json(foundCatchCards);
+ console.log(foundCatchCards);
 });
+
 server.post("/api/catchcards", async (req, res) => {
   let newMarker = new Marker({
     lat: req.body.latlng.lat,
