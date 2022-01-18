@@ -9,7 +9,7 @@ export default function Navbar() {
 
         <NavLink to="/map">Karte</NavLink>
 
-        <NavLink to="weather">Wetter</NavLink>
+        <NavLink to="/weather">Wetter</NavLink>
 
         <NavLink to="account">Account</NavLink>
       </AppNavbar>
