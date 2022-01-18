@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "cd ./client && npm run build",
+    "buildstart": "concurrently \"cd ./client && npm run build\" \"npm run server\" \"npm run client\"",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server/server.js",
     "client": "cd ./client && npm run dev",

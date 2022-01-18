@@ -5,6 +5,11 @@ import mapStyle from "../lib/mapStyle";
 import libraries from "../lib/googleLibs";
 import Search from "./MapSearch";
 import CatchForm from "./catchCardForm/CatchForm";
+import {
+  fetchCatchCardsOnMarker,
+  addCatchCardToDatabase,
+  fetchAllMapMarkers,
+} from "../lib/fetches-mongodb";
 
 const mapContainerStyle = {
   width: "100%",
@@ -42,18 +47,6 @@ export default function Map() {
   const [clickedMarker, setClickedMarker] = useState({});
   const [mapMarkers, setMapMarkers] = useState([]);
 
-  async function fetchCatchCardsOnMarker(marker) {
-    const result = await fetch("api/catchcards/onmarker", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(marker),
-    });
-    const resultJson = await result.json();
-    setCatchCards(resultJson);
-  }
-
   function activateMarker(marker) {
     setClickedMarker(marker);
     fetchCatchCardsOnMarker(marker);
@@ -83,16 +76,6 @@ export default function Map() {
       [name]: value,
     });
   };
-  async function addCatchCardToDatabase(catchCard) {
-    const result = await fetch("api/catchcards", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(catchCard),
-    });
-    return await result.json();
-  }
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
@@ -112,6 +95,19 @@ export default function Map() {
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
+    fetchAllMapMarkers()
+      .then((data) => {
+        const markersWithoutDoubleEntries = data.filter(
+          (value, index, self) =>
+            index ===
+            self.findIndex(
+              (element) =>
+                element.lat === value.lat && element.lng === value.lng
+            )
+        );
+        setMapMarkers(markersWithoutDoubleEntries);
+      })
+      .catch((error) => error.message);
     mapRef.current = map;
   }, []);
 
@@ -154,14 +150,15 @@ export default function Map() {
           onClick={addNewMapMarker}
           onLoad={onMapLoad}
         >
-          {mapMarkers.map((marker, index) => (
-            <Marker
-              key={index}
-              position={{ lat: marker.lat, lng: marker.lng }}
-              icon={fishMarker}
-              onClick={() => activateMarker(marker)}
-            />
-          ))}
+          {mapMarkers.length > 1 &&
+            mapMarkers.map((marker, index) => (
+              <Marker
+                key={index}
+                position={{ lat: marker.lat, lng: marker.lng }}
+                icon={fishMarker}
+                onClick={() => activateMarker(marker)}
+              />
+            ))}
         </GoogleMap>
         <div>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit
