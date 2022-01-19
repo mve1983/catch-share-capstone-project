@@ -1,8 +1,8 @@
 async function fetchCatchCardsOnMarker(marker) {
-  let lat = marker.lat
-  let lng = marker.lng
+  let lat = marker.lat;
+  let lng = marker.lng;
   const result = await fetch(`/api/catchcards/onmarker/${lat}_${lng}`)
- const resultJson = await result.json();
+  const resultJson = await result.json();
   return resultJson;
 }
 

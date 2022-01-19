@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import styled from "styled-components";
 import mapStyle from "../lib/mapStyle";
@@ -10,7 +10,7 @@ import {
   fetchAllMapMarkers,
   fetchCatchCardsOnMarker,
 } from "../lib/fetches-mongodb";
-import MapCatchCards from "./MapCatchCards";
+import CatchCard from "./CatchCard";
 
 const mapContainerStyle = {
   width: "100%",
@@ -50,11 +50,8 @@ export default function Map() {
 
   function activateMarker(marker) {
     setClickedMarker(marker);
-    const allCatchCardsOnMarker = fetchCatchCardsOnMarker(marker)
-  console.log(allCatchCardsOnMarker);
+    fetchCatchCardsOnMarker(marker).then((data) => setCatchCards([...data]));
   }
-
-
 
   function addCoordinatesToCatchCard(newlat, newlng) {
     let latlng = { lat: newlat, lng: newlng };
@@ -64,7 +61,6 @@ export default function Map() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setMapClicked(!mapClicked);
-    setCatchCards([...catchCards, singleCatchCard]);
     addCatchCardToDatabase(singleCatchCard);
   };
 
@@ -154,7 +150,7 @@ export default function Map() {
           onClick={addNewMapMarker}
           onLoad={onMapLoad}
         >
-          {mapMarkers.length > 1 &&
+          {mapMarkers.length > 0 &&
             mapMarkers.map((marker, index) => (
               <Marker
                 key={index}
@@ -164,8 +160,9 @@ export default function Map() {
               />
             ))}
         </GoogleMap>
-        {catchCards.length > 1 && <MapCatchCards catchCards={catchCards} />}
       </MapWrapper>
+
+      <CatchCard catchCards={catchCards} />
     </>
   );
 }

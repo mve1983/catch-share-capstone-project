@@ -2,8 +2,10 @@ import mongoose from "mongoose";
 
 const markerSchema = new mongoose.Schema({
   lat: Number,
-  lng: Number
+  lng: Number,
 });
+
+const imageSchema = new mongoose.Schema({});
 
 const catchCardSchema = new mongoose.Schema({
   name: String,
@@ -15,10 +17,7 @@ const catchCardSchema = new mongoose.Schema({
   depth: Number,
   bait: String,
   tackle: String,
-  img: {
-    data: Buffer,
-    contentType: String,
-  },
+  img: String,
 });
 
 const CatchCard = mongoose.model("CatchCard", catchCardSchema);

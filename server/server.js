@@ -47,13 +47,19 @@ server.get("/api/catchcards/markers", async (_req, res) => {
 });
 
 server.get("/api/catchcards/onmarker/:markerlatlng", async (req, res) => {
-  let splitter = req.params.markerlatlng.indexOf("_")
-  let searchlat = req.params.markerlatlng.substring(0,splitter)
-  let searchlng = req.params.markerlatlng.substring(splitter+1,req.params.markerlatlng.length)
-  const foundCatchCards = await CatchCard.find({ "latlng.lat": searchlat, "latlng.lng": searchlng });
- res.json(foundCatchCards);
- console.log(foundCatchCards);
+  let splitter = req.params.markerlatlng.indexOf("_");
+  let searchlat = req.params.markerlatlng.substring(0, splitter);
+  let searchlng = req.params.markerlatlng.substring(
+    splitter + 1,
+    req.params.markerlatlng.length
+  );
+  const foundCatchCards = await CatchCard.find({
+    "latlng.lat": searchlat,
+    "latlng.lng": searchlng,
+  });
+  res.json(foundCatchCards);
 });
+
 
 server.post("/api/catchcards", async (req, res) => {
   let newMarker = new Marker({
@@ -61,9 +67,17 @@ server.post("/api/catchcards", async (req, res) => {
     lng: req.body.latlng.lng,
   });
 
-  let newCatch;
-  if (req.body.img.length > 1) {
-    newCatch = new CatchCard({
+ function imageInBase64(image) {
+  let image64 =  fs.readFileSync( image, {encoding : "base64" })
+  fs.writeFileSync("test.txt", image64)
+  console.log(image64);
+  return image64
+}
+let img64 = imageInBase64(req.body.img)
+
+
+
+let newCatch = new CatchCard({
       name: req.body.name,
       fishtype: req.body.fishtype,
       datetime: req.body.datetime,
@@ -73,24 +87,9 @@ server.post("/api/catchcards", async (req, res) => {
       bait: req.body.bait,
       depth: req.body.depth,
       tackle: req.body.tackle,
-      img: {
-        data: fs.readFileSync(req.body.img),
-        contentType: "image/*",
-      },
+      img: img64
     });
-  } else {
-    newCatch = new CatchCard({
-      name: req.body.name,
-      fishtype: req.body.fishtype,
-      datetime: req.body.datetime,
-      length: req.body.length,
-      weight: req.body.weight,
-      latlng: req.body.latlng,
-      bait: req.body.bait,
-      depth: req.body.depth,
-      tackle: req.body.tackle,
-    });
-  }
+   
   try {
     const result = await newCatch.save();
     await newMarker.save();
