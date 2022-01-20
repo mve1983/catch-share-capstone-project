@@ -5,8 +5,6 @@ const markerSchema = new mongoose.Schema({
   lng: Number,
 });
 
-const imageSchema = new mongoose.Schema({});
-
 const catchCardSchema = new mongoose.Schema({
   name: String,
   fishtype: String,

@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
 --color-one: #444444;
 --color-two: #f2f2f2;
 --color-three: #406b5f;
+--color-four: dimgrey;
 }
 
 body {

@@ -60,36 +60,32 @@ server.get("/api/catchcards/onmarker/:markerlatlng", async (req, res) => {
   res.json(foundCatchCards);
 });
 
-
 server.post("/api/catchcards", async (req, res) => {
   let newMarker = new Marker({
     lat: req.body.latlng.lat,
     lng: req.body.latlng.lng,
   });
 
- function imageInBase64(image) {
-  let image64 =  fs.readFileSync( image, {encoding : "base64" })
-  fs.writeFileSync("test.txt", image64)
-  console.log(image64);
-  return image64
-}
-let img64 = imageInBase64(req.body.img)
+  function imageInBase64(image) {
+    if (image.length === 0) return "" 
+    let image64 = fs.readFileSync(image, { encoding: "base64" });
+    return image64;
+  }
+  let img64 = imageInBase64(req.body.img)
 
+  let newCatch = new CatchCard({
+    name: req.body.name,
+    fishtype: req.body.fishtype,
+    datetime: req.body.datetime,
+    length: req.body.length,
+    weight: req.body.weight,
+    latlng: req.body.latlng,
+    bait: req.body.bait,
+    depth: req.body.depth,
+    tackle: req.body.tackle,
+    img: img64,
+  });
 
-
-let newCatch = new CatchCard({
-      name: req.body.name,
-      fishtype: req.body.fishtype,
-      datetime: req.body.datetime,
-      length: req.body.length,
-      weight: req.body.weight,
-      latlng: req.body.latlng,
-      bait: req.body.bait,
-      depth: req.body.depth,
-      tackle: req.body.tackle,
-      img: img64
-    });
-   
   try {
     const result = await newCatch.save();
     await newMarker.save();

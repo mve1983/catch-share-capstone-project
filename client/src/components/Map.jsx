@@ -161,8 +161,7 @@ export default function Map() {
             ))}
         </GoogleMap>
       </MapWrapper>
-
-      <CatchCard catchCards={catchCards} />
+    {catchCards.length > 0 && <CatchCard catchCards={catchCards} /> }
     </>
   );
 }

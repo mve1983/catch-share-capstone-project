@@ -1,26 +1,47 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 export default function CatchCard({ catchCards }) {
-
-  
-  catchCards.length > 0 && console.log(catchCards);
-
-  // const imageBuffer =
-  //   catchCards.length > 0 ? Buffer.from(catchCards[0].img.data.data) : null;
-  // imageBuffer === null ? null : console.log(imageBuffer);
-
   return (
-    <CatchCardSmallSection>
-      <article>
-        {/* {catchCards.length > 0 && <img src={blobLink} alt="Fangbild" />} */}
-        {/*   <div>Fisch: {catchCards.fishtype}</div>
-    <div>Länge: {catchCards.length}</div>
-      <div></div>
-  <div><small>gefangen von: {catchCards.name}</small></div> */}
-      </article>
-    </CatchCardSmallSection>
+    <CardWrapper>
+      <CardItem>
+        <Photo
+          src={`data:image/jpeg;base64,${catchCards[0].img}`}
+          alt="Fangbild"
+        />
+      </CardItem>
+      <CardItem>
+        <div>Fisch: {catchCards[0].fishtype}</div>
+        <div>Länge: {catchCards[0].length}</div>
+        </CardItem>
+        <CardItem>
+        <div>
+          <small>gefangen von: {catchCards[0].name}</small>
+        </div>
+        </CardItem>
+    </CardWrapper>
   );
 }
 
-const CatchCardSmallSection = styled.section``;
+const CardWrapper = styled.section`
+  background-color: var(--color-four);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  gap: .3rem;
+  margin: 1rem;
+`;
+
+const CardItem = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  gap: .3rem;
+  margin: 1rem;
+`;
+
+const Photo = styled.img`
+  width: 120px;
+`;
