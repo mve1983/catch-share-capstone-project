@@ -3,9 +3,10 @@
   align-items: center;
   justify-content: center;
   max-width: 100%;
-  font-family: -apple-system, blinkmacsystemfont, "Segoe UI", helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  background-color: #fff;
-  border-radius: 7px;
+  font-family: Courier New, Courier,Lucida Sans Typewriter, Lucida Typewriter, monospace; 
+  background-color: #D9D9D9;
+  color: #284B63;
+  border-radius: 0.3rem;
   cursor: pointer;
 }
 .uppy-DragDrop-container::-moz-focus-inner {
@@ -13,7 +14,7 @@
 }
 .uppy-DragDrop-container:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(34, 117, 215, 0.4);
+  box-shadow: 0 0 0 3px rgba(23, 35, 49, 0.4);
 }
 
 .uppy-DragDrop-inner {
@@ -28,19 +29,20 @@
   width: 30px;
   height: 30px;
   margin-bottom: 17px;
-  fill: #e0e0e0;
+  fill: #353535;
 }
 
 .uppy-DragDrop--isDragDropSupported {
-  border: 2px dashed #adadad;
+  border: 2px dashed #353535;
 }
 
 .uppy-DragDrop--isDraggingOver {
-  background: #eaeaea;
-  border: 2px dashed #2275d7;
+  background: #353535;
+  color: #D9D9D9;
+  border: 2px dashed #8B0000;
 }
 .uppy-DragDrop--isDraggingOver .uppy-DragDrop-arrow {
-  fill: #939393;
+  fill: #D9D9D9;
 }
 
 .uppy-DragDrop-label {
@@ -50,11 +52,11 @@
 }
 
 .uppy-DragDrop-browse {
-  color: #2275d7;
+  color: #8B0000;
   cursor: pointer;
 }
 
 .uppy-DragDrop-note {
-  color: #adadad;
-  font-size: 1em;
+  color: #353535;
+  font-size: 1rem;
 }

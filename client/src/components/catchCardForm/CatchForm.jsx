@@ -89,9 +89,7 @@ export default function CatchForm({
       <FormSection>
         <Fieldset>
           <legend>
-            <strong>
-              Ihr Fang:
-            </strong>
+            <strong>Ihr Fang:</strong>
           </legend>
           <form
             onSubmit={(event) => {
@@ -131,22 +129,22 @@ export default function CatchForm({
           </form>
         </Fieldset>
         <FormButtons>
-          <button
+          <CancelButton
             onClick={(event) => {
               onCancelSubmit(event);
               initialPhotoUploadSetter();
             }}
           >
-            Abbrechen
-          </button>
-          <button
+            <strong>Abbrechen</strong>
+          </CancelButton>
+          <ConfirmButton
             onClick={(event) => {
               onHandleSubmit(event);
               initialPhotoUploadSetter();
             }}
           >
-            Veröffentlichen
-          </button>
+            <strong>Veröffentlichen</strong>
+          </ConfirmButton>
         </FormButtons>
       </FormSection>
     </>
@@ -155,7 +153,7 @@ export default function CatchForm({
 
 const FormDivBorderStyling = styled.div`
   display: block;
-  background-color: var(--color-three);
+  background-color: var(--color-one);
   position: fixed;
   inset: 0rem;
   opacity: 75%;
@@ -163,16 +161,16 @@ const FormDivBorderStyling = styled.div`
 `;
 
 const FormSection = styled.section`
-  display: block;
-  background-color: var(--color-two);
-  color: var(--color-one);
-  position: fixed;
+background-color: var(--color-five);
+  border-radius: 0.3rem;
+display: block;
+  position: fixed; 
   inset: 2rem;
-  opacity: 100%;
   z-index: 15;
 `;
 
 const Fieldset = styled.fieldset`
+border-radius: 0.3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -187,4 +185,20 @@ const FormButtons = styled.div`
   justify-content: space-evenly;
   align-content: center;
   align-items: center;
+`;
+
+const ConfirmButton = styled.button`
+  color: var(--color-four);
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  border: none;
+  background-color: darkgreen;
+`;
+
+const CancelButton = styled.button`
+  color: var(--color-four);
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  border: none;
+  background-color: darkred;
 `;

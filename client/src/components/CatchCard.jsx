@@ -2,46 +2,60 @@ import styled from "styled-components";
 
 export default function CatchCard({ catchCards }) {
   return (
-    <CardWrapper>
+    <>
       <CardItem>
         <Photo
-          src={`data:image/jpeg;base64,${catchCards[0].img}`}
+          src={
+            catchCards[0].img.length > 0
+              ? `data:image/jpeg;base64,${catchCards[0].img}`
+              : "https://raw.githubusercontent.com/mve1983/catch-share-capstone-project/card-render/client/src/img/no-photo.jpg"
+          }
           alt="Fangbild"
         />
+
+        <div>
+          Fisch: <br />
+          {catchCards[0].fishtype}
+        </div>
       </CardItem>
       <CardItem>
-        <div>Fisch: {catchCards[0].fishtype}</div>
-        <div>Länge: {catchCards[0].length}</div>
-        </CardItem>
-        <CardItem>
         <div>
-          <small>gefangen von: {catchCards[0].name}</small>
+          Länge: <br />
+          {catchCards[0].length} cm
         </div>
-        </CardItem>
-    </CardWrapper>
+        <div>
+          Gewicht: <br />
+          {catchCards[0].weight} kg
+        </div>
+      </CardItem>
+      <CardItem>
+        <div>
+          <small>
+            gefangen von: <br />
+            {catchCards[0].name}
+          </small>
+        </div>
+        <div>
+          <small>
+            am: <br />
+            TestTestTest
+          </small>
+        </div>
+      </CardItem>
+    </>
   );
 }
 
-const CardWrapper = styled.section`
-  background-color: var(--color-four);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  gap: .3rem;
-  margin: 1rem;
-`;
-
 const CardItem = styled.div`
   display: flex;
-  justify-content: center;
+  flex-basis: 100%;
+  flex-grow: 1;
+  justify-content: space-evenly;
   align-content: center;
   align-items: center;
-  gap: .3rem;
-  margin: 1rem;
+  gap: 1rem;
 `;
 
 const Photo = styled.img`
-  width: 120px;
+  width: 7rem;
 `;

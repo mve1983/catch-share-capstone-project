@@ -87,11 +87,11 @@ server.post("/api/catchcards", async (req, res) => {
   });
 
   try {
-    const result = await newCatch.save();
+    await newCatch.save();
     await newMarker.save();
-    res.json(result);
+    res.json({message: "Fangmeldung erfolgreich erstellt."});
   } catch (error) {
-    res.json(error.message);
+    console.log(error.message);
   }
 });
 
