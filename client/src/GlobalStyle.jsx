@@ -51,6 +51,59 @@ select {
   margin: 0.5rem; 
 }
 
-`;
+.inner-form-container {
+  border-radius: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin: 1rem;
+  padding: 0.3rem;
+}
 
+.outer-form-container {
+  background-color: var(--color-five);
+  border-radius: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  position: fixed;
+  inset: 2rem;
+  z-index: 15;
+  .fade-in-1sec {
+  animation: fadein1sec 1sec linear;
+  animation-fill-mode: forwards;
+
+  @keyframes fadein1sec {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+   }
+}
+
+.fade-out-5sec {
+  animation: fadeout5sec 5sec linear;
+  animation-fill-mode: forwards;
+
+  @keyframes fadeout5sec {
+    0% {
+      opacity: 1;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+   }
+}
+}
+
+`;
 export default GlobalStyle;

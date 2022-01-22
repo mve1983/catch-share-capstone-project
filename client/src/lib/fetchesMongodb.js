@@ -7,6 +7,7 @@ async function fetchCatchCardsOnMarker(marker) {
 }
 
 async function addCatchCardToDatabase(catchCard) {
+  try{
   const result = await fetch("/api/catchcards", {
     method: "POST",
     headers: {
@@ -16,6 +17,10 @@ async function addCatchCardToDatabase(catchCard) {
   });
   const resultJson = await result.json();
   return resultJson;
+}
+catch (error) {
+  return error.message;
+}
 }
 
 async function fetchAllMapMarkers() {

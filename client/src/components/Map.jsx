@@ -9,9 +9,8 @@ import {
   addCatchCardToDatabase,
   fetchAllMapMarkers,
   fetchCatchCardsOnMarker,
-} from "../lib/fetches-mongodb";
+} from "../lib/fetchesMongodb";
 import CatchCard from "./CatchCard";
-import SubmitDone from "./catchCardForm/SubmitDone";
 
 const mapContainerStyle = {
   width: "100%",
@@ -49,10 +48,16 @@ export default function Map() {
   const [clickedMarker, setClickedMarker] = useState({});
   const [mapMarkers, setMapMarkers] = useState([]);
   const [submitOk, setSubmitOk] = useState({ done: false, message: "" });
+  const [formUploadProgress, setFormUploadProgress] = useState(false);
 
   function activateMarker(marker) {
     setClickedMarker(marker);
     fetchCatchCardsOnMarker(marker).then((data) => setCatchCards([...data]));
+  }
+
+  function formUploadSetter() {
+    setFormUploadProgress(true);
+    setTimeout(() => setFormUploadProgress(false), 10000);
   }
 
   function addCoordinatesToCatchCard(newlat, newlng) {
@@ -63,15 +68,20 @@ export default function Map() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setMapClicked(!mapClicked);
-    await addCatchCardToDatabase(singleCatchCard)
-      .then((result) => {
-        if (result) {
-          setSubmitOk({ done: true, message: result.message });
-        }
-      })
-      .then(() =>
-        setTimeout(() => setSubmitOk({ done: false, message: "" }), 3000)
-      );
+    formUploadSetter();
+    addCatchCardToDatabase(singleCatchCard).then((result) => {
+      if (result.done) {
+        setSubmitOk({ done: true, message: result.message });
+        setTimeout(() => setSubmitOk({ done: false, message: "" }), 5000);
+      } else {
+        setSubmitOk({
+          done: true,
+          message:
+            "Datenbank nicht erreichbar. / Admin informiert. / Bitte später versuchen.",
+        });
+        setTimeout(() => setSubmitOk({ done: false, message: "" }), 5000);
+      }
+    });
   };
 
   const cancelSubmit = (event) => {
@@ -141,7 +151,7 @@ export default function Map() {
 
   const fishMarkerActive = {
     path: "M12,20L12.76,17C9.5,16.79 6.59,15.4 5.75,13.58C5.66,14.06 5.53,14.5 5.33,14.83C4.67,16 3.33,16 2,16C3.1,16 3.5,14.43 3.5,12.5C3.5,10.57 3.1,9 2,9C3.33,9 4.67,9 5.33,10.17C5.53,10.5 5.66,10.94 5.75,11.42C6.4,10 8.32,8.85 10.66,8.32L9,5C11,5 13,5 14.33,5.67C15.46,6.23 16.11,7.27 16.69,8.38C19.61,9.08 22,10.66 22,12.5C22,14.38 19.5,16 16.5,16.66C15.67,17.76 14.86,18.78 14.17,19.33C13.33,20 12.67,20 12,20M17,11A1,1 0 0,0 16,12A1,1 0 0,0 17,13A1,1 0 0,0 18,12A1,1 0 0,0 17,11Z",
-    fillColor: "#8B0000",
+    fillColor: "darkorange",
     fillOpacity: 1,
     strokeWeight: 0,
     rotation: 0,
@@ -154,17 +164,28 @@ export default function Map() {
       <MapWrapper>
         <Search onGoTo={goTo} />
         {mapClicked && (
-          <SmoothCatchFormFadeIn>
-            <CatchForm
+           <CatchForm
               catchCard={singleCatchCard}
               onHandleSubmit={handleSubmit}
               onCancelSubmit={cancelSubmit}
               onInputChange={handleInputChange}
+              submitOk={submitOk}
             />
-          </SmoothCatchFormFadeIn>
+        )}
+        {formUploadProgress && (
+          <section className="outer-form-container">
+            <div className="inner-form-container">
+            <progress></progress>
+            <div>Wird übermittelt...</div>
+            </div>
+          </section>
         )}
         {submitOk.done && (
-          <SubmitDone submitOk={submitOk}>{submitOk.message}</SubmitDone>
+          <section className="outer-form-container fade-out-5sec">
+            <div className="inner-form-container">
+              {submitOk.message}
+              </div>
+          </section>
         )}
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
@@ -192,7 +213,13 @@ export default function Map() {
       </MapWrapper>
 
       <CardWrapper>
-      {catchCards.length > 0 ? <CatchCard catchCards={catchCards} /> : <NoMarkerInfo>Marker anklicken um Fangmeldung hier zu zeigen...</NoMarkerInfo> }
+        {catchCards.length > 0 ? (
+          <CatchCard catchCards={catchCards} />
+        ) : (
+          <NoMarkerInfo>
+            Marker anklicken um Fangmeldungen hier zu zeigen...
+          </NoMarkerInfo>
+        )}
       </CardWrapper>
     </>
   );
@@ -212,6 +239,7 @@ const MapWrapper = styled.section`
 
 const SmoothCatchFormFadeIn = styled.section`
   animation: fadein 1s linear;
+  animation-fill-mode: forwards;
   position: relative;
   z-index: 10;
 
@@ -242,5 +270,6 @@ const CardWrapper = styled.section`
 
 const NoMarkerInfo = styled.div`
   text-align: center;
-  line-height: 1.5;
-`
+  line-height: 1.5rem;
+`;
+

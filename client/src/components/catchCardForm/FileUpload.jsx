@@ -4,9 +4,8 @@ import XHRUpload from "@uppy/xhr-upload";
 import { DragDrop } from "@uppy/react";
 import ThumbnailGenerator from "@uppy/thumbnail-generator";
 import "@uppy/core/dist/style.css";
-import "../../lib/uppy-dragdrop-styles.css";
+import "../../lib/css/uppy-dragdrop-styles.css";
 import { useState } from "react";
-import confirm from "../../img/green-confirm.png";
 
 export default function PhotoPicker({
   onInputChange,
@@ -70,7 +69,6 @@ export default function PhotoPicker({
       {photoUploadDone && (
         <PhotoPreview>
           <img src={photoPreviewPath} alt="Preview Catch Photo" />
-          <ConfirmSignPhoto src={confirm} alt="confirm sign" />
         </PhotoPreview>
       )}
     </UploadSection>
@@ -83,11 +81,6 @@ const PhotoPreview = styled.div`
   align-content: center;
   align-items: center;
   flex-basis: 100%;
-`;
-
-const ConfirmSignPhoto = styled.img`
-  width: 2rem;
-  height: auto;
 `;
 
 const UploadSection = styled.div`

@@ -18,9 +18,9 @@ const dbPw = process.env.DB_PW;
 const dbHost = process.env.DB_HOST;
 const dbName = process.env.DB_NAME;
 
-mongoose.connect(
-  `mongodb+srv://${dbUser}:${dbPw}@${dbHost}/${dbName}?retryWrites=true&w=majority`
-);
+// mongoose.connect(
+//   `mongodb+srv://${dbUser}:${dbPw}@${dbHost}/${dbName}?retryWrites=true&w=majority`
+// );
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
@@ -89,9 +89,9 @@ server.post("/api/catchcards", async (req, res) => {
   try {
     await newCatch.save();
     await newMarker.save();
-    res.json({message: "Fangmeldung erfolgreich erstellt."});
+    res.json({done: true, message: "Fangmeldung erfolgreich erstellt."});
   } catch (error) {
-    console.log(error.message);
+    res.json({done: false, message: error.message});
   }
 });
 

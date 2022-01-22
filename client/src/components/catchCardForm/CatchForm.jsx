@@ -13,6 +13,7 @@ export default function CatchForm({
   onHandleSubmit,
   onCancelSubmit,
   onInputChange,
+  submitOk
 }) {
   const [photoUploadDone, setPhotoUploadDone] = useState(false);
   const [catchDate, setCatchDate] = useState("2021-01-01T00:00:00");
@@ -85,104 +86,77 @@ export default function CatchForm({
 
   return (
     <>
-      <FormDivBorderStyling />
-      <FormSection>
-        <Fieldset>
-          <legend>
-            <strong>Ihr Fang:</strong>
-          </legend>
-          <form
-            onSubmit={(event) => {
-              onHandleSubmit(event);
-              initialPhotoUploadSetter();
-            }}
-          >
-            <div className="form-div">
-              <div>Angler: {catchCard.name}</div>
-            </div>
-            <Fishtype
-              catchCard={catchCard}
-              onHandleChangeString={handleChangeString}
-            />
-            <CatchDate
-              catchDate={catchDate}
-              onHandleChangeDate={handleChangeDate}
-            />
-            <Tackle
-              catchCard={catchCard}
-              onHandleChangeString={handleChangeString}
-            />
-            <DepthLengthWeight
-              catchCard={catchCard}
-              onHandleChangeFloat={handleChangeFloat}
-            />
-            <Bait
-              catchCard={catchCard}
-              onHandleChangeString={handleChangeString}
-            />
-            <PhotoPicker
-              catchCard={catchCard}
-              onInputChange={onInputChange}
-              onPhotoUpload={initialPhotoUploadSetter}
-              photoUploadDone={photoUploadDone}
-            />
-          </form>
-        </Fieldset>
-        <FormButtons>
-          <CancelButton
-            onClick={(event) => {
-              onCancelSubmit(event);
-              initialPhotoUploadSetter();
-            }}
-          >
-            <strong>Abbrechen</strong>
-          </CancelButton>
-          <ConfirmButton
-            onClick={(event) => {
-              onHandleSubmit(event);
-              initialPhotoUploadSetter();
-            }}
-          >
-            <strong>Veröffentlichen</strong>
-          </ConfirmButton>
-        </FormButtons>
-      </FormSection>
-    </>
+       <section className="outer-form-container fade-in-1sec">
+           <fieldset className="inner-form-container">
+            <legend>
+              <strong>Ihr Fang:</strong>
+            </legend>
+            <form
+              onSubmit={(event) => {
+                onHandleSubmit(event);
+                initialPhotoUploadSetter();
+                            }}
+            >
+              <div className="form-div">
+                <div>Angler: {catchCard.name}</div>
+              </div>
+              <Fishtype
+                catchCard={catchCard}
+                onHandleChangeString={handleChangeString}
+              />
+              <CatchDate
+                catchDate={catchDate}
+                onHandleChangeDate={handleChangeDate}
+              />
+              <Tackle
+                catchCard={catchCard}
+                onHandleChangeString={handleChangeString}
+              />
+              <DepthLengthWeight
+                catchCard={catchCard}
+                onHandleChangeFloat={handleChangeFloat}
+              />
+              <Bait
+                catchCard={catchCard}
+                onHandleChangeString={handleChangeString}
+              />
+              <PhotoPicker
+                catchCard={catchCard}
+                onInputChange={onInputChange}
+                onPhotoUpload={initialPhotoUploadSetter}
+                photoUploadDone={photoUploadDone}
+              />
+            </form>
+          </fieldset>
+       
+          <FormButtons>
+            <CancelButton
+              onClick={(event) => {
+                onCancelSubmit(event);
+                initialPhotoUploadSetter();
+              }}
+            >
+              <strong>Abbrechen</strong>
+            </CancelButton>
+            <ConfirmButton
+              onClick={(event) => {
+                onHandleSubmit(event);
+                initialPhotoUploadSetter();
+                          }}
+            >
+              <strong>Veröffentlichen</strong>
+            </ConfirmButton>
+          </FormButtons>
+    
+             </section>
+       </>
   );
 }
 
-const FormDivBorderStyling = styled.div`
-  display: block;
-  background-color: var(--color-one);
-  position: fixed;
-  inset: 0rem;
-  opacity: 75%;
-  z-index: 12;
-`;
-
-const FormSection = styled.section`
-background-color: var(--color-five);
-  border-radius: 0.3rem;
-display: block;
-  position: fixed; 
-  inset: 2rem;
-  z-index: 15;
-`;
-
-const Fieldset = styled.fieldset`
-border-radius: 0.3rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  margin: 1rem;
-  padding: 0.3rem;
-`;
 
 const FormButtons = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-content: center;
   align-items: center;
 `;
@@ -202,3 +176,6 @@ const CancelButton = styled.button`
   border: none;
   background-color: darkred;
 `;
+
+
+
