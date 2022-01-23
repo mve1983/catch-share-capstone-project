@@ -56,17 +56,16 @@ const AppNavbar = styled.nav`
     background-color: var(--color-three);
 
     @keyframes active-nav {
-    0% {
-    border-radius: 0;
-    font-size: 1rem;
-    padding-bottom: 1rem;
+      0% {
+        border-radius: 0;
+        font-size: 1rem;
+        padding-bottom: 1rem;
+      }
+      100% {
+        border-radius: 0.3rem 0.3rem 0 0;
+        font-size: 1.2rem;
+        padding-bottom: 2rem;
+      }
     }
-    100% {
-
-    border-radius: 0.3rem 0.3rem 0 0;
-    font-size: 1.2rem;
-    padding-bottom: 2rem;
-    }
- }
-}
+  }
 `;

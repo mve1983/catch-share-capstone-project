@@ -81,6 +81,11 @@ const PhotoPreview = styled.div`
   align-content: center;
   align-items: center;
   flex-basis: 100%;
+
+  img {
+    max-width: 6rem;
+    max-height: 6rem;
+  }
 `;
 
 const UploadSection = styled.div`
@@ -91,4 +96,4 @@ const UploadSection = styled.div`
 
 const UploadText = styled.div`
   margin-bottom: 0.2rem;
-`
+`;

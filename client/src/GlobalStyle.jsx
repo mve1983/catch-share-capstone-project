@@ -37,6 +37,7 @@ input,
 select {
   border: none;
   outline: none;
+  font-size: 0.8rem;
   background-color: var(--color-four);
   color: var(--color-one);
 }
@@ -51,14 +52,24 @@ select {
   margin: 0.5rem; 
 }
 
+.form-border-transparent {
+  display: block;
+  background-color: var(--color-three);
+  position: fixed;
+  inset: 0rem;
+  opacity: 70%;
+  z-index: 12;
+}
+
 .inner-form-container {
   border-radius: 0.3rem;
+  font-size: 0.8rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
   align-items: center;
-  margin: 1rem;
+  margin: 0.5rem;
   padding: 0.3rem;
 }
 
@@ -70,40 +81,42 @@ select {
   justify-content: center;
   align-content: center;
   align-items: center;
-  position: fixed;
+  position: absolute;
   inset: 2rem;
   z-index: 15;
-  .fade-in-1sec {
-  animation: fadein1sec 1sec linear;
-  animation-fill-mode: forwards;
+}
 
-  @keyframes fadein1sec {
+.fade-in-1sec {
+  animation: fadein1sec 1s linear;
+  animation-fill-mode: forwards;
+}
+
+.fade-in-after-half-time {
+  animation: fadeoutafterhalf 5s linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadein1sec {
     0% {
-      opacity: 0;
+      opacity: 0%;
     }
     100% {
-      opacity: 1;
+      opacity: 100%;
     }
-   }
 }
 
-.fade-out-5sec {
-  animation: fadeout5sec 5sec linear;
-  animation-fill-mode: forwards;
+@keyframes fadeoutafterhalf {
+  0% {
+    opacity: 100%;
+  }
+  50% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0%
+  }
+}
 
-  @keyframes fadeout5sec {
-    0% {
-      opacity: 1;
-    }
-    20% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-   }
-}
-}
 
 `;
 export default GlobalStyle;

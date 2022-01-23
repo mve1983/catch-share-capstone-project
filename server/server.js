@@ -18,9 +18,9 @@ const dbPw = process.env.DB_PW;
 const dbHost = process.env.DB_HOST;
 const dbName = process.env.DB_NAME;
 
-// mongoose.connect(
-//   `mongodb+srv://${dbUser}:${dbPw}@${dbHost}/${dbName}?retryWrites=true&w=majority`
-// );
+mongoose.connect(
+  `mongodb+srv://${dbUser}:${dbPw}@${dbHost}/${dbName}?retryWrites=true&w=majority`
+);
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));

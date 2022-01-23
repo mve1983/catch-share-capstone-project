@@ -71,6 +71,7 @@ export default function Map() {
     formUploadSetter();
     addCatchCardToDatabase(singleCatchCard).then((result) => {
       if (result.done) {
+        setFormUploadProgress(false);
         setSubmitOk({ done: true, message: result.message });
         setTimeout(() => setSubmitOk({ done: false, message: "" }), 5000);
       } else {
@@ -141,7 +142,7 @@ export default function Map() {
 
   const fishMarkerNotActive = {
     path: "M12,20L12.76,17C9.5,16.79 6.59,15.4 5.75,13.58C5.66,14.06 5.53,14.5 5.33,14.83C4.67,16 3.33,16 2,16C3.1,16 3.5,14.43 3.5,12.5C3.5,10.57 3.1,9 2,9C3.33,9 4.67,9 5.33,10.17C5.53,10.5 5.66,10.94 5.75,11.42C6.4,10 8.32,8.85 10.66,8.32L9,5C11,5 13,5 14.33,5.67C15.46,6.23 16.11,7.27 16.69,8.38C19.61,9.08 22,10.66 22,12.5C22,14.38 19.5,16 16.5,16.66C15.67,17.76 14.86,18.78 14.17,19.33C13.33,20 12.67,20 12,20M17,11A1,1 0 0,0 16,12A1,1 0 0,0 17,13A1,1 0 0,0 18,12A1,1 0 0,0 17,11Z",
-    fillColor: "#353535",
+    fillColor: "darkred",
     fillOpacity: 1,
     strokeWeight: 0,
     rotation: 0,
@@ -161,32 +162,38 @@ export default function Map() {
 
   return (
     <>
-      <MapWrapper>
-        <Search onGoTo={goTo} />
-        {mapClicked && (
-           <CatchForm
-              catchCard={singleCatchCard}
-              onHandleSubmit={handleSubmit}
-              onCancelSubmit={cancelSubmit}
-              onInputChange={handleInputChange}
-              submitOk={submitOk}
-            />
-        )}
-        {formUploadProgress && (
+      {mapClicked && (
+        <CatchForm
+          catchCard={singleCatchCard}
+          onHandleSubmit={handleSubmit}
+          onCancelSubmit={cancelSubmit}
+          onInputChange={handleInputChange}
+          submitOk={submitOk}
+        />
+      )}
+      {formUploadProgress && (
+        <>
+          <div className="form-border-transparent"></div>
           <section className="outer-form-container">
             <div className="inner-form-container">
-            <progress></progress>
-            <div>Wird übermittelt...</div>
+              <Loader></Loader>
+              <SubmitMessage>Wird übermittelt...</SubmitMessage>
             </div>
           </section>
-        )}
-        {submitOk.done && (
-          <section className="outer-form-container fade-out-5sec">
+        </>
+      )}
+      {submitOk.done && (
+        <>
+          <div className="form-border-transparent"></div>
+          <section className="fade-in-after-half-time outer-form-container">
             <div className="inner-form-container">
-              {submitOk.message}
-              </div>
+              <SubmitMessage>{submitOk.message}</SubmitMessage>
+            </div>
           </section>
-        )}
+        </>
+      )}
+      <MapWrapper>
+        <Search onGoTo={goTo} />
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={8}
@@ -225,6 +232,25 @@ export default function Map() {
   );
 }
 
+const Loader = styled.div`
+  border: 1rem solid var(--color-three); /* Light grey */
+  border-top: 1rem solid var(--color-two); /* Blue */
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  width: 6rem;
+  height: 6rem;
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
 const MapWrapper = styled.section`
   border: 0.2rem solid var(--color-five);
   border-radius: 0.3rem;
@@ -237,35 +263,17 @@ const MapWrapper = styled.section`
   margin: 6rem 1rem 1rem 1rem;
 `;
 
-const SmoothCatchFormFadeIn = styled.section`
-  animation: fadein 1s linear;
-  animation-fill-mode: forwards;
-  position: relative;
-  z-index: 10;
-
-  @keyframes fadein {
-    0% {
-      opacity: 0%;
-    }
-    100% {
-      opacity: 100%;
-    }
-  }
-`;
-
 const CardWrapper = styled.section`
   background-color: var(--color-five);
   border: 0.2rem solid var(--color-four);
   border-radius: 0.3rem;
   display: flex;
-  flex-basis: 100%;
-  flex-grow: 1;
-  flex-direction: column;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
   align-content: center;
   align-items: center;
   gap: 0.3rem;
-  margin: 1rem;
+  margin: 1rem 1rem 5rem 1rem;
 `;
 
 const NoMarkerInfo = styled.div`
@@ -273,3 +281,7 @@ const NoMarkerInfo = styled.div`
   line-height: 1.5rem;
 `;
 
+const SubmitMessage = styled.div`
+  font-size: 1.2rem;
+  text-align: center;
+`;

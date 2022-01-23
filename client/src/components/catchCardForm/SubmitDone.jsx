@@ -90,7 +90,6 @@ const SubmitMessage = styled.section`
   inset: 2rem;
   position: fixed;
   text-align: center;
-
 `;
 
 const ConfirmSign = styled.img`

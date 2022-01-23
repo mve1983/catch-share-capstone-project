@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function CatchCard({ catchCards }) {
   return (
     <>
-      <CardItem>
+      <CardPhoto>
         <Photo
           src={
             catchCards[0].img.length > 0
@@ -12,50 +12,46 @@ export default function CatchCard({ catchCards }) {
           }
           alt="Fangbild"
         />
-
+      </CardPhoto>
+      <CardInfo>
         <div>
           Fisch: <br />
           {catchCards[0].fishtype}
         </div>
-      </CardItem>
-      <CardItem>
+
         <div>
           Länge: <br />
           {catchCards[0].length} cm
         </div>
+
         <div>
           Gewicht: <br />
           {catchCards[0].weight} kg
         </div>
-      </CardItem>
-      <CardItem>
-        <div>
-          <small>
-            gefangen von: <br />
-            {catchCards[0].name}
-          </small>
-        </div>
-        <div>
-          <small>
-            am: <br />
-            TestTestTest
-          </small>
-        </div>
-      </CardItem>
+      </CardInfo>
     </>
   );
 }
 
-const CardItem = styled.div`
+const CardPhoto = styled.div`
   display: flex;
-  flex-basis: 100%;
-  flex-grow: 1;
-  justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: center;
   align-content: center;
   align-items: center;
+  min-height: 10rem;
+`;
+
+const CardInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: left;
+  align-items: left;
   gap: 1rem;
 `;
 
 const Photo = styled.img`
-  width: 7rem;
+  max-height: 9rem;
+  max-width: 8rem;
 `;
