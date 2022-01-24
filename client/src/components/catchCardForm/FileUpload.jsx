@@ -80,6 +80,7 @@ const PhotoPreview = styled.div`
   justify-content: space-around;
   align-content: center;
   align-items: center;
+  min-height: 6rem;
   flex-basis: 100%;
 
   img {

@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyle = createGlobalStyle`
+const globalStyles = createGlobalStyle`
 
 *,
 *::before,
@@ -49,7 +49,7 @@ select {
   align-content: center;
   align-items: center;
   gap: 0.3rem;
-  margin: 0.5rem; 
+  margin: 1.2rem 0.5rem 1.2rem 0.5rem; 
 }
 
 .form-border-transparent {
@@ -91,6 +91,11 @@ select {
   animation-fill-mode: forwards;
 }
 
+.fade-out-1sec {
+  animation: fadeout1sec 1s linear;
+  animation-fill-mode: forwards;
+}
+
 .fade-in-after-half-time {
   animation: fadeoutafterhalf 5s linear;
   animation-fill-mode: forwards;
@@ -102,6 +107,15 @@ select {
     }
     100% {
       opacity: 100%;
+    }
+}
+
+@keyframes fadeout1sec {
+    0% {
+      opacity: 100%;
+    }
+    100% {
+      opacity: 0%;
     }
 }
 
@@ -119,4 +133,4 @@ select {
 
 
 `;
-export default GlobalStyle;
+export default globalStyles;

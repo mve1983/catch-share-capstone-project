@@ -31,14 +31,15 @@ const mapOptions = {
 export default function Map() {
   const initialCatchCard = {
     name: "TestUser",
-    fishtype: "A n d e r e",
-    datetime: "2021-01-01T00:00:00",
-    length: 1,
-    weight: 0.1,
+    fishtype: "",
+    date: "",
+    time: "",
+    length: 0,
+    weight: 0,
     latlng: { lat: 0, lng: 0 },
     bait: "",
-    depth: 1.2,
-    tackle: "A n d e r e",
+    depth: 0,
+    tackle: "",
     img: "",
   };
 
@@ -168,7 +169,6 @@ export default function Map() {
           onHandleSubmit={handleSubmit}
           onCancelSubmit={cancelSubmit}
           onInputChange={handleInputChange}
-          submitOk={submitOk}
         />
       )}
       {formUploadProgress && (
@@ -196,7 +196,7 @@ export default function Map() {
         <Search onGoTo={goTo} />
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
-          zoom={8}
+          zoom={12}
           center={mapCenter}
           options={mapOptions}
           onClick={addNewMapMarker}
@@ -219,22 +219,14 @@ export default function Map() {
         </GoogleMap>
       </MapWrapper>
 
-      <CardWrapper>
-        {catchCards.length > 0 ? (
-          <CatchCard catchCards={catchCards} />
-        ) : (
-          <NoMarkerInfo>
-            Marker anklicken um Fangmeldungen hier zu zeigen...
-          </NoMarkerInfo>
-        )}
-      </CardWrapper>
+      <CatchCard catchCards={catchCards} />
     </>
   );
 }
 
 const Loader = styled.div`
-  border: 1rem solid var(--color-three); /* Light grey */
-  border-top: 1rem solid var(--color-two); /* Blue */
+  border: 1rem solid var(--color-three);
+  border-top: 1rem solid var(--color-two);
   border-radius: 50%;
   margin-bottom: 1rem;
   width: 6rem;
@@ -261,24 +253,6 @@ const MapWrapper = styled.section`
   align-items: center;
   position: relative;
   margin: 6rem 1rem 1rem 1rem;
-`;
-
-const CardWrapper = styled.section`
-  background-color: var(--color-five);
-  border: 0.2rem solid var(--color-four);
-  border-radius: 0.3rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-content: center;
-  align-items: center;
-  gap: 0.3rem;
-  margin: 1rem 1rem 5rem 1rem;
-`;
-
-const NoMarkerInfo = styled.div`
-  text-align: center;
-  line-height: 1.5rem;
 `;
 
 const SubmitMessage = styled.div`

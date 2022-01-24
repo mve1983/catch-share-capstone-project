@@ -76,7 +76,8 @@ server.post("/api/catchcards", async (req, res) => {
   let newCatch = new CatchCard({
     name: req.body.name,
     fishtype: req.body.fishtype,
-    datetime: req.body.datetime,
+    date: req.body.date,
+    time: req.body.time,
     length: req.body.length,
     weight: req.body.weight,
     latlng: req.body.latlng,

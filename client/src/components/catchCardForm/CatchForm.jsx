@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { dates } from "../../lib/catchFormArrays.js";
 import PhotoPicker from "./FileUpload.jsx";
 import Fishtype from "./Fishtype.jsx";
 import CatchDate from "./CatchDate.jsx";
@@ -13,53 +12,11 @@ export default function CatchForm({
   onHandleSubmit,
   onCancelSubmit,
   onInputChange,
-  submitOk,
 }) {
   const [photoUploadDone, setPhotoUploadDone] = useState(false);
-  const [catchDate, setCatchDate] = useState("2021-01-01T00:00:00");
-
+  
   function initialPhotoUploadSetter() {
     setPhotoUploadDone(!photoUploadDone);
-  }
-
-  function handleChangeDate(event) {
-    switch (event.target.name) {
-      case "year":
-        setCatchDate(
-          event.target.value + catchDate.substring(4, catchDate.length)
-        );
-        break;
-      case "month":
-        let monthFinder = dates.months.indexOf(event.target.value) + 1;
-        monthFinder > 9
-          ? setCatchDate(
-              catchDate.substring(0, 5) +
-                monthFinder.toString() +
-                catchDate.substring(7, catchDate.length)
-            )
-          : setCatchDate(
-              catchDate.substring(0, 5) +
-                "0" +
-                monthFinder.toString() +
-                catchDate.substring(7, catchDate.length)
-            );
-        break;
-      case "day":
-        setCatchDate(
-          catchDate.substring(0, 8) +
-            event.target.value +
-            catchDate.substring(10, catchDate.length)
-        );
-        break;
-      case "time":
-        setCatchDate(
-          catchDate.substring(0, 11) +
-            event.target.value +
-            catchDate.substring(16, catchDate.length)
-        );
-        break;
-    }
-    onInputChange("datetime", catchDate);
   }
 
   function handleChangeString(event) {
@@ -106,8 +63,8 @@ export default function CatchForm({
               onHandleChangeString={handleChangeString}
             />
             <CatchDate
-              catchDate={catchDate}
-              onHandleChangeDate={handleChangeDate}
+            catchCard={catchCard}
+             onHandleChangeString={handleChangeString}
             />
             <Tackle
               catchCard={catchCard}
@@ -158,6 +115,7 @@ const FormButtons = styled.div`
   align-content: center;
   align-items: center;
   gap: 3rem;
+  margin-top: 1rem;
 `;
 
 const ConfirmButton = styled.button`

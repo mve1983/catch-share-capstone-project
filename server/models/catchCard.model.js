@@ -8,7 +8,8 @@ const markerSchema = new mongoose.Schema({
 const catchCardSchema = new mongoose.Schema({
   name: String,
   fishtype: String,
-  datetime: String,
+  date: String,
+  time: String,
   length: Number,
   weight: Number,
   latlng: markerSchema,

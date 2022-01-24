@@ -1,12 +1,12 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import App from "./App"
-import GlobalStyle from "./GlobalStyle"
+import GlobalStyles from "./lib/globalStyles"
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <GlobalStyle />
+    <GlobalStyles />
     <BrowserRouter>
     <App />
     </BrowserRouter>
