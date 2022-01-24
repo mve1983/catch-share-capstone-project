@@ -66,7 +66,7 @@ export default function Map() {
     handleInputChange("latlng", latlng);
   }
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     setMapClicked(!mapClicked);
     formUploadSetter();
