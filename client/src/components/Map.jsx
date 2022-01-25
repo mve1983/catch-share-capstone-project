@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import styled from "styled-components";
 import mapStyle from "../lib/mapStyle";
@@ -6,14 +6,15 @@ import libraries from "../lib/googleLibs";
 import Search from "./MapSearch";
 import CatchForm from "./catchCardForm/CatchForm";
 import {
-  fetchCatchCardsOnMarker,
   addCatchCardToDatabase,
   fetchAllMapMarkers,
-} from "../lib/fetches-mongodb";
+  fetchCatchCardsOnMarker,
+} from "../lib/fetchesMongodb";
+import CatchCard from "./CatchCard";
 
 const mapContainerStyle = {
   width: "100%",
-  height: "50vh",
+  height: "45vh",
 };
 
 const mapCenter = {
@@ -31,12 +32,13 @@ export default function Map() {
   const initialCatchCard = {
     name: "TestUser",
     fishtype: "",
-    datetime: "",
-    length: 1,
-    weight: 0.23,
+    date: "",
+    time: "",
+    length: 0,
+    weight: 0,
     latlng: { lat: 0, lng: 0 },
     bait: "",
-    depth: 1.2,
+    depth: 0,
     tackle: "",
     img: "",
   };
@@ -46,10 +48,17 @@ export default function Map() {
   const [mapClicked, setMapClicked] = useState(false);
   const [clickedMarker, setClickedMarker] = useState({});
   const [mapMarkers, setMapMarkers] = useState([]);
+  const [submitOk, setSubmitOk] = useState({ done: false, message: "" });
+  const [formUploadProgress, setFormUploadProgress] = useState(false);
 
   function activateMarker(marker) {
     setClickedMarker(marker);
-    fetchCatchCardsOnMarker(marker);
+    fetchCatchCardsOnMarker(marker).then((data) => setCatchCards([...data]));
+  }
+
+  function formUploadSetter() {
+    setFormUploadProgress(true);
+    setTimeout(() => setFormUploadProgress(false), 10000);
   }
 
   function addCoordinatesToCatchCard(newlat, newlng) {
@@ -60,8 +69,21 @@ export default function Map() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setMapClicked(!mapClicked);
-    setCatchCards([...catchCards, singleCatchCard]);
-    addCatchCardToDatabase(singleCatchCard);
+    formUploadSetter();
+    addCatchCardToDatabase(singleCatchCard).then((result) => {
+      if (result.done) {
+        setFormUploadProgress(false);
+        setSubmitOk({ done: true, message: result.message });
+        setTimeout(() => setSubmitOk({ done: false, message: "" }), 5000);
+      } else {
+        setSubmitOk({
+          done: true,
+          message:
+            "Datenbank nicht erreichbar. / Admin informiert. / Bitte später versuchen.",
+        });
+        setTimeout(() => setSubmitOk({ done: false, message: "" }), 5000);
+      }
+    });
   };
 
   const cancelSubmit = (event) => {
@@ -119,73 +141,111 @@ export default function Map() {
   if (loadError) return "Load Error";
   if (!isLoaded) return "Loading Map";
 
-  const fishMarker = {
+  const fishMarkerNotActive = {
     path: "M12,20L12.76,17C9.5,16.79 6.59,15.4 5.75,13.58C5.66,14.06 5.53,14.5 5.33,14.83C4.67,16 3.33,16 2,16C3.1,16 3.5,14.43 3.5,12.5C3.5,10.57 3.1,9 2,9C3.33,9 4.67,9 5.33,10.17C5.53,10.5 5.66,10.94 5.75,11.42C6.4,10 8.32,8.85 10.66,8.32L9,5C11,5 13,5 14.33,5.67C15.46,6.23 16.11,7.27 16.69,8.38C19.61,9.08 22,10.66 22,12.5C22,14.38 19.5,16 16.5,16.66C15.67,17.76 14.86,18.78 14.17,19.33C13.33,20 12.67,20 12,20M17,11A1,1 0 0,0 16,12A1,1 0 0,0 17,13A1,1 0 0,0 18,12A1,1 0 0,0 17,11Z",
     fillColor: "darkred",
     fillOpacity: 1,
     strokeWeight: 0,
     rotation: 0,
-    scale: 1.5,
+    scale: 1.3,
     anchor: new google.maps.Point(15, 15),
   };
+
+  const fishMarkerActive = {
+    path: "M12,20L12.76,17C9.5,16.79 6.59,15.4 5.75,13.58C5.66,14.06 5.53,14.5 5.33,14.83C4.67,16 3.33,16 2,16C3.1,16 3.5,14.43 3.5,12.5C3.5,10.57 3.1,9 2,9C3.33,9 4.67,9 5.33,10.17C5.53,10.5 5.66,10.94 5.75,11.42C6.4,10 8.32,8.85 10.66,8.32L9,5C11,5 13,5 14.33,5.67C15.46,6.23 16.11,7.27 16.69,8.38C19.61,9.08 22,10.66 22,12.5C22,14.38 19.5,16 16.5,16.66C15.67,17.76 14.86,18.78 14.17,19.33C13.33,20 12.67,20 12,20M17,11A1,1 0 0,0 16,12A1,1 0 0,0 17,13A1,1 0 0,0 18,12A1,1 0 0,0 17,11Z",
+    fillColor: "darkorange",
+    fillOpacity: 1,
+    strokeWeight: 0,
+    rotation: 0,
+    scale: 1.6,
+    anchor: new google.maps.Point(15, 15),
+  };
+
   return (
     <>
+      {mapClicked && (
+        <CatchForm
+          catchCard={singleCatchCard}
+          onHandleSubmit={handleSubmit}
+          onCancelSubmit={cancelSubmit}
+          onInputChange={handleInputChange}
+        />
+      )}
+      {formUploadProgress && (
+        <>
+          <div className="form-border-transparent"></div>
+          <section className="outer-form-container">
+            <div className="inner-form-container">
+              <Loader></Loader>
+              <SubmitMessage>Wird übermittelt...</SubmitMessage>
+            </div>
+          </section>
+        </>
+      )}
+      {submitOk.done && (
+        <>
+          <div className="form-border-transparent"></div>
+          <section className="fade-in-after-half-time outer-form-container">
+            <div className="inner-form-container">
+              <SubmitMessage>{submitOk.message}</SubmitMessage>
+            </div>
+          </section>
+        </>
+      )}
       <MapWrapper>
         <Search onGoTo={goTo} />
-        {mapClicked && (
-          <SmoothCatchFormFadeIn>
-            <CatchForm
-              catchCard={singleCatchCard}
-              onHandleSubmit={handleSubmit}
-              onCancelSubmit={cancelSubmit}
-              onInputChange={handleInputChange}
-            />
-          </SmoothCatchFormFadeIn>
-        )}
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
-          zoom={8}
+          zoom={12}
           center={mapCenter}
           options={mapOptions}
           onClick={addNewMapMarker}
           onLoad={onMapLoad}
         >
-          {mapMarkers.length > 1 &&
+          {mapMarkers.length > 0 &&
             mapMarkers.map((marker, index) => (
               <Marker
                 key={index}
                 position={{ lat: marker.lat, lng: marker.lng }}
-                icon={fishMarker}
+                icon={
+                  clickedMarker.lat === marker.lat &&
+                  clickedMarker.lng === marker.lng
+                    ? fishMarkerActive
+                    : fishMarkerNotActive
+                }
                 onClick={() => activateMarker(marker)}
               />
             ))}
         </GoogleMap>
-        <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit
-          veniam consequatur fugiat vero explicabo repellat optio beatae ab
-          repellendus obcaecati, numquam praesentium, inventore in reiciendis
-          facilis quas odio? Fugiat labore ex, reprehenderit consectetur ipsa,
-          nihil adipisci, illo dolor similique modi corrupti iure excepturi
-          harum obcaecati vel laboriosam. Repellat quod officiis assumenda
-          accusantium, iste ratione quisquam perspiciatis? Consectetur sed
-          expedita deserunt soluta dolorem voluptatibus ratione natus fugit
-          excepturi eos, sit nam hic illo magnam aut repellat voluptatem quis
-          quas maiores ipsum dolores sapiente unde. Cupiditate et fugit dolore
-          necessitatibus maxime laboriosam consectetur? Eligendi, eum
-          reprehenderit atque maxime aliquid placeat ullam voluptas eaque
-          minima, iusto temporibus inventore qui voluptatum. Laudantium iure,
-          eligendi dolorem modi quia quis natus recusandae reiciendis provident
-          commodi a incidunt totam fugit! A magnam obcaecati vero natus dolores
-          odio eum recusandae excepturi quia dignissimos inventore officia
-          tenetur doloremque ab dicta est velit vel, mollitia deserunt eaque
-          perferendis assumenda at?
-        </div>
       </MapWrapper>
+
+      <CatchCard catchCards={catchCards} />
     </>
   );
 }
 
+const Loader = styled.div`
+  border: 1rem solid var(--color-three);
+  border-top: 1rem solid var(--color-two);
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  width: 6rem;
+  height: 6rem;
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
 const MapWrapper = styled.section`
+  border: 0.2rem solid var(--color-five);
+  border-radius: 0.3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -195,17 +255,7 @@ const MapWrapper = styled.section`
   margin: 6rem 1rem 1rem 1rem;
 `;
 
-const SmoothCatchFormFadeIn = styled.section`
-  animation: fadein 1s linear;
-  position: relative;
-  z-index: 10;
-
-  @keyframes fadein {
-    0% {
-      opacity: 0%;
-    }
-    100% {
-      opacity: 100%;
-    }
-  }
+const SubmitMessage = styled.div`
+  font-size: 1.2rem;
+  text-align: center;
 `;

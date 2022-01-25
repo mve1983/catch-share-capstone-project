@@ -18,12 +18,13 @@ export default function Navbar() {
 }
 
 const Footer = styled.footer`
-  background-color: var(--color-three);
+  background-color: var(--color-four);
   display: flex;
   justify-content: center;
   align-content: center;
   align-items: center;
   position: fixed;
+  height: 3rem;
   left: 0;
   right: 0;
   bottom: 0;
@@ -31,6 +32,7 @@ const Footer = styled.footer`
 `;
 
 const AppNavbar = styled.nav`
+  color: var(--color-one);
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
@@ -40,21 +42,30 @@ const AppNavbar = styled.nav`
   align-items: center;
 
   a {
-    color: var(--color-two);
-    text-shadow: -1px -1px 0 var(--color-one), 1px -1px 0 var(--color-one),
-      -1px 1px 0 var(--color-one), 1px 1px 0 var(--color-one);
-    font-size: 1.2rem;
+    color: var(--color-one);
     flex-grow: 1;
     padding: 1rem 0 1rem 0;
     text-align: center;
     text-decoration: none;
   }
 
-  a:hover {
-    background-color: var(--color-two);
-  }
-
   .active {
-    background-color: var(--color-two);
+    animation: active-nav 0.3s linear;
+    animation-fill-mode: forwards;
+    color: var(--color-five);
+    background-color: var(--color-three);
+
+    @keyframes active-nav {
+      0% {
+        border-radius: 0;
+        font-size: 1rem;
+        padding-bottom: 1rem;
+      }
+      100% {
+        border-radius: 0.3rem 0.3rem 0 0;
+        font-size: 1.2rem;
+        padding-bottom: 2rem;
+      }
+    }
   }
 `;

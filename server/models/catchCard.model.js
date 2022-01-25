@@ -2,23 +2,21 @@ import mongoose from "mongoose";
 
 const markerSchema = new mongoose.Schema({
   lat: Number,
-  lng: Number
+  lng: Number,
 });
 
 const catchCardSchema = new mongoose.Schema({
   name: String,
   fishtype: String,
-  datetime: String,
+  date: String,
+  time: String,
   length: Number,
   weight: Number,
   latlng: markerSchema,
   depth: Number,
   bait: String,
   tackle: String,
-  img: {
-    data: Buffer,
-    contentType: String,
-  },
+  img: String,
 });
 
 const CatchCard = mongoose.model("CatchCard", catchCardSchema);

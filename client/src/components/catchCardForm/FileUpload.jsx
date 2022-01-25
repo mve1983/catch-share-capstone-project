@@ -4,9 +4,8 @@ import XHRUpload from "@uppy/xhr-upload";
 import { DragDrop } from "@uppy/react";
 import ThumbnailGenerator from "@uppy/thumbnail-generator";
 import "@uppy/core/dist/style.css";
-import "../../lib/uppy-dragdrop-styles.css";
+import "../../lib/css/uppy-dragdrop-styles.css";
 import { useState } from "react";
-import confirm from "../../img/green-confirm.png";
 
 export default function PhotoPicker({
   onInputChange,
@@ -50,10 +49,10 @@ export default function PhotoPicker({
 
   return (
     <UploadSection>
-      <div>
+      <UploadText>
         Photo teilen: <br />
         <small>(1 Photo, max 3MB, Formate: jpg(jpeg), png, gif)</small>
-      </div>
+      </UploadText>
       {!photoUploadDone && (
         <DragDrop
           uppy={catchUppy}
@@ -70,7 +69,6 @@ export default function PhotoPicker({
       {photoUploadDone && (
         <PhotoPreview>
           <img src={photoPreviewPath} alt="Preview Catch Photo" />
-          <ConfirmSignPhoto src={confirm} alt="confirm sign" />
         </PhotoPreview>
       )}
     </UploadSection>
@@ -78,20 +76,25 @@ export default function PhotoPicker({
 }
 
 const PhotoPreview = styled.div`
-  border: 1px solid var(--color-two);
   display: flex;
   justify-content: space-around;
   align-content: center;
   align-items: center;
+  min-height: 6rem;
   flex-basis: 100%;
-`;
 
-const ConfirmSignPhoto = styled.img`
-  width: 2rem;
-  height: auto;
+  img {
+    max-width: 6rem;
+    max-height: 6rem;
+  }
 `;
 
 const UploadSection = styled.div`
+  margin: 0.5rem;
   display: flex;
   flex-direction: column;
+`;
+
+const UploadText = styled.div`
+  margin-bottom: 0.2rem;
 `;

@@ -1,79 +1,54 @@
-import { dates } from "../../lib/catchFormArrays.js";
+import { useState } from "react";
 
-export default function CatchDate({ catchDate, onHandleChangeDate }) {
-  const monthHandle = parseInt(catchDate.substring(6, 8)) - 1;
-  const valueMonth = dates.months[monthHandle];
+export default function CatchDate({
+  onHandleChangeString,
+  catchCard,
+}) {
+
+  let today = new Date();
+  let dd = today.getDate();
+  let mm = today.getMonth() + 1;
+  let yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = "0" + dd;
+  }
+  if (mm < 10) {
+    mm = "0" + mm;
+  }
+  today = yyyy + "-" + mm + "-" + dd;
 
   return (
     <div className="form-div">
-      <label htmlFor="day">
-        Tag:
-        <div>
+      <div>
+        <label htmlFor="date">
+          Datum: <br />
+          <input
+            type="date"
+            id="date"
+            name="date"
+            onChange={onHandleChangeString}
+            value={catchCard.date}
+            min="2021-06-01"
+            max={today}
+          />
+        </label>
+      </div>
+      <div>
+        Tageszeit: <br />
+        <label htmlFor="time">
           <select
-            onChange={onHandleChangeDate}
-            id="day"
-            name="day"
-            value={catchDate.substring(8, 10)}
-          >
-            {dates.days.map((day, _index) => (
-              <option key={_index} value={day}>
-                {day}
-              </option>
-            ))}
-          </select>
-        </div>
-      </label>
-      <label htmlFor="month">
-        Monat:
-        <div>
-          <select
-            onChange={onHandleChangeDate}
-            id="month"
-            name="month"
-            value={valueMonth}
-          >
-            {dates.months.map((month, _index) => (
-              <option key={_index} value={month}>
-                {month}
-              </option>
-            ))}
-          </select>
-        </div>
-      </label>
-      <label htmlFor="year">
-        Jahr:
-        <div>
-          <select
-            onChange={onHandleChangeDate}
-            id="year"
-            name="year"
-            value={catchDate.substring(0, 4)}
-          >
-            {dates.years.map((year, _index) => (
-              <option key={_index} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-        </div>
-      </label>
-      <label htmlFor="time">
-        Zeit:
-        <div>
-          <select
-            onChange={onHandleChangeDate}
+            onChange={onHandleChangeString}
             id="time"
             name="time"
-            value={catchDate.substring(11, 16)}
+            value={catchCard.time}
           >
-            {dates.times.map((time, _index) => (
-              <option key={_index} value={time}>
-                {time}
-              </option>
-            ))}
+            <option value="morgens">morgens</option>
+            <option value="mittags">mittags</option>
+            <option value="abends">abends</option>
+            <option value="nachts">nachts</option>
           </select>
-        </div>
-      </label>
+        </label>
+      </div>
     </div>
   );
 }

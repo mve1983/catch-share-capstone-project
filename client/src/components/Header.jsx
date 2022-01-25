@@ -12,13 +12,14 @@ export default function Header() {
 }
 
 const AppHeader = styled.header`
-  background-color: var(--color-three);
+  background-color: var(--color-four);
   display: flex;
   align-items: center;
   align-self: center;
   justify-content: center;
   gap: 6rem;
   position: fixed;
+  height: 3rem;
   left: 0;
   right: 0;
   top: 0;
