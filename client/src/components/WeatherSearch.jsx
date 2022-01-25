@@ -8,11 +8,12 @@ import {
 } from "@reach/combobox";
 import "../lib/css/combobox-styles-weather.css";
 import usePlacesAutocomplete, {
+  getDetails,
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
 
-export default function Search({ onFetchWeatherData }) {
+export default function Search({ onFetchWeatherData, onSearchPlace }) {
   const {
     ready,
     value,
@@ -36,11 +37,15 @@ export default function Search({ onFetchWeatherData }) {
           try {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
+            const place = await getDetails(results[0]);
+            console.log(place)
             onFetchWeatherData({ lat, lng });
             setValue("", false);
           } catch (error) {
             console.log("Error, something went wrong!");
           }
+
+          
         }}
       >
         <ComboboxInput
