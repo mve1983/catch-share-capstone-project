@@ -3,8 +3,9 @@
 }
 
 [data-reach-combobox-popover] {
-  background: #353535;
-  border: solid 3px #D9D9D9;
+  background: #D9D9D9;
+  color: #353535;
+  border: none;
   border-top: none;
   font-size: 85%;
 }
@@ -23,15 +24,15 @@
 }
 
 [data-reach-combobox-option][aria-selected="true"] {
-  background: #353535;
+  background: #D9D9D9;
 }
 
 [data-reach-combobox-option]:hover {
-  background: #353535;
+  background: #D9D9D9;
 }
 
 [data-reach-combobox-option][aria-selected="true"]:hover {
-  background: #353535;
+  background: #D9D9D9;
 }
 
 [data-suggested-value] {
@@ -39,7 +40,17 @@
 }
 
 .input-combobox {
-  background-color: #353535;
-  border: solid 3px #D9D9D9;
-  color: #D9D9D9;
+  background-color: #D9D9D9;
+  border-radius: 0.3rem;
+  border: solid 3px #284B63;
+  color: #353535;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+  font-size: 1.2rem;
+  opacity: 75%;
+}
+
+.input-combobox:focus{
+  opacity: 100%;
 }

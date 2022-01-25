@@ -6,13 +6,13 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
-import "../lib/css/combobox-styles-maps.css";
+import "../lib/css/combobox-styles-weather.css";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
 
-export default function Search({ onGoTo }) {
+export default function Search({ onFetchWeatherData }) {
   const {
     ready,
     value,
@@ -36,7 +36,7 @@ export default function Search({ onGoTo }) {
           try {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
-            onGoTo({ lat, lng });
+            onFetchWeatherData({ lat, lng });
             setValue("", false);
           } catch (error) {
             console.log("Error, something went wrong!");
@@ -67,8 +67,6 @@ export default function Search({ onGoTo }) {
 }
 
 const SearchbarWrapper = styled.div`
-  position: absolute;
-  z-index: 5;
-  left: 1rem;
-  top: 1rem;
+margin: 6rem 2rem 3rem 2rem;
+text-align: center;
 `;

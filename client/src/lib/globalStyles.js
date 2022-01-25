@@ -14,6 +14,7 @@ const globalStyles = createGlobalStyle`
 --color-three: #FFFFFF;
 --color-four: #D9D9D9;
 --color-five: #284B63;
+--color-shadow: black;
 }
 
 body {
