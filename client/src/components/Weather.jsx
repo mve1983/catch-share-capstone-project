@@ -206,9 +206,10 @@ export default function Weather() {
 }
 
 const BackgroundImage = styled.div`
-   background-image: url(${background});
+  background-image: url(${background});
   background-size: cover;
   background-repeat: no-repeat;
+  opacity: 75%;
   position: fixed;
   inset: 0;
   z-index: -15;
