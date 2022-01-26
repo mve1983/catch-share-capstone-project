@@ -43,6 +43,22 @@ select {
   color: var(--color-one);
 }
 
+.weather-page-button-normal {
+  background-color: var(--color-four);
+  color: var(--color-one);
+  border: none;
+  border-radius: 0.3rem;
+  outline: none;
+  box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+  margin: 0.2rem 0.3rem;
+  padding: 0.3rem 0.3rem;
+}
+
+.weather-page-button-active {
+  background-color: var(--color-five);
+  color: var(--color-four); 
+}
+
 .form-div {
   display: flex;
   flex-wrap: wrap;

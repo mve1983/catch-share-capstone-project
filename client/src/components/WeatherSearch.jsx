@@ -13,7 +13,7 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from "use-places-autocomplete";
 
-export default function Search({ onFetchWeatherData, onSearchPlace }) {
+export default function Search({ onFetchWeatherData }) {
   const {
     ready,
     value,
@@ -33,13 +33,11 @@ export default function Search({ onFetchWeatherData, onSearchPlace }) {
         onSelect={async (address) => {
           setValue(address, false);
           clearSuggestions();
-
+          
           try {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
-            const place = await getDetails(results[0]);
-            console.log(place)
-            onFetchWeatherData({ lat, lng });
+            onFetchWeatherData({ lat, lng }, address);
             setValue("", false);
           } catch (error) {
             console.log("Error, something went wrong!");
