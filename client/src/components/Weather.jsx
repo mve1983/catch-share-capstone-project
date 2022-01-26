@@ -229,14 +229,13 @@ const WeatherData = styled.div`
 const Temp = styled.div`
   margin: 0.3rem;
   font-size: 1.4rem;
-
 `;
 const Place = styled.div`
   text-align: center;
 `;
 
 const Time = styled.div`
-margin-bottom: 1rem;
+  margin-bottom: 1rem;
 `;
 
 const KompassWrapper = styled.div`
