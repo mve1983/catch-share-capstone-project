@@ -37,7 +37,7 @@ export default function CatchCard({ catchCards }) {
               src={
                 card.img.length > 0
                   ? `data:image/jpeg;base64,${card.img}`
-                  : "https://raw.githubusercontent.com/mve1983/catch-share-capstone-project/card-render/client/src/img/no-photo.jpg"
+                  : "https://raw.githubusercontent.com/mve1983/catch-share-capstone-project/main/client/src/img/no-photo.jpg"
               }
               alt="Fangbild"
             />

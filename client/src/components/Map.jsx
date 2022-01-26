@@ -1,5 +1,10 @@
 import { useState, useCallback, useRef } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
 import styled from "styled-components";
 import mapStyle from "../lib/mapStyle";
 import libraries from "../lib/googleLibs";
@@ -47,13 +52,12 @@ export default function Map() {
   const [singleCatchCard, setSingleCatchCard] = useState(initialCatchCard);
   const [catchCards, setCatchCards] = useState([]);
   const [mapClicked, setMapClicked] = useState(false);
-  const [clickedMarker, setClickedMarker] = useState({});
+  const [clickedMarker, setClickedMarker] = useState(null);
   const [mapMarkers, setMapMarkers] = useState([]);
   const [submitOk, setSubmitOk] = useState({ done: false, message: "" });
   const [formUploadProgress, setFormUploadProgress] = useState(false);
 
   function activateMarker(marker) {
-    setClickedMarker(marker);
     fetchCatchCardsOnMarker(marker).then((data) => setCatchCards([...data]));
   }
 
@@ -162,9 +166,11 @@ export default function Map() {
     anchor: new google.maps.Point(15, 15),
   };
 
+  clickedMarker && console.log(clickedMarker);
+
   return (
     <>
-<BackgroundImage />
+      <BackgroundImage />
       {mapClicked && (
         <CatchForm
           catchCard={singleCatchCard}
@@ -201,7 +207,10 @@ export default function Map() {
           zoom={12}
           center={mapCenter}
           options={mapOptions}
-          onClick={addNewMapMarker}
+          onClick={(event) => {
+            addNewMapMarker(event);
+            setClickedMarker(null);
+          }}
           onLoad={onMapLoad}
         >
           {mapMarkers.length > 0 &&
@@ -210,14 +219,27 @@ export default function Map() {
                 key={index}
                 position={{ lat: marker.lat, lng: marker.lng }}
                 icon={
+                  clickedMarker &&
                   clickedMarker.lat === marker.lat &&
                   clickedMarker.lng === marker.lng
                     ? fishMarkerActive
                     : fishMarkerNotActive
                 }
-                onClick={() => activateMarker(marker)}
+                onClick={() => {
+                  activateMarker(marker);
+                  setClickedMarker(marker);
+                }}
               />
             ))}
+
+          {clickedMarker ? (
+            <InfoWindow
+              position={{ lat: clickedMarker.lat, lng: clickedMarker.lng }}
+              onCloseClick={() => setClickedMarker(null)}
+            >
+              <AddCatch onClick={addNewMapMarker}>Fang hier hinzufügen!</AddCatch>
+            </InfoWindow>
+          ) : null}
         </GoogleMap>
       </MapWrapper>
 
@@ -225,7 +247,6 @@ export default function Map() {
     </>
   );
 }
-
 
 const BackgroundImage = styled.div`
   background-image: url(${background});
@@ -272,4 +293,9 @@ const MapWrapper = styled.section`
 const SubmitMessage = styled.div`
   font-size: 1.2rem;
   text-align: center;
+`;
+
+const AddCatch = styled.div`
+  color: var(--color-two);
+  text-decoration: underline;
 `;
