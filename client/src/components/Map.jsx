@@ -11,6 +11,7 @@ import {
   fetchCatchCardsOnMarker,
 } from "../lib/fetchesMongodb";
 import CatchCard from "./CatchCard";
+import background from "../img/background.jpg";
 
 const mapContainerStyle = {
   width: "100%",
@@ -163,6 +164,7 @@ export default function Map() {
 
   return (
     <>
+<BackgroundImage />
       {mapClicked && (
         <CatchForm
           catchCard={singleCatchCard}
@@ -224,6 +226,16 @@ export default function Map() {
   );
 }
 
+
+const BackgroundImage = styled.div`
+  background-image: url(${background});
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: fixed;
+  inset: 0;
+  z-index: -15;
+`;
+
 const Loader = styled.div`
   border: 1rem solid var(--color-three);
   border-top: 1rem solid var(--color-two);
@@ -245,6 +257,7 @@ const Loader = styled.div`
 
 const MapWrapper = styled.section`
   border: 0.2rem solid var(--color-five);
+  box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   border-radius: 0.3rem;
   display: flex;
   flex-direction: column;

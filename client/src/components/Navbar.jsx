@@ -40,7 +40,7 @@ const AppNavbar = styled.nav`
   justify-content: space-evenly;
   align-content: center;
   align-items: center;
-
+ 
   a {
     color: var(--color-one);
     flex-grow: 1;

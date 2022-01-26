@@ -6,7 +6,7 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
-import "../lib/css/combobox-styles-weather.css";
+import "../lib/css/combobox-styles.css";
 import usePlacesAutocomplete, {
   getDetails,
   getGeocode,
@@ -33,7 +33,7 @@ export default function Search({ onFetchWeatherData }) {
         onSelect={async (address) => {
           setValue(address, false);
           clearSuggestions();
-          
+
           try {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
@@ -42,8 +42,6 @@ export default function Search({ onFetchWeatherData }) {
           } catch (error) {
             console.log("Error, something went wrong!");
           }
-
-          
         }}
       >
         <ComboboxInput
@@ -53,7 +51,7 @@ export default function Search({ onFetchWeatherData }) {
             setValue(event.target.value);
           }}
           disabled={!ready}
-          placeholder="Suche Ort..."
+          placeholder="Suche"
         />
 
         <ComboboxPopover>
@@ -70,6 +68,6 @@ export default function Search({ onFetchWeatherData }) {
 }
 
 const SearchbarWrapper = styled.div`
-margin: 6rem 2rem 3rem 2rem;
-text-align: center;
+  margin: 5rem 1rem 1rem 1rem;
+  text-align: center;
 `;

@@ -4,8 +4,9 @@
 
 [data-reach-combobox-popover] {
   background: #D9D9D9;
+  border-radius: 0 0 0.3rem 0.3rem;
   color: #353535;
-  border: none;
+  border: solid 3px #284B63;
   border-top: none;
   font-size: 85%;
 }
@@ -48,12 +49,17 @@
   border: solid 3px #284B63;
   color: #353535;
   text-align: center;
-  width: 100%;
+  width: 30%;
   box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
-  font-size: 1.2rem;
+  font-size: 0.5rem;
   opacity: 75%;
+  transition: width 1s, opacity 1s;
 }
 
 .input-combobox:focus{
+  border-radius: 0.3rem 0.3rem 0 0;
   opacity: 100%;
-}
+  width: 95%;
+  font-size: 1.2rem;
+  box-shadow: none;
+ }

@@ -25,13 +25,17 @@ body {
   font-family: Courier New, Courier,Lucida Sans Typewriter, Lucida Typewriter, monospace; 
 }
 
+button:disabled{
+  background-color: var(--color-one);
+  color: var(--color-four);
+  opacity: 50%;
+}
+
 h1 {
-color: var(--color-five);
-margin: 0;
-padding: 0.3rem 0 0.3rem 0;
-text-shadow: -1px -1px 0 var(--color-three),
-    1px -1px 0 var(--color-three), -1px 1px 0 var(--color-three),
-    1px 1px 0 var(--color-three);
+  color: var(--color-five);
+  margin: 0;
+  padding: 0.3rem 0 0.3rem 0;
+  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
 }
 
 input,

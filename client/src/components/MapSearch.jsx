@@ -6,7 +6,7 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
-import "../lib/css/combobox-styles-maps.css";
+import "../lib/css/combobox-styles.css"
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -50,7 +50,7 @@ export default function Search({ onGoTo }) {
             setValue(event.target.value);
           }}
           disabled={!ready}
-          placeholder="Suche Ort..."
+          placeholder="Suche..."
         />
 
         <ComboboxPopover>

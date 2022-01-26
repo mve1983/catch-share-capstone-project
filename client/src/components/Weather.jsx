@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { useLoadScript } from "@react-google-maps/api";
 import libraries from "../lib/googleLibs";
 import Search from "./WeatherSearch";
+import kompass from "../img/kompass.png";
+import arrow from "../img/arrow.png";
+import background from "../img/background.jpg";
 
 const weatherCode = [
   [0, "Unbekannt"],
@@ -67,15 +70,11 @@ export default function Weather() {
       new Date(Date.now() + 3600 * 1000 * 24).toISOString().substring(0, 19) +
       "Z";
     const fields = [
-      "precipitationIntensity",
-      "precipitationType",
-      "precipitationProbability",
       "windSpeed",
       "windDirection",
       "temperature",
       "weatherCode",
       "pressureSurfaceLevel",
-      "pressureSeaLevel",
     ];
 
     try {
@@ -97,9 +96,9 @@ export default function Weather() {
 
   return (
     <>
-      <Search onFetchWeatherData={fetchWeatherData} />
-
-      <OutputArea>
+      <BackgroundImage />
+      <WeatherSection>
+        <Search onFetchWeatherData={fetchWeatherData} />
         <Time>
           <button
             className={
@@ -166,45 +165,106 @@ export default function Weather() {
                     weatherData24Hours[parseInt(weatherTime)].values.weatherCode
                 )
                 .map((foundItem) => foundItem[1])
-            : "--"}
+            : "Wetter..."}
         </WeatherData>
-        <WeatherData>Nordost 14km/h</WeatherData>
-        <WeatherData>1034 hPa</WeatherData>
-      </OutputArea>
+        <WeatherData>
+          <KompassWrapper>
+            <Kompass src={kompass} alt="Kompass" />
+            <Arrow
+              wind={
+                weatherData24Hours.length > 0
+                  ? weatherData24Hours[parseInt(weatherTime)].values
+                      .windDirection
+                  : ""
+              }
+              src={arrow}
+              alt="Kompassnadel"
+            />
+            <Speed>
+              {weatherData24Hours.length > 0
+                ? Math.round(
+                    weatherData24Hours[parseInt(weatherTime)].values.windSpeed /
+                      0.514
+                  )
+                : "--"}
+              kn
+            </Speed>
+          </KompassWrapper>
+        </WeatherData>
+        <WeatherData>
+          {weatherData24Hours.length > 0
+            ? Math.floor(
+                weatherData24Hours[parseInt(weatherTime)].values
+                  .pressureSurfaceLevel
+              )
+            : "--"}
+          hPa
+        </WeatherData>
+      </WeatherSection>
     </>
   );
 }
 
-const OutputArea = styled.div`
-  margin: 1rem 2rem 5rem 2rem;
-  padding: 1rem;
-  border: 0.3rem solid var(--color-five);
-  border-radius: 0.3rem;
-  box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
-  text-align: center;
+const BackgroundImage = styled.div`
+   background-image: url(${background});
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: fixed;
+  inset: 0;
+  z-index: -15;
+`;
+
+const WeatherSection = styled.section`
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 6rem 1rem 5rem 1rem;
   text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+  text-align: center;
 `;
 
 const WeatherData = styled.div`
-  font-size: 1.2rem;
-  margin: 1rem;
+  margin: 0.3rem;
 `;
 const Temp = styled.div`
-  font-size: 1.6rem;
-  font-weight: bold;
+  margin: 0.3rem;
+  font-size: 1.4rem;
+
 `;
 const Place = styled.div`
-  display: flex;
-  font-size: 1.2rem;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  font-weight: bold;
+  text-align: center;
 `;
 
 const Time = styled.div`
+margin-bottom: 1rem;
+`;
+
+const KompassWrapper = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-content: center;
   align-items: center;
+`;
+
+const Kompass = styled.img`
+  width: 15rem;
+  height: 15rem;
+  position: relative;
+  filter: drop-shadow(0.2rem 0.1rem 0.1rem var(--color-shadow));
+`;
+
+const Arrow = styled.img`
+  max-width: 5rem;
+  max-height: 9rem;
+  transform: rotate(${(props) => props.wind + 180}deg);
+  position: absolute;
+`;
+
+const Speed = styled.div`
+  position: absolute;
+  font-size: 0.8rem;
+  background-color: var(--color-five);
+  padding: 0.2rem;
+  border-radius: 9999px;
+  text-shadow: none;
+  z-index: 15;
 `;
