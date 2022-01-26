@@ -5,7 +5,7 @@ export default function Account() {
   return (
   <>
     <BackgroundImage />
-  <AccountWrapper>Hello Account</AccountWrapper>)
+  <AccountWrapper>Hello Account</AccountWrapper>
   </>)
 }
 
