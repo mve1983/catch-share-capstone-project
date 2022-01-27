@@ -10,7 +10,7 @@ export default function Account() {
 }
 
 const AccountWrapper = styled.section`
-  margin: 7rem 1rem 7rem 1rem;
+  margin: 7rem 1rem 1rem 1rem;
   text-align: center;
 `;
 
