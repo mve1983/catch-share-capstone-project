@@ -179,13 +179,11 @@ const PhotoSmall = styled.img`
 
 const PhotoBig = styled.img`
   border-radius: 0.5rem;
-  max-width: 290px;
-  max-height: 200px;
+  max-height: 160px;
   margin-bottom: 1rem;
 
-  @media (min-width: 680px), (min-height: 1140px) {
-  max-width: 500px;
-  max-height: 400px;
+  @media (min-height: 1280px) {
+  max-height: 320px;
   }
 `;
 
