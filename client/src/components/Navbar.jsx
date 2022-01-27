@@ -33,14 +33,14 @@ const Footer = styled.footer`
 
 const AppNavbar = styled.nav`
   color: var(--color-one);
-  display: flex;
+   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
   flex-basis: 100%;
   justify-content: space-evenly;
   align-content: center;
   align-items: center;
-
+ 
   a {
     color: var(--color-one);
     flex-grow: 1;
@@ -60,7 +60,7 @@ const AppNavbar = styled.nav`
         border-radius: 0;
         font-size: 1rem;
         padding-bottom: 1rem;
-      }
+       }
       100% {
         border-radius: 0.3rem 0.3rem 0 0;
         font-size: 1.2rem;

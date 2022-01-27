@@ -127,6 +127,7 @@ const NoMarkerInfo = styled.div`
 const CardWrapperSmall = styled.article`
   background-color: var(--color-five);
   border: 0.2rem solid var(--color-four);
+  box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   border-radius: 0.3rem;
   height: 11rem;
   margin: 1rem;
