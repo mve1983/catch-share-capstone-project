@@ -179,9 +179,14 @@ const PhotoSmall = styled.img`
 
 const PhotoBig = styled.img`
   border-radius: 0.5rem;
-  max-width: 600px;
-  height: auto;
+  max-width: 290px;
+  max-height: 200px;
   margin-bottom: 1rem;
+
+  @media (min-width: 680px), (min-height: 1140px) {
+  max-width: 500px;
+  max-height: 400px;
+  }
 `;
 
 const Plus = styled.div`
