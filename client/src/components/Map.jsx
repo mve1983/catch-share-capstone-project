@@ -115,6 +115,7 @@ export default function Map() {
   });
 
   function addAdditionalCatchToMarker() {
+    setSingleCatchCard(initialCatchCard)
     setMapClicked(!mapClicked);
     addCoordinatesToCatchCard(clickedMarker.lat, clickedMarker.lng);
   }
