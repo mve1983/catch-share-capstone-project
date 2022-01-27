@@ -130,7 +130,7 @@ const NoMarkerInfo = styled.div`
 const CardFlexBoxWrapBigScreen = styled.section`
   display: flex;
   flex-wrap: wrap;
-  flex-basis: 100%;
+  flex-grow: 100%;
   justify-content: center;
   align-content: center;
   align-items: center;
