@@ -1,0 +1,1 @@
+import { CatchCard, Marker } from "./models/catchCard.model.js";
