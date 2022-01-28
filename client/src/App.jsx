@@ -1,3 +1,4 @@
+import "./lib/css/fonts.css"
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";

@@ -22,7 +22,7 @@ body {
   padding: 0;
   background: var(--color-one);
   color: var(--color-three);
-  font-family: Courier New, Courier,Lucida Sans Typewriter, Lucida Typewriter, monospace; 
+  font-family: 'Titillium Web', sans-serif;
 }
 
 button:disabled{
@@ -35,13 +35,13 @@ h1 {
   color: var(--color-five);
   margin: 0;
   padding: 0.3rem 0 0.3rem 0;
-  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
 }
 
 input,
 select {
   border: none;
   outline: none;
+  border-radius: 0.3rem;
   font-size: 0.8rem;
   background-color: var(--color-four);
   color: var(--color-one);
@@ -75,7 +75,7 @@ select {
 
 .form-border-transparent {
   display: block;
-  background-color: var(--color-three);
+  background-color: var(--color-one);
   position: fixed;
   inset: 0rem;
   opacity: 70%;
@@ -95,49 +95,51 @@ select {
 }
 
 .outer-form-container {
-  background-color: var(--color-five);
-  border-radius: 0.3rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  position: absolute;
+  background: linear-gradient(-45deg,var(--color-four), var(--color-five));
+  box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   inset: 2rem;
+  border-radius: 0.3rem;
+  display: block;
+  position: fixed;
   z-index: 15;
 }
 
 .fade-in-1sec {
-  animation: fadein1sec 1s linear;
+  animation: fadein1sec 1s ease-in-out;
   animation-fill-mode: forwards;
 }
 
 .fade-out-1sec {
-  animation: fadeout1sec 1s linear;
+  animation: fadeout1sec 1s ease-in-out;
   animation-fill-mode: forwards;
 }
 
 .fade-in-after-half-time {
-  animation: fadeoutafterhalf 5s linear;
+  animation: fadeoutafterhalf 3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.fade-in-nav {
+  animation: opennav 0.4s ease-in-out;
   animation-fill-mode: forwards;
 }
 
 @keyframes fadein1sec {
-    0% {
-      opacity: 0%;
-    }
-    100% {
-      opacity: 100%;
-    }
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
 }
 
 @keyframes fadeout1sec {
-    0% {
-      opacity: 100%;
-    }
-    100% {
-      opacity: 0%;
-    }
+  0% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0%;
+  }
 }
 
 @keyframes fadeoutafterhalf {
@@ -149,6 +151,21 @@ select {
   }
   100% {
     opacity: 0%
+  }
+}
+
+@keyframes opennav {
+  0% {
+    display: initial;
+    color: transparent;
+    width: 0rem;
+  }
+  90% {
+    color: transparent;
+  }
+  100% {
+    color: var(--color-one);
+    width: 8rem;
   }
 }
 

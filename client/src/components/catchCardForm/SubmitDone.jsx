@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import confirm from "../../img/green-confirm.png";
 
 export default function SubmitDone({ submitOk }) {
   return (
@@ -8,8 +7,7 @@ export default function SubmitDone({ submitOk }) {
       <SubmitWrapper>
         <SubmitMessage>
           <div>{submitOk.message}</div>
-          <ConfirmSign src={confirm} alt="confirm sign" />
-        </SubmitMessage>
+           </SubmitMessage>
       </SubmitWrapper>
     </>
   );
@@ -90,9 +88,4 @@ const SubmitMessage = styled.section`
   inset: 2rem;
   position: fixed;
   text-align: center;
-`;
-
-const ConfirmSign = styled.img`
-  width: 2rem;
-  height: auto;
 `;

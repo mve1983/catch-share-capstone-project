@@ -1,5 +1,10 @@
 import { useState, useCallback, useRef } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
 import styled from "styled-components";
 import mapStyle from "../lib/mapStyle";
 import libraries from "../lib/googleLibs";
@@ -47,19 +52,18 @@ export default function Map() {
   const [singleCatchCard, setSingleCatchCard] = useState(initialCatchCard);
   const [catchCards, setCatchCards] = useState([]);
   const [mapClicked, setMapClicked] = useState(false);
-  const [clickedMarker, setClickedMarker] = useState({});
+  const [clickedMarker, setClickedMarker] = useState(null);
   const [mapMarkers, setMapMarkers] = useState([]);
   const [submitOk, setSubmitOk] = useState({ done: false, message: "" });
   const [formUploadProgress, setFormUploadProgress] = useState(false);
 
   function activateMarker(marker) {
-    setClickedMarker(marker);
     fetchCatchCardsOnMarker(marker).then((data) => setCatchCards([...data]));
   }
 
   function formUploadSetter() {
     setFormUploadProgress(true);
-    setTimeout(() => setFormUploadProgress(false), 10000);
+    setTimeout(() => setFormUploadProgress(false), 5000);
   }
 
   function addCoordinatesToCatchCard(newlat, newlng) {
@@ -75,14 +79,19 @@ export default function Map() {
       if (result.done) {
         setFormUploadProgress(false);
         setSubmitOk({ done: true, message: result.message });
-        setTimeout(() => setSubmitOk({ done: false, message: "" }), 5000);
+        if (clickedMarker) activateMarker(clickedMarker);
+        if (!clickedMarker) {
+          setClickedMarker(mapMarkers[mapMarkers.length - 1]);
+          activateMarker(mapMarkers[mapMarkers.length - 1]);
+        }
+        setTimeout(() => setSubmitOk({ done: false, message: "" }), 3000);
       } else {
         setSubmitOk({
           done: true,
           message:
             "Datenbank nicht erreichbar. / Admin informiert. / Bitte später versuchen.",
         });
-        setTimeout(() => setSubmitOk({ done: false, message: "" }), 5000);
+        setTimeout(() => setSubmitOk({ done: false, message: "" }), 3000);
       }
     });
   };
@@ -104,6 +113,18 @@ export default function Map() {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
     libraries,
   });
+
+  function addAdditionalCatchToMarker() {
+    const newLat = clickedMarker.lat
+    const newLng = clickedMarker.lng
+    setSingleCatchCard(initialCatchCard)
+    setMapClicked(!mapClicked);
+    addCoordinatesToCatchCard(newLat, newLng);
+    setMapMarkers([
+      ...mapMarkers,
+      { lat: newLat, lng: newLng},
+    ]);
+  }
 
   const addNewMapMarker = useCallback((event) => {
     setMapClicked(!mapClicked);
@@ -164,7 +185,7 @@ export default function Map() {
 
   return (
     <>
-<BackgroundImage />
+      <BackgroundImage />
       {mapClicked && (
         <CatchForm
           catchCard={singleCatchCard}
@@ -177,10 +198,10 @@ export default function Map() {
         <>
           <div className="form-border-transparent"></div>
           <section className="outer-form-container">
-            <div className="inner-form-container">
+          <div className="inner-form-container">
               <Loader></Loader>
               <SubmitMessage>Wird übermittelt...</SubmitMessage>
-            </div>
+              </div>
           </section>
         </>
       )}
@@ -201,7 +222,11 @@ export default function Map() {
           zoom={12}
           center={mapCenter}
           options={mapOptions}
-          onClick={addNewMapMarker}
+          onClick={(event) => {
+            addNewMapMarker(event);
+            setClickedMarker(null);
+          }}
+          onDragStart={() => setClickedMarker(null)}
           onLoad={onMapLoad}
         >
           {mapMarkers.length > 0 &&
@@ -210,14 +235,29 @@ export default function Map() {
                 key={index}
                 position={{ lat: marker.lat, lng: marker.lng }}
                 icon={
+                  clickedMarker &&
                   clickedMarker.lat === marker.lat &&
                   clickedMarker.lng === marker.lng
                     ? fishMarkerActive
                     : fishMarkerNotActive
                 }
-                onClick={() => activateMarker(marker)}
+                onClick={() => {
+                  activateMarker(marker);
+                  setClickedMarker(marker);
+                }}
               />
             ))}
+
+          {clickedMarker ? (
+            <InfoWindow
+              position={{ lat: clickedMarker.lat, lng: clickedMarker.lng }}
+              onCloseClick={() => setClickedMarker(null)}
+            >
+              <AddCatch onClick={addAdditionalCatchToMarker}>
+                Fang hier hinzufügen!
+              </AddCatch>
+            </InfoWindow>
+          ) : null}
         </GoogleMap>
       </MapWrapper>
 
@@ -225,7 +265,6 @@ export default function Map() {
     </>
   );
 }
-
 
 const BackgroundImage = styled.div`
   background-image: url(${background});
@@ -238,6 +277,8 @@ const BackgroundImage = styled.div`
 `;
 
 const Loader = styled.div`
+top: 30%;
+position: fixed;
   border: 1rem solid var(--color-three);
   border-top: 1rem solid var(--color-two);
   border-radius: 50%;
@@ -257,7 +298,7 @@ const Loader = styled.div`
 `;
 
 const MapWrapper = styled.section`
-  border: 0.2rem solid var(--color-five);
+  border: 0.2rem solid var(--color-four);
   box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   border-radius: 0.3rem;
   display: flex;
@@ -270,6 +311,21 @@ const MapWrapper = styled.section`
 `;
 
 const SubmitMessage = styled.div`
+top: 50%;
+position: fixed;
   font-size: 1.2rem;
   text-align: center;
+`;
+
+const AddCatch = styled.div`
+  color: var(--color-two);
+  padding-top: 1rem;
+  text-decoration: underline;
+
+  :hover {
+    cursor: pointer;
+  }
+  :active {
+    cursor: pointer;
+  }
 `;

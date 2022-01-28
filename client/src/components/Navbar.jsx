@@ -1,71 +1,91 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import menu from "../img/menu.png";
+import { useState } from "react";
 
 export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+
+  function menuSetter() {
+setMenuOpen(!menuOpen)
+  }
+
   return (
-    <Footer>
-      <AppNavbar>
-        <NavLink to="/">Start</NavLink>
+    <>
+      <MenuButton>
+        <img onClick={menuSetter} src={menu} alt="Menu-Button" />
+              </MenuButton>
+              <LoggedStatus>Logged in als: <br /> TestUser</LoggedStatus>
+      {menuOpen && (
+        <AppNavbar className="fade-in-nav">
+          <NavLink className="fade-in-nav" onClick={menuSetter} to="/">
+            Start
+          </NavLink>
 
-        <NavLink to="/map">Karte</NavLink>
+          <NavLink className="fade-in-nav" onClick={menuSetter} to="/map">
+            Karte
+          </NavLink>
 
-        <NavLink to="/weather">Wetter</NavLink>
+          <NavLink className="fade-in-nav" onClick={menuSetter} to="/weather">
+            Wetter
+          </NavLink>
 
-        <NavLink to="account">Account</NavLink>
-      </AppNavbar>
-    </Footer>
+          <NavLink className="fade-in-nav" onClick={menuSetter} to="account">
+            Account
+          </NavLink>
+        </AppNavbar>
+      )}
+     
+        </>
   );
 }
 
-const Footer = styled.footer`
-  background-color: var(--color-four);
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
+const MenuButton = styled.div`
+  background-color: transparent;
   position: fixed;
-  height: 3rem;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 5;
+  left: 0.5rem;
+  top: 3.5rem;
+  z-index: 10;
+
+  img {
+    width: 2rem;
+  }
+`;
+
+const LoggedStatus = styled.div`
+  background-color: transparent;
+  font-size: 0.8rem;
+  position: fixed;
+  right: 0.5rem;
+  top: 3.5rem;
+  text-align: right;
+  z-index: 10;
 `;
 
 const AppNavbar = styled.nav`
-  color: var(--color-one);
-   display: flex;
-  flex-wrap: wrap;
-  flex-grow: 1;
-  flex-basis: 100%;
-  justify-content: space-evenly;
-  align-content: center;
-  align-items: center;
- 
+  background-color: var(--color-four);
+  border-radius: 0.3rem;
+  display: none;
+  position: fixed;
+  left: 2.2rem;
+  top: 5.3rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 25;
+
   a {
-    color: var(--color-one);
-    flex-grow: 1;
-    padding: 1rem 0 1rem 0;
+    display: block;
+    border-radius: 0.3rem;
     text-align: center;
+    font-size: 1.4rem;
+    font-weight: bold;
     text-decoration: none;
-  }
+    color: var(--color-one);
+    padding: 1rem;
 
-  .active {
-    animation: active-nav 0.3s linear;
-    animation-fill-mode: forwards;
-    color: var(--color-five);
-    background-color: var(--color-three);
-
-    @keyframes active-nav {
-      0% {
-        border-radius: 0;
-        font-size: 1rem;
-        padding-bottom: 1rem;
-       }
-      100% {
-        border-radius: 0.3rem 0.3rem 0 0;
-        font-size: 1.2rem;
-        padding-bottom: 2rem;
-      }
+    :hover {
+      background-color: var(--color-three);
     }
   }
 `;

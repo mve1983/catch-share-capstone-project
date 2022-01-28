@@ -218,13 +218,13 @@ const BackgroundImage = styled.div`
 const WeatherSection = styled.section`
   font-size: 1.2rem;
   font-weight: bold;
-  margin: 6rem 1rem 5rem 1rem;
+  margin: 6rem 1rem 1rem 1rem;
   text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   text-align: center;
 `;
 
 const WeatherData = styled.div`
-  margin: 0.3rem;
+  margin: 0.5rem;
 `;
 const Temp = styled.div`
   margin: 0.3rem;
@@ -246,8 +246,8 @@ const KompassWrapper = styled.div`
 `;
 
 const Kompass = styled.img`
-  width: 15rem;
-  height: 15rem;
+  width: 16rem;
+  height: 16rem;
   position: relative;
   filter: drop-shadow(0.2rem 0.1rem 0.1rem var(--color-shadow));
 `;
@@ -261,9 +261,9 @@ const Arrow = styled.img`
 
 const Speed = styled.div`
   position: absolute;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   background-color: var(--color-five);
-  padding: 0.2rem;
+  padding: 0.3rem;
   border-radius: 9999px;
   text-shadow: none;
   z-index: 15;

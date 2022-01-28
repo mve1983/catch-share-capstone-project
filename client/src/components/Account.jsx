@@ -5,12 +5,12 @@ export default function Account() {
   return (
   <>
     <BackgroundImage />
-  <AccountWrapper>Hello Account</AccountWrapper>)
+  <AccountWrapper>Hello Account</AccountWrapper>
   </>)
 }
 
 const AccountWrapper = styled.section`
-  margin: 7rem 1rem 7rem 1rem;
+  margin: 7rem 1rem 1rem 1rem;
   text-align: center;
 `;
 
