@@ -1,8 +1,9 @@
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import path from "path";
 import multer from "multer";
+import path from "path";
+
 import MapRoutes from "./routes/map.routes.js";
 
 dotenv.config();
@@ -22,8 +23,6 @@ mongoose.connect(
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
-server.use("/api", [MapRoutes]);
-
 const storage = multer.diskStorage({
   destination: `${__dirname}/uploads`,
   filename: (_req, file, cb) => {
@@ -31,12 +30,16 @@ const storage = multer.diskStorage({
     cb(null, fileName);
   },
 });
+
 const uploadImage = multer({ storage }).single("catchPhoto");
-server.post("/image", uploadImage, (req, res) => {
+
+server.post("/api/image",uploadImage, (req, res) => {
   if (req.file)
     return res.json({ message: "Upload ok", photoPath: req.file.path });
   res.send("Upload failed");
 });
+
+server.use("/api", [MapRoutes]);
 
 server.use(express.static(path.join(__dirname, "./client/dist")));
 server.get("/*", (_req, res) => {

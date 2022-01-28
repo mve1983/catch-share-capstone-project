@@ -7,8 +7,8 @@ import {
 
 const router = express.Router();
 
-router.get("/api/catchcards/markers", getAllMarkers);
-router.get("/api/catchcards/onmarker/:markerlatlng", getCatchcardsOnMarker);
-router.post("/api/catchcards", saveNewCatchCard);
+router.get("/catchcards/markers", getAllMarkers);
+router.get("/catchcards/onmarker/:markerlatlng", getCatchcardsOnMarker);
+router.post("/catchcards", saveNewCatchCard);
 
 export default router;

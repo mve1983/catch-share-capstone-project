@@ -319,7 +319,7 @@ position: fixed;
 
 const AddCatch = styled.div`
   color: var(--color-two);
-  padding-top: 1rem;
+  padding: 0.5rem;
   text-decoration: underline;
 
   :hover {
