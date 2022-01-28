@@ -31,7 +31,8 @@ setMenuOpen(!menuOpen)
             Wetter
           </NavLink>
 
-          <NavLink className="fade-in-nav" onClick={menuSetter} to="account">
+          <NavLink className="fade-in-nav" onClick={menuSetter} to="/account">
+            
             Account
           </NavLink>
         </AppNavbar>

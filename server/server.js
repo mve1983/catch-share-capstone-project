@@ -3,7 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import multer from "multer";
 import path from "path";
-
+import { notFound, errorHandler } from "./middlewares/errorMiddlewares.js"
 import MapRoutes from "./routes/map.routes.js";
 
 dotenv.config();
@@ -45,6 +45,9 @@ server.use(express.static(path.join(__dirname, "./client/dist")));
 server.get("/*", (_req, res) => {
   res.sendFile(path.join(__dirname, "./client/dist", "index.html"));
 });
+
+server.use(notFound)
+server.use(errorHandler)
 
 server.listen(PORT, () => {
   console.log("CatchandShare Server is up and running on port " + PORT);

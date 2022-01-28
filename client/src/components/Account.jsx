@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import background from "../img/background.jpg";
+import Login from "./Login";
 
 export default function Account() {
   return (
   <>
     <BackgroundImage />
-  <AccountWrapper>Hello Account</AccountWrapper>
+  <AccountWrapper>Hello Account
+
+    <Login />
+    
+  </AccountWrapper>
   </>)
 }
 
