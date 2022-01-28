@@ -115,9 +115,15 @@ export default function Map() {
   });
 
   function addAdditionalCatchToMarker() {
+    const newLat = clickedMarker.lat
+    const newLng = clickedMarker.lng
     setSingleCatchCard(initialCatchCard)
     setMapClicked(!mapClicked);
-    addCoordinatesToCatchCard(clickedMarker.lat, clickedMarker.lng);
+    addCoordinatesToCatchCard(newLat, newLng);
+    setMapMarkers([
+      ...mapMarkers,
+      { lat: newLat, lng: newLng},
+    ]);
   }
 
   const addNewMapMarker = useCallback((event) => {
