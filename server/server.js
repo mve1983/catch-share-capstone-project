@@ -5,6 +5,7 @@ import multer from "multer";
 import path from "path";
 import { notFound, errorHandler } from "./middlewares/errorMiddlewares.js"
 import MapRoutes from "./routes/map.routes.js";
+import UserRoutes from "./routes/user.routes.js"
 
 dotenv.config();
 
@@ -39,7 +40,7 @@ server.post("/api/image",uploadImage, (req, res) => {
   res.send("Upload failed");
 });
 
-server.use("/api", [MapRoutes]);
+server.use("/api", [UserRoutes, MapRoutes]);
 
 server.use(express.static(path.join(__dirname, "./client/dist")));
 server.get("/*", (_req, res) => {

@@ -43,10 +43,12 @@ setMenuOpen(!menuOpen)
 }
 
 const MenuButton = styled.div`
-  background-color: transparent;
+  background-color: var(--color-four);
+  border-radius: 0 0 0.3rem 0;
+  padding: 0.3rem 0.3rem 0.1rem 0.3rem;
   position: fixed;
-  left: 0.5rem;
-  top: 3.5rem;
+  left: 0;
+  top: 2.8rem;
   z-index: 10;
 
   img {
@@ -66,11 +68,11 @@ const LoggedStatus = styled.div`
 
 const AppNavbar = styled.nav`
   background-color: var(--color-four);
-  border-radius: 0.3rem;
+  border-radius: 0 0.3rem 0.3rem 0.3rem;
   display: none;
   position: fixed;
-  left: 2.2rem;
-  top: 5.3rem;
+  left: 2.5rem;
+  top: 3rem;
   display: flex;
   flex-direction: column;
   z-index: 25;
@@ -79,11 +81,11 @@ const AppNavbar = styled.nav`
     display: block;
     border-radius: 0.3rem;
     text-align: center;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: bold;
     text-decoration: none;
     color: var(--color-one);
-    padding: 1rem;
+    padding: 1rem 0.3rem 1rem 0.3rem;
 
     :hover {
       background-color: var(--color-three);

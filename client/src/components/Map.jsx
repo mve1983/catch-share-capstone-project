@@ -253,9 +253,11 @@ export default function Map() {
               position={{ lat: clickedMarker.lat, lng: clickedMarker.lng }}
               onCloseClick={() => setClickedMarker(null)}
             >
+              
               <AddCatch onClick={addAdditionalCatchToMarker}>
-                Fang hier hinzufügen!
+                Fang <br />hinzufügen!
               </AddCatch>
+         
             </InfoWindow>
           ) : null}
         </GoogleMap>
@@ -319,7 +321,9 @@ position: fixed;
 
 const AddCatch = styled.div`
   color: var(--color-two);
-  padding: 0.5rem;
+  display: inline-block;
+  margin: 0.2rem 0.2rem 0.2rem 0;
+  padding: 0.2rem 0.2rem 0.2rem 0;
   text-decoration: underline;
 
   :hover {

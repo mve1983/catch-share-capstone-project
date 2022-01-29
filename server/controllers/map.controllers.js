@@ -50,7 +50,7 @@ const saveNewCatchCard = async (req, res) => {
   try {
     await newCatch.save();
     await newMarker.save();
-    res.json({ done: true, message: "Fangmeldung erfolgreich erstellt." });
+    res.json({ done: true, message: "Fangmeldung erstellt." });
   } catch (error) {
     res.json({ done: false, message: error.message });
   }

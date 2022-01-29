@@ -145,6 +145,7 @@ const CardWrapperSmall = styled.article`
   min-width: 343px;
   max-width: 500px;
   margin: 1rem;
+  padding: 0.5rem;
   position: relative;
   display: flex;
   justify-content: space-evenly;
@@ -162,6 +163,7 @@ const CardPhoto = styled.div`
 `;
 
 const CardInfoSmall = styled.div`
+  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -172,22 +174,28 @@ const CardInfoSmall = styled.div`
 `;
 
 const PhotoSmall = styled.img`
+  box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   border-radius: 0.5rem;
   max-height: 9rem;
   max-width: 9rem;
 `;
 
 const PhotoBig = styled.img`
+  box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   border-radius: 0.5rem;
   max-height: 160px;
   margin-bottom: 1rem;
 
   @media (min-height: 1280px) {
-  max-height: 320px;
+    max-height: 320px;
   }
 `;
 
 const Plus = styled.div`
+  background-color: var(--color-five);
+  padding: 0.2rem 0.2rem 0.1rem 0.2rem;
+  box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+  border-radius: 9999px;
   position: absolute;
   right: 1rem;
   bottom: 1rem;
@@ -198,6 +206,7 @@ const FormatDiv = styled.div`
 `;
 
 const CloseButton = styled.button`
+  box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   color: var(--color-four);
   border-radius: 0.3rem;
   padding: 0.3rem;
@@ -216,16 +225,16 @@ const CardInfoBig = styled.div`
   border-bottom: 1px solid var(--color-three);
   display: flex;
   flex-direction: column;
+  margin: 0 0.3rem 0.3rem 0.3rem;
+  padding: 0.5rem;
   justify-content: center;
   align-content: center;
   align-items: center;
-  line-height: 1.2rem;
-  margin: 0.6rem;
   width: 70vw;
 `;
 
 const Data = styled.div`
-  font-size: 1.1rem;
+  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   font-weight: bold;
   margin-right: 0.5rem;
 `;

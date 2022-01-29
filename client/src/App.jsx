@@ -1,5 +1,5 @@
-import "./lib/css/fonts.css"
-import { Routes, Route } from "react-router-dom";
+import "./lib/css/fonts.css";
+import { Navigate, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
@@ -13,12 +13,14 @@ export default function App() {
     <>
       <Header />
 
+
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/map" element={<Map />} />
         <Route path="/weather" element={<Weather />} />
         <Route path="/account" element={<Account />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
 
       <Navbar />
