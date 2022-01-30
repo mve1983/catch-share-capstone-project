@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import plus from "../img/plus.png";
+import plus from "../../img/plus.png";
 
 export default function CatchCard({ catchCards }) {
   const [bigCardToShowID, setBigCardToShowID] = useState("");

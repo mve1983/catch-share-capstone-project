@@ -37,6 +37,10 @@ h1 {
   padding: 0.3rem 0 0.3rem 0;
 }
 
+h2 {
+  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+}
+
 input,
 select {
   border: none;

@@ -1,4 +1,4 @@
-import angler from "../img/angler.jpg";
+import angler from "../../img/angler.jpg";
 import styled from "styled-components";
 
 export default function Header() {

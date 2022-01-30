@@ -6,7 +6,7 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
-import "../lib/css/combobox-styles.css"
+import "../../lib/css/combobox-styles.css"
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,

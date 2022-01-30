@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import styled from "styled-components";
 import { useLoadScript } from "@react-google-maps/api";
-import libraries from "../lib/googleLibs";
+import libraries from "../../lib/googleLibs";
 import Search from "./WeatherSearch";
-import kompass from "../img/kompass.png";
-import arrow from "../img/arrow.png";
-import background from "../img/background.jpg";
+import kompass from "../../img/kompass.png";
+import arrow from "../../img/arrow.png";
+import background from "../../img/background.jpg";
 
 const weatherCode = [
   [0, "Unbekannt"],
@@ -34,7 +35,7 @@ const weatherCode = [
   [8000, "Gewitter"],
 ];
 
-export default function Weather() {
+export default function Weather({ userInfo }) {
   let dateHelper = new Date().toISOString();
   let yyyy = dateHelper.substring(0, 4);
   let dd = dateHelper.substring(8, 10);
@@ -93,6 +94,8 @@ export default function Weather() {
 
   if (loadError) return "Load Error";
   if (!isLoaded) return "Loading Map";
+
+  if (!userInfo) return <Navigate to="/"/>
 
   return (
     <>

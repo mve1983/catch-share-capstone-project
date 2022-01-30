@@ -1,15 +1,19 @@
 import styled from "styled-components";
-import background from "../img/background.jpg";
-import Login from "./Login";
+import { Navigate } from "react-router-dom";
+import background from "../../img/background.jpg";
 
-export default function Account() {
+
+
+export default function Account({ userInfo }) {
+
+  if (!userInfo) return <Navigate to="/"/>
+
   return (
   <>
     <BackgroundImage />
   <AccountWrapper>Hello Account
 
-    <Login />
-    
+   
   </AccountWrapper>
   </>)
 }

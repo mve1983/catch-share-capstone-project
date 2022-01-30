@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef } from "react";
+import { Navigate } from "react-router-dom";
 import {
   GoogleMap,
   useLoadScript,
@@ -6,17 +7,17 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import styled from "styled-components";
-import mapStyle from "../lib/mapStyle";
-import libraries from "../lib/googleLibs";
+import mapStyle from "../../lib/mapStyle";
+import libraries from "../../lib/googleLibs";
 import Search from "./MapSearch";
-import CatchForm from "./catchCardForm/CatchForm";
+import CatchForm from "../catchCardForm/CatchForm";
 import {
   addCatchCardToDatabase,
   fetchAllMapMarkers,
   fetchCatchCardsOnMarker,
-} from "../lib/fetchesMongodb";
-import CatchCard from "./CatchCard";
-import background from "../img/background.jpg";
+} from "../../lib/fetchesMongodb";
+import CatchCard from "../catchCardForm/CatchCard";
+import background from "../../img/background.jpg";
 
 const mapContainerStyle = {
   width: "100%",
@@ -34,7 +35,7 @@ const mapOptions = {
   zoomControl: true,
 };
 
-export default function Map() {
+export default function Map({ userInfo }) {
   const initialCatchCard = {
     name: "TestUser",
     fishtype: "",
@@ -182,6 +183,8 @@ export default function Map() {
     scale: 1.6,
     anchor: new google.maps.Point(15, 15),
   };
+
+if (!userInfo) return <Navigate to="/"/>
 
   return (
     <>
