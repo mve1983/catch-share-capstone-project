@@ -92,7 +92,7 @@ export default function Home({
       <BackgroundImage />
       <HomeWrapper>
         <section>
-          <h2>Willkommen {userInfo ? userInfo.name : "Fremder"}!</h2>
+          <h2>Willkommen {userInfo ? userInfo.name : ""}!</h2>
 
           {!userInfo && !registerClicked && (
             <>
