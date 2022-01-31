@@ -53,9 +53,9 @@ export default function App() {
           path="/"
           element={<Home userInfo={userInfo} initialUser={initialUser} onHandleInputChange={handleInputChange} onGetUserInfo={getUserInfo} />}
         />
-        <Route path="/map" element={<Map userInfo={userInfo} />} />
-        <Route path="/weather" element={<Weather userInfo={userInfo} />} />
-        <Route path="/account" element={<Account userInfo={userInfo} />} />
+        <Route path="/map" element={!userInfo ? <Navigate to="/" /> : <Map userInfo={userInfo} />} />
+        <Route path="/weather" element={!userInfo ? <Navigate to="/" /> : <Weather userInfo={userInfo} />} />
+        <Route path="/account" element={!userInfo ? <Navigate to="/" /> : <Account userInfo={userInfo} />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
 

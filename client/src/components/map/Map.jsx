@@ -37,8 +37,8 @@ const mapOptions = {
 
 export default function Map({ userInfo }) {
   const initialCatchCard = {
-    name: "TestUser",
-    fishtype: "",
+    name: userInfo.name,
+    fishtype: "A N D E R E",
     date: "",
     time: "",
     length: 0,
@@ -46,7 +46,7 @@ export default function Map({ userInfo }) {
     latlng: { lat: 0, lng: 0 },
     bait: "",
     depth: 0,
-    tackle: "",
+    tackle: "A N D E R E",
     img: "",
   };
 
@@ -312,7 +312,7 @@ const MapWrapper = styled.section`
   align-content: center;
   align-items: center;
   position: relative;
-  margin: 6rem 1rem 1rem 1rem;
+  margin: 7rem 1rem 1rem 1rem;
 `;
 
 const SubmitMessage = styled.div`

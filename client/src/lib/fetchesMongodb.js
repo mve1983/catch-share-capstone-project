@@ -28,4 +28,15 @@ async function fetchAllMapMarkers() {
   return resultJson;
 }
 
-export { fetchCatchCardsOnMarker, addCatchCardToDatabase, fetchAllMapMarkers };
+async function fetchThreeNewestCatchCards() {
+  const result = await fetch("/api/catchcards/threenewest");
+  const resultJson = await result.json();
+  return resultJson;
+}
+
+export {
+  fetchCatchCardsOnMarker,
+  addCatchCardToDatabase,
+  fetchAllMapMarkers,
+  fetchThreeNewestCatchCards,
+};

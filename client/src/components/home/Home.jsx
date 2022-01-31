@@ -1,17 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import background from "../../img/background.jpg";
 import Login from "./Login";
 import Register from "./Register";
+import CatchCard from "../catchCardForm/CatchCard";
+import { checkRegisterForm } from "../../lib/userRegisterValidation";
+import { fetchThreeNewestCatchCards } from "../../lib/fetchesMongodb";
 
-export default function Home({ userInfo, initialUser, onHandleInputChange, onGetUserInfo }) {
-
-  const [registerClicked, setRegisterClicked] = useState(false)
-
-
+export default function Home({
+  userInfo,
+  initialUser,
+  onHandleInputChange,
+  onGetUserInfo,
+}) {
+  const [registerClicked, setRegisterClicked] = useState(false);
   const [error, setError] = useState("");
+  const [threeNewestCatches, setThreeNewestCatches] = useState([]);
 
-
+  useEffect(() => {
+    fetchThreeNewestCatchCards().then((data) =>
+      setThreeNewestCatches([...data])
+    );
+  }, []);
 
   function registerSetter() {
     setRegisterClicked(!registerClicked);
@@ -44,10 +54,15 @@ export default function Home({ userInfo, initialUser, onHandleInputChange, onGet
   async function submitHandlerRegister(event) {
     event.preventDefault();
     setError("");
-    registerSetter()
 
-    if (initialUser.password !== initialUser.confirmPassword)
-      setError("Passwörter müssen gleich sein!");
+    const formValidated = checkRegisterForm(
+      initialUser.name,
+      initialUser.email,
+      initialUser.password,
+      initialUser.confirmPassword
+    );
+  
+    if (!formValidated[0]) return setError(formValidated[1]);
 
     const result = await fetch("/api/user/register", {
       method: "POST",
@@ -68,6 +83,7 @@ export default function Home({ userInfo, initialUser, onHandleInputChange, onGet
     } else {
       localStorage.setItem("__CandSUserInfo__", JSON.stringify(resultJson));
       onGetUserInfo();
+      registerSetter();
     }
   }
 
@@ -77,7 +93,7 @@ export default function Home({ userInfo, initialUser, onHandleInputChange, onGet
       <HomeWrapper>
         <section>
           <h2>Willkommen {userInfo ? userInfo.name : "Fremder"}!</h2>
-          <div></div>
+
           {!userInfo && !registerClicked && (
             <>
               <div>
@@ -98,9 +114,7 @@ export default function Home({ userInfo, initialUser, onHandleInputChange, onGet
 
           {registerClicked && !userInfo && (
             <>
-              <div>
-                AhhGanz neu, bitte registriere dich und wähle einen Usernamen.
-              </div>
+              <div>Bitte registriere dich und wähle einen Usernamen.</div>
               <Register
                 initialUser={initialUser}
                 error={error}
@@ -113,12 +127,13 @@ export default function Home({ userInfo, initialUser, onHandleInputChange, onGet
 
           {userInfo && (
             <div>
-              Schön, dass du da bist, siehe dir die drei neuesten
-              Fangmeldungen an.
+              Schön, dass du da bist, siehe dir die drei neuesten Fangmeldungen
+              an.
             </div>
           )}
         </section>
       </HomeWrapper>
+      {userInfo && <CatchCard catchCards={threeNewestCatches} />}
     </>
   );
 }
@@ -126,6 +141,19 @@ export default function Home({ userInfo, initialUser, onHandleInputChange, onGet
 const HomeWrapper = styled.section`
   margin: 7rem 1rem 1rem 1rem;
   text-align: center;
+  position: relative;
+  z-index: 5;
+
+  button {
+    background-color: var(--color-five);
+    border: none;
+    border-radius: 0.3rem;
+    box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+    color: var(--color-three);
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    outline: none;
+  }
 `;
 
 const BackgroundImage = styled.div`

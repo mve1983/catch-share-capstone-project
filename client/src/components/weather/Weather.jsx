@@ -221,7 +221,7 @@ const BackgroundImage = styled.div`
 const WeatherSection = styled.section`
   font-size: 1.2rem;
   font-weight: bold;
-  margin: 6rem 1rem 1rem 1rem;
+  margin: 7rem 1rem 1rem 1rem;
   text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   text-align: center;
 `;

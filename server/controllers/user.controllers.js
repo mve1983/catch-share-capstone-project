@@ -5,10 +5,16 @@ import { generateToken } from "../utils/generateToken.js";
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   const userExists = await User.findOne({ email });
+  const userExists2 = await User.findOne({ name });
 
   if (userExists) {
     res.status(400);
-    throw new Error("User already exists");
+    throw new Error("User existiert bereits!");
+  }
+
+  if (userExists2) {
+    res.status(400);
+    throw new Error("Username bereits vergeben!");
   }
 
   const user = await User.create({
@@ -43,7 +49,7 @@ const authUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Invalid E-Mail or Password");
+    throw new Error("Unbekannte E-Mail oder Passwort");
   }
 });
 

@@ -47,12 +47,12 @@ export default function Navbar({ userInfo, onSetUserBackToInitial, onGetUserInfo
         </AppNavbar>
       )}
 
-      <LoggedStatus>Test</LoggedStatus>
+      <LoggedStatus> {!userInfo ? "nicht eingeloggt" : <div>eingeloggt: <br/> {userInfo.name} </div>}</LoggedStatus>
       <LoggedButton onClick={logoutSetter}>
         <img src={userInfo ? logged : notlogged} alt="logged-status" />
       </LoggedButton>
       {userInfo && logoutOpen && (
-        <Logout
+        <Logout className="fade-in-nav"
           onClick={() => {
             logout();
             logoutSetter();
@@ -72,7 +72,7 @@ const MenuButton = styled.div`
   padding: 0.2rem 0.2rem 0.03rem 0.2rem;
   position: fixed;
   left: 0;
-  top: 2.8rem;
+  top: 3.3rem;
   z-index: 10;
 
   img {
@@ -86,7 +86,7 @@ const LoggedButton = styled.div`
   padding: 0.2rem 0.2rem 0.03rem 0.2rem;
   position: fixed;
   right: 0;
-  top: 2.8rem;
+  top: 3.3rem;
   z-index: 10;
 
   img {
@@ -98,36 +98,44 @@ const LoggedButton = styled.div`
 const Logout = styled.div`
   color: var(--color-one);
   background-color: var(--color-four);
-  border-radius: 0 0.3rem 0.3rem 0.3rem;
+  cursor: pointer;
+  border-radius: 0.3rem 0 0 0.3rem;
   padding: 1rem 0.3rem 1rem 0.3rem;
   font-size: 1.2rem;
   font-weight: bold;
   position: fixed;
   right: 0;
-top: 4.7rem;
+top: 5.2rem;
+text-align: center;
   z-index: 10;
+
+  :hover {
+      background-color: var(--color-three);
+    }
 `;
 
 const LoggedStatus = styled.div`
   background-color: transparent;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
+  font-weight: bold;
   position: fixed;
-  right: 2rem;
-  top: 3.5rem;
+  right: 2.2rem;
+  top: 3.6rem;
   text-align: right;
+  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   z-index: 10;
 `;
 
 const AppNavbar = styled.nav`
   background-color: var(--color-four);
-  border-radius: 0 0.3rem 0 0.3rem;
+  border-radius: 0 0.3rem 0.3rem 0;
   display: none;
   position: fixed;
   left: 0;
-  top: 4.7rem;
+  top: 5.2rem;
   display: flex;
   flex-direction: column;
-  z-index: 25;
+  z-index: 10;
 
   a {
     display: block;
