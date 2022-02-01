@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import menu from "../../img/menu.png";
 import logged from "../../img/logged.png";
 import notlogged from "../../img/notlogged.png";

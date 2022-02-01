@@ -7,6 +7,7 @@ import { notFound, errorHandler } from "./middlewares/errorMiddlewares.js"
 import MapRoutes from "./routes/map.routes.js";
 import UserRoutes from "./routes/user.routes.js"
 import HomeRoutes from "./routes/home.routes.js";
+import AccountRoutes from "./routes/account.routes.js";
 
 dotenv.config();
 
@@ -41,7 +42,7 @@ server.post("/api/image",uploadImage, (req, res) => {
   res.send("Upload failed");
 });
 
-server.use("/api", [UserRoutes, HomeRoutes, MapRoutes]);
+server.use("/api", [UserRoutes, HomeRoutes, MapRoutes, AccountRoutes]);
 
 server.use(express.static(path.join(__dirname, "./client/dist")));
 server.get("/*", (_req, res) => {

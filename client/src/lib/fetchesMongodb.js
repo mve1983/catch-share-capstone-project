@@ -34,9 +34,17 @@ async function fetchThreeNewestCatchCards() {
   return resultJson;
 }
 
+async function fetchCatchCardsWithUserName(name) {
+  const result = await fetch(`/api/catchcards/${name}`);
+  const resultJson = await result.json();
+  return resultJson;
+}
+
+
 export {
   fetchCatchCardsOnMarker,
   addCatchCardToDatabase,
   fetchAllMapMarkers,
   fetchThreeNewestCatchCards,
+  fetchCatchCardsWithUserName
 };
