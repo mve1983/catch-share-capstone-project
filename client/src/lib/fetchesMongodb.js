@@ -55,11 +55,27 @@ async function fetchDeleteOneCatchCard(id) {
   }
 }
 
+async function fetchDeleteUser(id) {
+  try {
+    const result = await fetch(`/api/user/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      });
+    const resultJson = await result.json();
+    return resultJson;
+  } catch (error) {
+    return error.message;
+  }
+}
+
 export {
   fetchCatchCardsOnMarker,
   addCatchCardToDatabase,
   fetchAllMapMarkers,
   fetchThreeNewestCatchCards,
   fetchCatchCardsWithUserName,
-  fetchDeleteOneCatchCard
+  fetchDeleteOneCatchCard,
+  fetchDeleteUser
 };

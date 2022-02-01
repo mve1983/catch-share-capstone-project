@@ -1,18 +1,21 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import background from "../../img/background.jpg";
 import {
   fetchCatchCardsWithUserName,
   fetchDeleteOneCatchCard,
+  fetchDeleteUser,
 } from "../../lib/fetchesMongodb";
 
-export default function Account({ userInfo }) {
+export default function Account({ userInfo, onGetUserInfo }) {
   const [userCatchCards, setUserCatchCards] = useState([]);
   const [newFilteredCardArray, setNewFilteredCardArray] = useState([]);
   const [currentSearch, setCurrentSearch] = useState("");
   const [showDetailedCards, setShowDetailedCards] = useState([]);
   const [cardToDelete, setCardToDelete] = useState("");
   const [confirmMessage, setConfirmMessage] = useState({});
+  const [deleteAccount, setDeleteAccount] = useState("");
 
   useEffect(() => {
     function loadUserCatchCards(name) {
@@ -53,6 +56,10 @@ export default function Account({ userInfo }) {
     setCardToDelete(id);
   }
 
+  function deleteAccountConfirm(_event, id) {
+    setDeleteAccount(id);
+  }
+
   async function confirmedMarkerDeleteOrNotDelete(event) {
     if (event.target.value === "no") return setCardToDelete("");
     fetchDeleteOneCatchCard(cardToDelete).then((data) => {
@@ -62,15 +69,37 @@ export default function Account({ userInfo }) {
     setTimeout(() => setConfirmMessage({}), 3000);
   }
 
+  async function confirmedAccountDeleteOrNotDelete(event) {
+    if (event.target.value === "no") return setDeleteAccount("");
+    fetchDeleteUser(deleteAccount).then((data) => {
+      setConfirmMessage(data);
+      setDeleteAccount("")
+    });
+    setTimeout(() => {
+     localStorage.removeItem("__CandSUserInfo__");
+      onGetUserInfo()
+    }, 3000);
+  }
+
   return (
     <>
       <BackgroundImage />
+
       <AccountWrapper>
-        <article>
-          <div>{userInfo.name}</div>
-          <div>{userInfo.email}</div>
-          <div>Geteilte Fänge: {userCatchCards.length}</div>
-        </article>
+        <User>
+          <UserItem1>
+            <div>Name: {userInfo.name}</div>
+            <div>E-Mail: {userInfo.email}</div>
+            <div>Fänge: {userCatchCards.length}</div>
+          </UserItem1>
+          <UserItem2>
+            <button
+              onClick={(event) => deleteAccountConfirm(event, userInfo._id)}
+            >
+              Account löschen
+            </button>
+          </UserItem2>
+        </User>
         <p>
           <Search
             type="text"
@@ -138,44 +167,62 @@ export default function Account({ userInfo }) {
             ))
           )}
         </CardWrapper>
-
-        {cardToDelete && (
-          <div className="fade-in-1sec">
-            <div className="form-border-transparent"></div>
-            <DeleteWrapper>
-              <div>Wirklich undwideruflich löschen?</div>
-              <button onClick={confirmedMarkerDeleteOrNotDelete} value="yes">
-                Löschen
-              </button>
-              <button onClick={confirmedMarkerDeleteOrNotDelete} value="no">
-                Abbrechen
-              </button>
-            </DeleteWrapper>
-          </div>
-        )}
-
-        {confirmMessage.done && (
-          <div className="fade-out-3sec">
-            <div className="form-border-transparent"></div>
-            <DeleteWrapper>
-              <div>{confirmMessage.message}</div>
-              <button disabled>Löschen</button>
-              <button disabled>Abbrechen</button>
-            </DeleteWrapper>
-          </div>
-        )}
-
-        {confirmMessage.done === false && (
-          <div className="fade-out-3sec">
-            <div className="form-border-transparent"></div>
-            <DeleteWrapper>
-              <div>{confirmMessage.message}</div>
-              <button disabled>Löschen</button>
-              <button disabled>Abbrechen</button>
-            </DeleteWrapper>
-          </div>
-        )}
       </AccountWrapper>
+
+      {cardToDelete && (
+        <div className="fade-in-1sec accountpage-confirms-container">
+          <div className="form-border-transparent"></div>
+          <DeleteUpdateWrapper>
+            <div>Wirklich undwideruflich löschen?</div>
+            <button onClick={confirmedMarkerDeleteOrNotDelete} value="yes">
+              Löschen
+            </button>
+            <button onClick={confirmedMarkerDeleteOrNotDelete} value="no">
+              Abbrechen
+            </button>
+          </DeleteUpdateWrapper>
+        </div>
+      )}
+
+      {deleteAccount && (
+        <div className="fade-in-1sec accountpage-confirms-container">
+          <div className="form-border-transparent"></div>
+          <DeleteUpdateWrapper>
+            <div>Wirklich Account löschen?</div>
+            <Alert>
+              Alle Daten und Fangkarten werden unwiderruflich gelöscht!
+            </Alert>
+            <button onClick={confirmedAccountDeleteOrNotDelete} value="yes">
+              Löschen
+            </button>
+            <button onClick={confirmedAccountDeleteOrNotDelete} value="no">
+              Abbrechen
+            </button>
+          </DeleteUpdateWrapper>
+        </div>
+      )}
+
+      {confirmMessage.done && (
+        <div className="fade-out-3sec accountpage-confirms-container">
+          <div className="form-border-transparent"></div>
+          <DeleteUpdateWrapper>
+            <div>{confirmMessage.message}</div>
+            <button disabled>Löschen</button>
+            <button disabled>Abbrechen</button>
+          </DeleteUpdateWrapper>
+        </div>
+      )}
+
+      {confirmMessage.done === false && (
+        <div className="fade-out-3sec accountpage-confirms-container">
+          <div className="form-border-transparent"></div>
+          <DeleteUpdateWrapper>
+            <div>{confirmMessage.message}</div>
+            <button disabled>Löschen</button>
+            <button disabled>Abbrechen</button>
+          </DeleteUpdateWrapper>
+        </div>
+      )}
     </>
   );
 }
@@ -193,6 +240,47 @@ const BackgroundImage = styled.div`
 const AccountWrapper = styled.section`
   margin: 7rem 1rem 1rem 1rem;
   text-align: center;
+`;
+
+const Alert = styled.div`
+  color: red;
+`;
+
+const User = styled.article`
+  border-bottom: 1px solid var(--color-four);
+  box-shadow: 0rem 0.1rem 0.1rem -0.1rem var(--color-shadow);
+  padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+  font-size: 1.1rem;
+`;
+
+const UserItem1 = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+  font-size: 1.1rem;
+`;
+const UserItem2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  button {
+    border: none;
+    border-radius: 0.3rem;
+    outline: none;
+    padding: 0.1rem 0.3rem;
+    box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+    color: var(--color-three);
+    background-color: var(--color-five);
+  }
 `;
 
 const Search = styled.input`
@@ -258,7 +346,7 @@ const CardItem = styled.div`
   }
 `;
 
-const DeleteWrapper = styled.div`
+const DeleteUpdateWrapper = styled.div`
   background: linear-gradient(-45deg, var(--color-four), var(--color-five));
   box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   border-radius: 0.3rem;
@@ -270,7 +358,7 @@ const DeleteWrapper = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  position: absolute;
+  position: fixed;
   z-index: 15;
 
   button {

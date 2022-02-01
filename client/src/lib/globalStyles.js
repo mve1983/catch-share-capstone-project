@@ -102,6 +102,14 @@ select {
   z-index: 15;
 }
 
+.accountpage-confirms-container {
+  inset: 2rem;
+  border-radius: 0.3rem;
+  display: block;
+  position: fixed;
+  z-index: 15;
+}
+
 .fade-in-1sec {
   animation: fadein1sec 1s ease-in-out;
   animation-fill-mode: forwards;
