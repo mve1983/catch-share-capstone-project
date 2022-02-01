@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import background from "../../img/background.jpg";
 import {
   fetchCatchCardsWithUserName,
-  deleteOneCatchCard,
+  fetchDeleteOneCatchCard,
 } from "../../lib/fetchesMongodb";
 
 export default function Account({ userInfo }) {
@@ -12,13 +12,14 @@ export default function Account({ userInfo }) {
   const [currentSearch, setCurrentSearch] = useState("");
   const [showDetailedCards, setShowDetailedCards] = useState([]);
   const [cardToDelete, setCardToDelete] = useState("");
+  const [confirmMessage, setConfirmMessage] = useState({});
 
   useEffect(() => {
     function loadUserCatchCards(name) {
       fetchCatchCardsWithUserName(name).then((data) => setUserCatchCards(data));
     }
     loadUserCatchCards(userInfo.name);
-  }, []);
+  }, [confirmMessage]);
 
   function filterCards(event) {
     setCurrentSearch(event.target.value);
@@ -52,6 +53,15 @@ export default function Account({ userInfo }) {
     setCardToDelete(id);
   }
 
+  async function confirmedMarkerDeleteOrNotDelete(event) {
+    if (event.target.value === "no") return setCardToDelete("");
+    fetchDeleteOneCatchCard(cardToDelete).then((data) => {
+      setConfirmMessage(data);
+      setCardToDelete("");
+    });
+    setTimeout(() => setConfirmMessage({}), 3000);
+  }
+
   return (
     <>
       <BackgroundImage />
@@ -61,13 +71,15 @@ export default function Account({ userInfo }) {
           <div>{userInfo.email}</div>
           <div>Geteilte Fänge: {userCatchCards.length}</div>
         </article>
-
-        <CardWrapper>
+        <p>
           <Search
             type="text"
             onChange={filterCards}
             placeholder="Suche nach Fisch oder Datum(Bsp.2022-01-25)"
           />
+        </p>
+
+        <CardWrapper>
           {currentSearch.length > 0 && newFilteredCardArray.length === 0 ? (
             <NotFound>Leider nichts mit den Daten gefunden.</NotFound>
           ) : (
@@ -127,15 +139,41 @@ export default function Account({ userInfo }) {
           )}
         </CardWrapper>
 
-        {cardToDelete.length > 0 && (
-          <>
+        {cardToDelete && (
+          <div className="fade-in-1sec">
             <div className="form-border-transparent"></div>
             <DeleteWrapper>
               <div>Wirklich undwideruflich löschen?</div>
-              <button>Löschen</button>
-              <button>Abbrechen</button>
+              <button onClick={confirmedMarkerDeleteOrNotDelete} value="yes">
+                Löschen
+              </button>
+              <button onClick={confirmedMarkerDeleteOrNotDelete} value="no">
+                Abbrechen
+              </button>
             </DeleteWrapper>
-          </>
+          </div>
+        )}
+
+        {confirmMessage.done && (
+          <div className="fade-out-3sec">
+            <div className="form-border-transparent"></div>
+            <DeleteWrapper>
+              <div>{confirmMessage.message}</div>
+              <button disabled>Löschen</button>
+              <button disabled>Abbrechen</button>
+            </DeleteWrapper>
+          </div>
+        )}
+
+        {confirmMessage.done === false && (
+          <div className="fade-out-3sec">
+            <div className="form-border-transparent"></div>
+            <DeleteWrapper>
+              <div>{confirmMessage.message}</div>
+              <button disabled>Löschen</button>
+              <button disabled>Abbrechen</button>
+            </DeleteWrapper>
+          </div>
         )}
       </AccountWrapper>
     </>
@@ -176,18 +214,17 @@ const CardWrapper = styled.section`
   justify-content: center;
   align-content: center;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
 `;
 
 const Card = styled.article`
   background: linear-gradient(-45deg, var(--color-four), var(--color-five));
-  border: 0.2rem solid var(--color-four);
   box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   border-radius: 0.3rem;
   font-size: 0.8rem;
   min-width: 343px;
   max-width: 500px;
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -230,11 +267,11 @@ const DeleteWrapper = styled.div`
   gap: 1rem;
   padding: 3rem;
   text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
-  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 25;
+  position: absolute;
+  z-index: 15;
 
   button {
     border: none;

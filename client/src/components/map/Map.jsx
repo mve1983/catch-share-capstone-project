@@ -284,8 +284,6 @@ const BackgroundImage = styled.div`
 const Loader = styled.div`
 top: 30%;
 position: fixed;
-  border: 1rem solid var(--color-three);
-  border-top: 1rem solid var(--color-two);
   border-radius: 50%;
   margin-bottom: 1rem;
   width: 6rem;
@@ -303,7 +301,6 @@ position: fixed;
 `;
 
 const MapWrapper = styled.section`
-  border: 0.2rem solid var(--color-four);
   box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   border-radius: 0.3rem;
   display: flex;

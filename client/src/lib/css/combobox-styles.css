@@ -3,11 +3,12 @@
 }
 
 [data-reach-combobox-popover] {
-  background: #D9D9D9;
-  border-radius: 0 0 0.3rem 0.3rem;
+  box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+  background: #d9d9d9;
+  border-radius: 0.3rem;
   color: #353535;
-  border: solid 3px #284B63;
-  border-top: none;
+  border: none;
+  outline: none;
   font-size: 85%;
 }
 
@@ -25,18 +26,18 @@
 }
 
 [data-reach-combobox-option][aria-selected="true"] {
-  background: #284B63;
-  color: #D9D9D9;
+  background: #284b63;
+  color: #d9d9d9;
 }
 
 [data-reach-combobox-option]:hover {
-  background: #284B63;
-  color: #D9D9D9;
+  background: #284b63;
+  color: #d9d9d9;
 }
 
 [data-reach-combobox-option][aria-selected="true"]:hover {
-  background: #284B63;
-  color: #D9D9D9;
+  background: #284b63;
+  color: #d9d9d9;
 }
 
 [data-suggested-value] {
@@ -44,22 +45,22 @@
 }
 
 .input-combobox {
-  background-color: #D9D9D9;
+  box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+  background-color: #d9d9d9;
   border-radius: 0.3rem;
-  border: solid 3px #284B63;
+  border: none;
+  outline: none;
   color: #353535;
   text-align: center;
   width: 30%;
-  box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   font-size: 0.5rem;
   opacity: 75%;
-  transition: width 1s, opacity 1s;
+  transition: width 0.6s, opacity 0.6s;
 }
 
-.input-combobox:focus{
-  border-radius: 0.3rem 0.3rem 0 0;
+.input-combobox:focus {
+  border-radius: 0.3rem;
   opacity: 100%;
-  width: 95%;
+  width: 80%;
   font-size: 1.2rem;
-  box-shadow: none;
- }
+}

@@ -40,15 +40,14 @@ async function fetchCatchCardsWithUserName(name) {
   return resultJson;
 }
 
-async function deleteOneCatchCard(id) {
+async function fetchDeleteOneCatchCard(id) {
   try {
     const result = await fetch(`/api/catchcards/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(id),
-    });
+      });
     const resultJson = await result.json();
     return resultJson;
   } catch (error) {
@@ -62,5 +61,5 @@ export {
   fetchAllMapMarkers,
   fetchThreeNewestCatchCards,
   fetchCatchCardsWithUserName,
-  deleteOneCatchCard
+  fetchDeleteOneCatchCard
 };

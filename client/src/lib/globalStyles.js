@@ -108,7 +108,12 @@ select {
 }
 
 .fade-out-1sec {
-  animation: fadeout1sec 1s ease-in-out;
+  animation: fadeoutsec 1s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.fade-out-3sec {
+  animation: fadeoutsec 3s ease-in-out;
   animation-fill-mode: forwards;
 }
 
@@ -131,7 +136,7 @@ select {
   }
 }
 
-@keyframes fadeout1sec {
+@keyframes fadeoutsec {
   0% {
     opacity: 100%;
   }
