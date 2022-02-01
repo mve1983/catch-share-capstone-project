@@ -13,7 +13,7 @@ export default function Account({ userInfo }) {
     loadUserCatchCards(userInfo.name);
   }, []);
 
-  console.log(userCatchCards);
+  console.log(userCatchCards[0]);
 
   return (
     <>
