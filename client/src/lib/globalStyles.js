@@ -31,10 +31,8 @@ button:disabled{
   opacity: 50%;
 }
 
-h1 {
-  color: var(--color-five);
-  margin: 0;
-  padding: 0.3rem 0 0.3rem 0;
+h2 {
+  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
 }
 
 input,

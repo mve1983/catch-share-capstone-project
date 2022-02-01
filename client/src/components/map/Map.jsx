@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef } from "react";
+import { Navigate } from "react-router-dom";
 import {
   GoogleMap,
   useLoadScript,
@@ -6,17 +7,17 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import styled from "styled-components";
-import mapStyle from "../lib/mapStyle";
-import libraries from "../lib/googleLibs";
+import mapStyle from "../../lib/mapStyle";
+import libraries from "../../lib/googleLibs";
 import Search from "./MapSearch";
-import CatchForm from "./catchCardForm/CatchForm";
+import CatchForm from "../catchCardForm/CatchForm";
 import {
   addCatchCardToDatabase,
   fetchAllMapMarkers,
   fetchCatchCardsOnMarker,
-} from "../lib/fetchesMongodb";
-import CatchCard from "./CatchCard";
-import background from "../img/background.jpg";
+} from "../../lib/fetchesMongodb";
+import CatchCard from "../catchCardForm/CatchCard";
+import background from "../../img/background.jpg";
 
 const mapContainerStyle = {
   width: "100%",
@@ -34,10 +35,10 @@ const mapOptions = {
   zoomControl: true,
 };
 
-export default function Map() {
+export default function Map({ userInfo }) {
   const initialCatchCard = {
-    name: "TestUser",
-    fishtype: "",
+    name: userInfo.name,
+    fishtype: "A N D E R E",
     date: "",
     time: "",
     length: 0,
@@ -45,7 +46,7 @@ export default function Map() {
     latlng: { lat: 0, lng: 0 },
     bait: "",
     depth: 0,
-    tackle: "",
+    tackle: "A N D E R E",
     img: "",
   };
 
@@ -183,6 +184,8 @@ export default function Map() {
     anchor: new google.maps.Point(15, 15),
   };
 
+if (!userInfo) return <Navigate to="/"/>
+
   return (
     <>
       <BackgroundImage />
@@ -253,9 +256,11 @@ export default function Map() {
               position={{ lat: clickedMarker.lat, lng: clickedMarker.lng }}
               onCloseClick={() => setClickedMarker(null)}
             >
+              
               <AddCatch onClick={addAdditionalCatchToMarker}>
-                Fang hier hinzufügen!
+                Fang <br />hinzufügen!
               </AddCatch>
+         
             </InfoWindow>
           ) : null}
         </GoogleMap>
@@ -307,7 +312,7 @@ const MapWrapper = styled.section`
   align-content: center;
   align-items: center;
   position: relative;
-  margin: 6rem 1rem 1rem 1rem;
+  margin: 7rem 1rem 1rem 1rem;
 `;
 
 const SubmitMessage = styled.div`
@@ -319,7 +324,9 @@ position: fixed;
 
 const AddCatch = styled.div`
   color: var(--color-two);
-  padding-top: 1rem;
+  display: inline-block;
+  margin: 0.2rem 0.2rem 0.2rem 0;
+  padding: 0.2rem 0.2rem 0.2rem 0;
   text-decoration: underline;
 
   :hover {

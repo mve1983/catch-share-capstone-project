@@ -1,27 +1,65 @@
-import "./lib/css/fonts.css"
-import { Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Navbar from "./components/Navbar";
-import ScrollToTop from "./components/ScrollToTop";
-import Home from "./components/Home";
-import Map from "./components/Map";
-import Weather from "./components/Weather";
-import Account from "./components/Account";
+import "./lib/css/fonts.css";
+import { Navigate, Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
+import ScrollToTop from "./lib/utils/ScrollToTop";
+import Header from "./components/header/Header";
+import Navbar from "./components/navigation/Navbar";
+import Home from "./components/home/Home";
+import Map from "./components/map/Map";
+import Weather from "./components/weather/Weather";
+import Account from "./components/account/Account";
 
 export default function App() {
+
+  const blankUser = {
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  }
+
+  const [userInfo, setUserInfo] = useState(null);
+
+  const [initialUser, setInitialUser] = useState(blankUser);
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  function getUserInfo() {
+    const getInfo = JSON.parse(localStorage.getItem("__CandSUserInfo__"));
+    setUserInfo(getInfo);
+  }
+
+  function setUserBackToInitial() {
+    setInitialUser(blankUser)
+  }
+
+  const handleInputChange = (name, value) => {
+    setInitialUser({
+      ...initialUser,
+      [name]: value,
+    });
+  };
+
+
   return (
     <>
       <Header />
 
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/map" element={<Map />} />
-        <Route path="/weather" element={<Weather />} />
-        <Route path="/account" element={<Account />} />
+        <Route
+          path="/"
+          element={<Home userInfo={userInfo} initialUser={initialUser} onHandleInputChange={handleInputChange} onGetUserInfo={getUserInfo} />}
+        />
+        <Route path="/map" element={!userInfo ? <Navigate to="/" /> : <Map userInfo={userInfo} />} />
+        <Route path="/weather" element={!userInfo ? <Navigate to="/" /> : <Weather userInfo={userInfo} />} />
+        <Route path="/account" element={!userInfo ? <Navigate to="/" /> : <Account userInfo={userInfo} />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
 
-      <Navbar />
+      <Navbar userInfo={userInfo} onSetUserBackToInitial={setUserBackToInitial} onGetUserInfo={getUserInfo} />
     </>
   );
 }

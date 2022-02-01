@@ -1,10 +1,12 @@
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import path from "path";
 import multer from "multer";
-import { CatchCard, Marker } from "./models/catchCard.model.js";
-import fs from "fs";
+import path from "path";
+import { notFound, errorHandler } from "./middlewares/errorMiddlewares.js"
+import MapRoutes from "./routes/map.routes.js";
+import UserRoutes from "./routes/user.routes.js"
+import HomeRoutes from "./routes/home.routes.js";
 
 dotenv.config();
 
@@ -12,12 +14,10 @@ const __dirname = process.cwd();
 const server = express();
 
 const PORT = process.env.PORT || 4000;
-
 const dbUser = process.env.DB_USER;
 const dbPw = process.env.DB_PW;
 const dbHost = process.env.DB_HOST;
 const dbName = process.env.DB_NAME;
-
 mongoose.connect(
   `mongodb+srv://${dbUser}:${dbPw}@${dbHost}/${dbName}?retryWrites=true&w=majority`
 );
@@ -35,72 +35,22 @@ const storage = multer.diskStorage({
 
 const uploadImage = multer({ storage }).single("catchPhoto");
 
-server.post("/image", uploadImage, (req, res) => {
+server.post("/api/image",uploadImage, (req, res) => {
   if (req.file)
     return res.json({ message: "Upload ok", photoPath: req.file.path });
   res.send("Upload failed");
 });
 
-server.get("/api/catchcards/markers", async (_req, res) => {
-  const allMarkers = await Marker.find();
-  res.json(allMarkers);
-});
-
-server.get("/api/catchcards/onmarker/:markerlatlng", async (req, res) => {
-  let splitter = req.params.markerlatlng.indexOf("_");
-  let searchlat = req.params.markerlatlng.substring(0, splitter);
-  let searchlng = req.params.markerlatlng.substring(
-    splitter + 1,
-    req.params.markerlatlng.length
-  );
-  const foundCatchCards = await CatchCard.find({
-    "latlng.lat": searchlat,
-    "latlng.lng": searchlng,
-  });
-  res.json(foundCatchCards);
-});
-
-server.post("/api/catchcards", async (req, res) => {
-  let newMarker = new Marker({
-    lat: req.body.latlng.lat,
-    lng: req.body.latlng.lng,
-  });
-
-  function imageInBase64(image) {
-    if (image.length === 0) return "" 
-    let image64 = fs.readFileSync(image, { encoding: "base64" });
-    return image64;
-  }
-  let img64 = imageInBase64(req.body.img)
-
-  let newCatch = new CatchCard({
-    name: req.body.name,
-    fishtype: req.body.fishtype,
-    date: req.body.date,
-    time: req.body.time,
-    length: req.body.length,
-    weight: req.body.weight,
-    latlng: req.body.latlng,
-    bait: req.body.bait,
-    depth: req.body.depth,
-    tackle: req.body.tackle,
-    img: img64,
-  });
-
-  try {
-    await newCatch.save();
-    await newMarker.save();
-    res.json({done: true, message: "Fangmeldung erfolgreich erstellt."});
-  } catch (error) {
-    res.json({done: false, message: error.message});
-  }
-});
+server.use("/api", [UserRoutes, HomeRoutes, MapRoutes]);
 
 server.use(express.static(path.join(__dirname, "./client/dist")));
 server.get("/*", (_req, res) => {
   res.sendFile(path.join(__dirname, "./client/dist", "index.html"));
 });
 
+server.use(notFound)
+server.use(errorHandler)
+
 server.listen(PORT, () => {
-  console.log("Fish-Finder Server is up and running on port " + PORT);
+  console.log("CatchandShare Server is up and running on port " + PORT);
 });

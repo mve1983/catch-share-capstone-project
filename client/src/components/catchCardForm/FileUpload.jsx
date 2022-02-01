@@ -26,7 +26,7 @@ export default function PhotoPicker({
   const [photoPreviewPath, setPhotoPreviewPath] = useState("");
 
   catchUppy.use(XHRUpload, {
-    endpoint: "/image",
+    endpoint: "/api/image",
     fieldName: "catchPhoto",
     formData: true,
   });
