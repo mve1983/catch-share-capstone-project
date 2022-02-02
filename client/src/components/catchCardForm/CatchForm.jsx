@@ -1,9 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-import PhotoPicker from "./FileUpload.jsx";
-import Fishtype from "./Fishtype.jsx";
-import CatchDate from "./CatchDate.jsx";
-import DepthLengthWeight from "./DepthLengthWeight.jsx";
+import PhotoPicker from "./FileUpload";
+import Fishtype from "./Fishtype";
+import CatchDate from "./CatchDate";
+import DepthLengthWeight from "./DepthLengthWeight";
+import { catchFormValidation } from "../../lib/catchFormValidation";
 import Bait from "./Bait.jsx";
 import Tackle from "./Tackle.jsx";
 
@@ -14,9 +15,17 @@ export default function CatchForm({
   onInputChange,
 }) {
   const [photoUploadDone, setPhotoUploadDone] = useState(false);
+  const [catchCardValidated, setCatchCardValidated] = useState([true, ""]);
 
   function initialPhotoUploadSetter() {
     setPhotoUploadDone(!photoUploadDone);
+  }
+
+  function validatedCatchData(event) {
+    const check = catchFormValidation(catchCard);
+    if (!check[0]) return setCatchCardValidated(check);
+    onHandleSubmit(event);
+    initialPhotoUploadSetter();
   }
 
   function handleChangeString(event) {
@@ -86,6 +95,9 @@ export default function CatchForm({
             />
           </form>
         </fieldset>
+        {!catchCardValidated[0] && (
+          <NotValidated>{catchCardValidated[1]}</NotValidated>
+        )}
         <FormButtons>
           <CancelButton
             onClick={(event) => {
@@ -95,12 +107,7 @@ export default function CatchForm({
           >
             <strong>Abbrechen</strong>
           </CancelButton>
-          <ConfirmButton
-            onClick={(event) => {
-              onHandleSubmit(event);
-              initialPhotoUploadSetter();
-            }}
-          >
+          <ConfirmButton onClick={validatedCatchData}>
             <strong>Veröffentlichen</strong>
           </ConfirmButton>
         </FormButtons>
@@ -132,4 +139,13 @@ const CancelButton = styled.button`
   padding: 0.3rem;
   border: none;
   background-color: darkred;
+`;
+
+const NotValidated = styled.div`
+  color: var(--color-two);
+  background-color: var(--color-three);
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+  margin: 0.5rem;
+  text-align: center;
 `;

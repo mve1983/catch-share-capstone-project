@@ -25,6 +25,10 @@ body {
   font-family: 'Titillium Web', sans-serif;
 }
 
+button {
+  cursor: pointer;
+}
+
 button:disabled{
   background-color: var(--color-one);
   color: var(--color-four);

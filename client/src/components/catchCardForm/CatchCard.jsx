@@ -193,6 +193,7 @@ const PhotoBig = styled.img`
 
 const Plus = styled.div`
   background-color: var(--color-five);
+  cursor: pointer;
   padding: 0.2rem 0.2rem 0.1rem 0.2rem;
   box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   border-radius: 9999px;

@@ -82,6 +82,7 @@ export default function Navbar({
 const MenuButton = styled.div`
   background-color: var(--color-four);
   border-radius: 0 0 0.3rem 0;
+  cursor: pointer;
   padding: 0.2rem 0.2rem 0.03rem 0.2rem;
   position: fixed;
   left: 0;
@@ -96,6 +97,7 @@ const MenuButton = styled.div`
 const LoggedButton = styled.div`
   background-color: var(--color-four);
   border-radius: 0 0 0 0.3rem;
+  cursor: pointer;
   padding: 0.2rem 0.2rem 0.03rem 0.2rem;
   position: fixed;
   right: 0;

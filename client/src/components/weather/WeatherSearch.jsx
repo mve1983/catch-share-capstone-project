@@ -68,6 +68,6 @@ export default function Search({ onFetchWeatherData }) {
 }
 
 const SearchbarWrapper = styled.div`
-  margin: 5rem 1rem 1rem 1rem;
+  margin: 5rem 1rem 0rem 1rem;
   text-align: center;
 `;
