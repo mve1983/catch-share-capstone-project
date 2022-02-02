@@ -8,7 +8,7 @@ import {
   fetchDeleteUser,
 } from "../../lib/fetchesMongodb";
 
-export default function Account({ userInfo, onGetUserInfo }) {
+export default function Account({ userInfo, onGetUserInfo, onSetUserBackToInitial }) {
   const [userCatchCards, setUserCatchCards] = useState([]);
   const [newFilteredCardArray, setNewFilteredCardArray] = useState([]);
   const [currentSearch, setCurrentSearch] = useState("");
@@ -77,6 +77,7 @@ export default function Account({ userInfo, onGetUserInfo }) {
     });
     setTimeout(() => {
       localStorage.removeItem("__CandSUserInfo__");
+      onSetUserBackToInitial()
       onGetUserInfo();
     }, 3000);
   }

@@ -76,7 +76,7 @@ export default function App() {
             !userInfo ? (
               <Navigate to="/" />
             ) : (
-              <Account userInfo={userInfo} onGetUserInfo={getUserInfo} />
+              <Account userInfo={userInfo} onGetUserInfo={getUserInfo} onSetUserBackToInitial={setUserBackToInitial} />
             )
           }
         />
