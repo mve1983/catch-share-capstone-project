@@ -90,6 +90,7 @@ select {
   align-items: center;
   margin: 0.5rem;
   padding: 0.3rem;
+  text-shadow: 0.1rem 0.05rem 0.05rem var(--color-shadow);
 }
 
 .outer-form-container {

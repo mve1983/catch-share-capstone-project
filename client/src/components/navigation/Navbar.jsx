@@ -52,12 +52,11 @@ export default function Navbar({
       )}
 
       <LoggedStatus>
-        {" "}
         {!userInfo ? (
           "nicht eingeloggt"
         ) : (
           <div>
-            eingeloggt: <br /> {userInfo.name}{" "}
+            eingeloggt: <br /> {userInfo.name}
           </div>
         )}
       </LoggedStatus>
@@ -136,7 +135,7 @@ const LoggedStatus = styled.div`
   right: 2.2rem;
   top: 3.6rem;
   text-align: right;
-  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+  text-shadow: 0.1rem 0.05rem 0.05rem var(--color-shadow);
   z-index: 10;
 `;
 

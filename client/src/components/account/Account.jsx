@@ -263,7 +263,6 @@ const User = styled.article`
   display: flex;
   gap: 2.6rem;
   max-width: 343px;
-  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   font-size: 0.9rem;
 `;
 
@@ -271,8 +270,8 @@ const UserItem1 = styled.div`
   display: flex;
   flex-direction: column;
   text-align: left;
-  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   font-size: 0.9rem;
+  text-shadow: 0.1rem 0.05rem 0.05rem var(--color-shadow);
 `;
 const UserItem2 = styled.div`
   display: flex;
@@ -337,7 +336,7 @@ const CardItem = styled.div`
   align-content: center;
   align-items: center;
   gap: 5rem;
-  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+  text-shadow: 0.1rem 0.05rem 0.05rem var(--color-shadow);
 
   button {
     border: none;
@@ -364,7 +363,7 @@ const DeleteUpdateWrapper = styled.div`
   flex-direction: column;
   gap: 1rem;
   padding: 3rem;
-  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+  text-shadow: 0.1rem 0.05rem 0.05rem var(--color-shadow);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
