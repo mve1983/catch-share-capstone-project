@@ -11,7 +11,7 @@ const fishtypes = [
   "Hecht",
   "Hering",
   "Hornhecht",
-  "Karpen",
+  "Karpfen",
   "Meerforelle",
   "Rapfen",
   "Regenbogenforelle",

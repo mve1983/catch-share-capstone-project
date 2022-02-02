@@ -125,6 +125,7 @@ export default function CatchCard({ catchCards }) {
 const NoMarkerInfo = styled.div`
   text-align: center;
   line-height: 1.5rem;
+  text-shadow: 0.1rem 0.05rem 0.05rem var(--color-shadow);
 `;
 
 const CardFlexBoxWrapBigScreen = styled.section`
@@ -138,7 +139,6 @@ const CardFlexBoxWrapBigScreen = styled.section`
 
 const CardWrapperSmall = styled.article`
   background: linear-gradient(-45deg, var(--color-four), var(--color-five));
-  border: 0.2rem solid var(--color-four);
   box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   border-radius: 0.3rem;
   height: 11rem;
@@ -163,7 +163,7 @@ const CardPhoto = styled.div`
 `;
 
 const CardInfoSmall = styled.div`
-  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+  text-shadow: 0.1rem 0.05rem 0.05rem var(--color-shadow);
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -220,9 +220,9 @@ const CardWrapperBig = styled.article`
   justify-content: center;
   align-content: center;
   align-items: center;
+  text-shadow: 0.1rem 0.05rem 0.05rem var(--color-shadow);
 `;
 const CardInfoBig = styled.div`
-  border-bottom: 1px solid var(--color-three);
   display: flex;
   flex-direction: column;
   margin: 0 0.3rem 0.3rem 0.3rem;
@@ -234,7 +234,6 @@ const CardInfoBig = styled.div`
 `;
 
 const Data = styled.div`
-  text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   font-weight: bold;
   margin-right: 0.5rem;
 `;

@@ -61,7 +61,7 @@ export default function Home({
       initialUser.password,
       initialUser.confirmPassword
     );
-  
+
     if (!formValidated[0]) return setError(formValidated[1]);
 
     const result = await fetch("/api/user/register", {
@@ -142,6 +142,7 @@ const HomeWrapper = styled.section`
   margin: 7rem 1rem 1rem 1rem;
   text-align: center;
   position: relative;
+  text-shadow: 0.1rem 0.05rem 0.05rem var(--color-shadow);
   z-index: 5;
 
   button {

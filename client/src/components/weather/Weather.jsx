@@ -95,7 +95,7 @@ export default function Weather({ userInfo }) {
   if (loadError) return "Load Error";
   if (!isLoaded) return "Loading Map";
 
-  if (!userInfo) return <Navigate to="/"/>
+  if (!userInfo) return <Navigate to="/" />;
 
   return (
     <>

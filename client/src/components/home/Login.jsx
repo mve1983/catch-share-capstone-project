@@ -1,13 +1,11 @@
 import styled from "styled-components";
 
-
 export default function Login({ initialUser, error, onChange, onSubmitLogin }) {
-
   return (
     <>
-            <section>
+      <section>
         <LoginForm onSubmit={onSubmitLogin}>
-        {error && <ErrorDiv>{error}</ErrorDiv>}
+          {error && <ErrorDiv>{error}</ErrorDiv>}
           <label htmlFor="email">
             <input
               type="text"
@@ -66,5 +64,5 @@ const LoginForm = styled.form`
     margin-bottom: 0.5rem;
     padding: 0.5rem;
     outline: none;
-      }
-`
+  }
+`;

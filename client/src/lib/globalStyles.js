@@ -90,11 +90,20 @@ select {
   align-items: center;
   margin: 0.5rem;
   padding: 0.3rem;
+  text-shadow: 0.1rem 0.05rem 0.05rem var(--color-shadow);
 }
 
 .outer-form-container {
   background: linear-gradient(-45deg,var(--color-four), var(--color-five));
   box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
+  inset: 2rem;
+  border-radius: 0.3rem;
+  display: block;
+  position: fixed;
+  z-index: 15;
+}
+
+.accountpage-confirms-container {
   inset: 2rem;
   border-radius: 0.3rem;
   display: block;
@@ -108,7 +117,12 @@ select {
 }
 
 .fade-out-1sec {
-  animation: fadeout1sec 1s ease-in-out;
+  animation: fadeoutsec 1s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.fade-out-3sec {
+  animation: fadeoutsec 3s ease-in-out;
   animation-fill-mode: forwards;
 }
 
@@ -131,7 +145,7 @@ select {
   }
 }
 
-@keyframes fadeout1sec {
+@keyframes fadeoutsec {
   0% {
     opacity: 100%;
   }

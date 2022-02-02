@@ -10,13 +10,12 @@ import Weather from "./components/weather/Weather";
 import Account from "./components/account/Account";
 
 export default function App() {
-
   const blankUser = {
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-  }
+  };
 
   const [userInfo, setUserInfo] = useState(null);
 
@@ -32,7 +31,7 @@ export default function App() {
   }
 
   function setUserBackToInitial() {
-    setInitialUser(blankUser)
+    setInitialUser(blankUser);
   }
 
   const handleInputChange = (name, value) => {
@@ -42,7 +41,6 @@ export default function App() {
     });
   };
 
-
   return (
     <>
       <Header />
@@ -51,15 +49,45 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={<Home userInfo={userInfo} initialUser={initialUser} onHandleInputChange={handleInputChange} onGetUserInfo={getUserInfo} />}
+          element={
+            <Home
+              userInfo={userInfo}
+              initialUser={initialUser}
+              onHandleInputChange={handleInputChange}
+              onGetUserInfo={getUserInfo}
+            />
+          }
         />
-        <Route path="/map" element={!userInfo ? <Navigate to="/" /> : <Map userInfo={userInfo} />} />
-        <Route path="/weather" element={!userInfo ? <Navigate to="/" /> : <Weather userInfo={userInfo} />} />
-        <Route path="/account" element={!userInfo ? <Navigate to="/" /> : <Account userInfo={userInfo} />} />
+        <Route
+          path="/map"
+          element={
+            !userInfo ? <Navigate to="/" /> : <Map userInfo={userInfo} />
+          }
+        />
+        <Route
+          path="/weather"
+          element={
+            !userInfo ? <Navigate to="/" /> : <Weather userInfo={userInfo} />
+          }
+        />
+        <Route
+          path="/account"
+          element={
+            !userInfo ? (
+              <Navigate to="/" />
+            ) : (
+              <Account userInfo={userInfo} onGetUserInfo={getUserInfo} onSetUserBackToInitial={setUserBackToInitial} />
+            )
+          }
+        />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
 
-      <Navbar userInfo={userInfo} onSetUserBackToInitial={setUserBackToInitial} onGetUserInfo={getUserInfo} />
+      <Navbar
+        userInfo={userInfo}
+        onSetUserBackToInitial={setUserBackToInitial}
+        onGetUserInfo={getUserInfo}
+      />
     </>
   );
 }

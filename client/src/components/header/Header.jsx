@@ -1,12 +1,14 @@
-import logo from "../../img/logo.png"
+import logo from "../../img/logo.png";
 import styled from "styled-components";
 
 export default function Header() {
   return (
     <AppHeader>
-      <Headline1>Catch</Headline1>
-      <img src={logo} alt="angler" />
-      <Headline2>Share</Headline2>
+      <Headline>
+        Catch
+        <img src={logo} alt="angler" />
+        Share
+      </Headline>
     </AppHeader>
   );
 }
@@ -30,23 +32,18 @@ const AppHeader = styled.header`
     top: -0.5rem;
     width: 6rem;
     z-index: 10;
-     }
+  }
 `;
 
-const Headline1 = styled.h1`
+const Headline = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 7rem;
   color: var(--color-five);
   margin: 0;
   padding: 0.3rem 0 0.3rem 0;
   position: fixed;
-  left: 2rem;
   z-index: 10;
-`
-
-const Headline2 = styled.h1`
-  color: var(--color-five);
-  margin: 0;
-  padding: 0.3rem 0 0.3rem 0;
-  position: fixed;
-  right: 2rem;
-  z-index: 10;
-`
+`;

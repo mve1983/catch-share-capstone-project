@@ -3,10 +3,11 @@ import express from "express";
 import mongoose from "mongoose";
 import multer from "multer";
 import path from "path";
-import { notFound, errorHandler } from "./middlewares/errorMiddlewares.js"
+import { notFound, errorHandler } from "./middlewares/errorMiddlewares.js";
 import MapRoutes from "./routes/map.routes.js";
-import UserRoutes from "./routes/user.routes.js"
+import UserRoutes from "./routes/user.routes.js";
 import HomeRoutes from "./routes/home.routes.js";
+import AccountRoutes from "./routes/account.routes.js";
 
 dotenv.config();
 
@@ -35,21 +36,21 @@ const storage = multer.diskStorage({
 
 const uploadImage = multer({ storage }).single("catchPhoto");
 
-server.post("/api/image",uploadImage, (req, res) => {
+server.post("/api/image", uploadImage, (req, res) => {
   if (req.file)
     return res.json({ message: "Upload ok", photoPath: req.file.path });
   res.send("Upload failed");
 });
 
-server.use("/api", [UserRoutes, HomeRoutes, MapRoutes]);
+server.use("/api", [UserRoutes, HomeRoutes, MapRoutes, AccountRoutes]);
 
 server.use(express.static(path.join(__dirname, "./client/dist")));
 server.get("/*", (_req, res) => {
   res.sendFile(path.join(__dirname, "./client/dist", "index.html"));
 });
 
-server.use(notFound)
-server.use(errorHandler)
+server.use(notFound);
+server.use(errorHandler);
 
 server.listen(PORT, () => {
   console.log("CatchandShare Server is up and running on port " + PORT);

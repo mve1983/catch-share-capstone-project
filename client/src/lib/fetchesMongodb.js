@@ -34,9 +34,48 @@ async function fetchThreeNewestCatchCards() {
   return resultJson;
 }
 
+async function fetchCatchCardsWithUserName(name) {
+  const result = await fetch(`/api/catchcards/${name}`);
+  const resultJson = await result.json();
+  return resultJson;
+}
+
+async function fetchDeleteOneCatchCard(id) {
+  try {
+    const result = await fetch(`/api/catchcards/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const resultJson = await result.json();
+    return resultJson;
+  } catch (error) {
+    return error.message;
+  }
+}
+
+async function fetchDeleteUser(id) {
+  try {
+    const result = await fetch(`/api/user/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const resultJson = await result.json();
+    return resultJson;
+  } catch (error) {
+    return error.message;
+  }
+}
+
 export {
   fetchCatchCardsOnMarker,
   addCatchCardToDatabase,
   fetchAllMapMarkers,
   fetchThreeNewestCatchCards,
+  fetchCatchCardsWithUserName,
+  fetchDeleteOneCatchCard,
+  fetchDeleteUser,
 };

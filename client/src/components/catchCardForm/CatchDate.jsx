@@ -1,9 +1,4 @@
-
-export default function CatchDate({
-  onHandleChangeString,
-  catchCard,
-}) {
-
+export default function CatchDate({ onHandleChangeString, catchCard }) {
   let today = new Date();
   let dd = today.getDate();
   let mm = today.getMonth() + 1;

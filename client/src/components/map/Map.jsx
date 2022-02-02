@@ -116,15 +116,12 @@ export default function Map({ userInfo }) {
   });
 
   function addAdditionalCatchToMarker() {
-    const newLat = clickedMarker.lat
-    const newLng = clickedMarker.lng
-    setSingleCatchCard(initialCatchCard)
+    const newLat = clickedMarker.lat;
+    const newLng = clickedMarker.lng;
+    setSingleCatchCard(initialCatchCard);
     setMapClicked(!mapClicked);
     addCoordinatesToCatchCard(newLat, newLng);
-    setMapMarkers([
-      ...mapMarkers,
-      { lat: newLat, lng: newLng},
-    ]);
+    setMapMarkers([...mapMarkers, { lat: newLat, lng: newLng }]);
   }
 
   const addNewMapMarker = useCallback((event) => {
@@ -184,7 +181,7 @@ export default function Map({ userInfo }) {
     anchor: new google.maps.Point(15, 15),
   };
 
-if (!userInfo) return <Navigate to="/"/>
+  if (!userInfo) return <Navigate to="/" />;
 
   return (
     <>
@@ -201,10 +198,10 @@ if (!userInfo) return <Navigate to="/"/>
         <>
           <div className="form-border-transparent"></div>
           <section className="outer-form-container">
-          <div className="inner-form-container">
+            <div className="inner-form-container">
               <Loader></Loader>
               <SubmitMessage>Wird übermittelt...</SubmitMessage>
-              </div>
+            </div>
           </section>
         </>
       )}
@@ -256,11 +253,10 @@ if (!userInfo) return <Navigate to="/"/>
               position={{ lat: clickedMarker.lat, lng: clickedMarker.lng }}
               onCloseClick={() => setClickedMarker(null)}
             >
-              
               <AddCatch onClick={addAdditionalCatchToMarker}>
-                Fang <br />hinzufügen!
+                Fang <br />
+                hinzufügen!
               </AddCatch>
-         
             </InfoWindow>
           ) : null}
         </GoogleMap>
@@ -282,10 +278,8 @@ const BackgroundImage = styled.div`
 `;
 
 const Loader = styled.div`
-top: 30%;
-position: fixed;
-  border: 1rem solid var(--color-three);
-  border-top: 1rem solid var(--color-two);
+  top: 30%;
+  position: fixed;
   border-radius: 50%;
   margin-bottom: 1rem;
   width: 6rem;
@@ -303,7 +297,6 @@ position: fixed;
 `;
 
 const MapWrapper = styled.section`
-  border: 0.2rem solid var(--color-four);
   box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
   border-radius: 0.3rem;
   display: flex;
@@ -316,8 +309,8 @@ const MapWrapper = styled.section`
 `;
 
 const SubmitMessage = styled.div`
-top: 50%;
-position: fixed;
+  top: 50%;
+  position: fixed;
   font-size: 1.2rem;
   text-align: center;
 `;
