@@ -61,7 +61,7 @@ export default function Home({
       initialUser.password,
       initialUser.confirmPassword
     );
-  
+
     if (!formValidated[0]) return setError(formValidated[1]);
 
     const result = await fetch("/api/user/register", {

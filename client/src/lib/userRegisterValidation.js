@@ -1,4 +1,3 @@
-
 function checkRegisterForm(name, email, password, confirmPassword) {
   if (name.length < 2) return [false, "Name muss mindestens 2 Zeichen haben."];
   if (!email.includes("@") || !email.includes("."))
@@ -7,7 +6,7 @@ function checkRegisterForm(name, email, password, confirmPassword) {
     return [false, "Passwort muss mindestens 6 Zeichen haben."];
   if (password !== confirmPassword)
     return [false, "Passwörter stimmen nicht überein."];
-   return [true];
+  return [true];
 }
 
 export { checkRegisterForm };

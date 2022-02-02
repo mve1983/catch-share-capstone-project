@@ -5,7 +5,11 @@ import menu from "../../img/menu.png";
 import logged from "../../img/logged.png";
 import notlogged from "../../img/notlogged.png";
 
-export default function Navbar({ userInfo, onSetUserBackToInitial, onGetUserInfo }) {
+export default function Navbar({
+  userInfo,
+  onSetUserBackToInitial,
+  onGetUserInfo,
+}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
 
@@ -19,7 +23,7 @@ export default function Navbar({ userInfo, onSetUserBackToInitial, onGetUserInfo
 
   function logout() {
     localStorage.removeItem("__CandSUserInfo__");
-    onSetUserBackToInitial()
+    onSetUserBackToInitial();
   }
 
   return (
@@ -47,16 +51,26 @@ export default function Navbar({ userInfo, onSetUserBackToInitial, onGetUserInfo
         </AppNavbar>
       )}
 
-      <LoggedStatus> {!userInfo ? "nicht eingeloggt" : <div>eingeloggt: <br/> {userInfo.name} </div>}</LoggedStatus>
+      <LoggedStatus>
+        {" "}
+        {!userInfo ? (
+          "nicht eingeloggt"
+        ) : (
+          <div>
+            eingeloggt: <br /> {userInfo.name}{" "}
+          </div>
+        )}
+      </LoggedStatus>
       <LoggedButton onClick={logoutSetter}>
         <img src={userInfo ? logged : notlogged} alt="logged-status" />
       </LoggedButton>
       {userInfo && logoutOpen && (
-        <Logout className="fade-in-nav"
+        <Logout
+          className="fade-in-nav"
           onClick={() => {
             logout();
             logoutSetter();
-            onGetUserInfo()
+            onGetUserInfo();
           }}
         >
           Logout
@@ -90,8 +104,8 @@ const LoggedButton = styled.div`
   z-index: 10;
 
   img {
-    width: 1.5rem;
-    border: solid 0.1rem transparent;
+    width: 1.3rem;
+    border: solid 0.3rem transparent;
   }
 `;
 
@@ -105,13 +119,13 @@ const Logout = styled.div`
   font-weight: bold;
   position: fixed;
   right: 0;
-top: 5.2rem;
-text-align: center;
+  top: 5.2rem;
+  text-align: center;
   z-index: 10;
 
   :hover {
-      background-color: var(--color-three);
-    }
+    background-color: var(--color-three);
+  }
 `;
 
 const LoggedStatus = styled.div`

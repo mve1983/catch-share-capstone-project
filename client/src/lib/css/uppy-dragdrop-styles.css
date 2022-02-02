@@ -3,9 +3,10 @@
   align-items: center;
   justify-content: center;
   max-width: 100%;
-  font-family: Courier New, Courier,Lucida Sans Typewriter, Lucida Typewriter, monospace; 
-  background-color: #D9D9D9;
-  color: #284B63;
+  font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter,
+    monospace;
+  background-color: #d9d9d9;
+  color: #284b63;
   border-radius: 0.3rem;
   cursor: pointer;
 }
@@ -20,7 +21,7 @@
 .uppy-DragDrop-inner {
   margin: 0;
   /* (original 80 20) */
-  padding: 10px 5px; 
+  padding: 10px 5px;
   line-height: 1.4;
   text-align: center;
 }
@@ -38,11 +39,11 @@
 
 .uppy-DragDrop--isDraggingOver {
   background: #353535;
-  color: #D9D9D9;
-  border: 2px dashed #8B0000;
+  color: #d9d9d9;
+  border: 2px dashed #8b0000;
 }
 .uppy-DragDrop--isDraggingOver .uppy-DragDrop-arrow {
-  fill: #D9D9D9;
+  fill: #d9d9d9;
 }
 
 .uppy-DragDrop-label {
@@ -52,7 +53,7 @@
 }
 
 .uppy-DragDrop-browse {
-  color: #8B0000;
+  color: #8b0000;
   cursor: pointer;
 }
 

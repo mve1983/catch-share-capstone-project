@@ -1,14 +1,16 @@
 import styled from "styled-components";
 
-
-export default function Register({ initialUser, error, onChange, onSubmitRegister }) {
-
-
+export default function Register({
+  initialUser,
+  error,
+  onChange,
+  onSubmitRegister,
+}) {
   return (
     <>
-       <section>
+      <section>
         <RegisterForm onSubmit={onSubmitRegister}>
-        {error && <ErrorDiv>{error}</ErrorDiv>}
+          {error && <ErrorDiv>{error}</ErrorDiv>}
           <label htmlFor="name">
             <input
               type="text"
@@ -48,7 +50,9 @@ export default function Register({ initialUser, error, onChange, onSubmitRegiste
               id="confirmpasword"
               value={initialUser.ConfirmPassword}
               placeholder="Passwort bestätigen..."
-              onChange={(event) => onChange("confirmPassword", event.target.value)}
+              onChange={(event) =>
+                onChange("confirmPassword", event.target.value)
+              }
             />
           </label>
           <button onClick={onSubmitRegister}>Registrieren</button>
@@ -88,5 +92,5 @@ const RegisterForm = styled.form`
     margin-bottom: 0.5rem;
     padding: 0.5rem;
     outline: none;
-      }
-`
+  }
+`;

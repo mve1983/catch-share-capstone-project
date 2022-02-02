@@ -7,7 +7,7 @@ export default function SubmitDone({ submitOk }) {
       <SubmitWrapper>
         <SubmitMessage>
           <div>{submitOk.message}</div>
-           </SubmitMessage>
+        </SubmitMessage>
       </SubmitWrapper>
     </>
   );

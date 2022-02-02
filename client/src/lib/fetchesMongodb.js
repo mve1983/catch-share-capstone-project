@@ -47,7 +47,7 @@ async function fetchDeleteOneCatchCard(id) {
       headers: {
         "Content-Type": "application/json",
       },
-      });
+    });
     const resultJson = await result.json();
     return resultJson;
   } catch (error) {
@@ -62,7 +62,7 @@ async function fetchDeleteUser(id) {
       headers: {
         "Content-Type": "application/json",
       },
-      });
+    });
     const resultJson = await result.json();
     return resultJson;
   } catch (error) {
@@ -77,5 +77,5 @@ export {
   fetchThreeNewestCatchCards,
   fetchCatchCardsWithUserName,
   fetchDeleteOneCatchCard,
-  fetchDeleteUser
+  fetchDeleteUser,
 };

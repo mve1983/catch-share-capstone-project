@@ -14,7 +14,7 @@ export default function CatchForm({
   onInputChange,
 }) {
   const [photoUploadDone, setPhotoUploadDone] = useState(false);
-  
+
   function initialPhotoUploadSetter() {
     setPhotoUploadDone(!photoUploadDone);
   }
@@ -63,8 +63,8 @@ export default function CatchForm({
               onHandleChangeString={handleChangeString}
             />
             <CatchDate
-            catchCard={catchCard}
-             onHandleChangeString={handleChangeString}
+              catchCard={catchCard}
+              onHandleChangeString={handleChangeString}
             />
             <Tackle
               catchCard={catchCard}

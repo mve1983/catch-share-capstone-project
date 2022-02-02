@@ -73,11 +73,11 @@ export default function Account({ userInfo, onGetUserInfo }) {
     if (event.target.value === "no") return setDeleteAccount("");
     fetchDeleteUser(deleteAccount).then((data) => {
       setConfirmMessage(data);
-      setDeleteAccount("")
+      setDeleteAccount("");
     });
     setTimeout(() => {
-     localStorage.removeItem("__CandSUserInfo__");
-      onGetUserInfo()
+      localStorage.removeItem("__CandSUserInfo__");
+      onGetUserInfo();
     }, 3000);
   }
 
@@ -86,20 +86,22 @@ export default function Account({ userInfo, onGetUserInfo }) {
       <BackgroundImage />
 
       <AccountWrapper>
-        <User>
-          <UserItem1>
-            <div>Name: {userInfo.name}</div>
-            <div>E-Mail: {userInfo.email}</div>
-            <div>Fänge: {userCatchCards.length}</div>
-          </UserItem1>
-          <UserItem2>
-            <button
-              onClick={(event) => deleteAccountConfirm(event, userInfo._id)}
-            >
-              Account löschen
-            </button>
-          </UserItem2>
-        </User>
+        <UserWrapper>
+          <User>
+            <UserItem1>
+              <div>Name: {userInfo.name}</div>
+              <div>E-Mail: {userInfo.email}</div>
+              <div>Fänge: {userCatchCards.length}</div>
+            </UserItem1>
+            <UserItem2>
+              <button
+                onClick={(event) => deleteAccountConfirm(event, userInfo._id)}
+              >
+                Account löschen
+              </button>
+            </UserItem2>
+          </User>
+        </UserWrapper>
         <p>
           <Search
             type="text"
@@ -246,16 +248,22 @@ const Alert = styled.div`
   color: red;
 `;
 
+const UserWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+`;
+
 const User = styled.article`
   border-bottom: 1px solid var(--color-four);
   box-shadow: 0rem 0.1rem 0.1rem -0.1rem var(--color-shadow);
   padding-bottom: 0.5rem;
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  align-content: center;
+  gap: 2.6rem;
+  max-width: 343px;
   text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
-  font-size: 1.1rem;
+  font-size: 0.9rem;
 `;
 
 const UserItem1 = styled.div`
@@ -263,7 +271,7 @@ const UserItem1 = styled.div`
   flex-direction: column;
   text-align: left;
   text-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
-  font-size: 1.1rem;
+  font-size: 0.9rem;
 `;
 const UserItem2 = styled.div`
   display: flex;
@@ -280,6 +288,7 @@ const UserItem2 = styled.div`
     box-shadow: 0.2rem 0.1rem 0.1rem var(--color-shadow);
     color: var(--color-three);
     background-color: var(--color-five);
+    font-size: 0.9rem;
   }
 `;
 
