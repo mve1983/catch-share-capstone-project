@@ -10,6 +10,7 @@ export default function Bait({ onHandleChangeString, catchCard }) {
             id="bait"
             name="bait"
             value={catchCard.bait}
+            placeholder="Mais, Wobbler, Made, Köderfisch..."
           />
         </div>
       </label>

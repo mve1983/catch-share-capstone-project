@@ -13,6 +13,7 @@ export default function DepthLengthWeight({ catchCard, onHandleChangeFloat }) {
             id="length"
             name="length"
             value={catchCard.length}
+            placeholder="43..."
           />
         </div>
       </label>
@@ -26,6 +27,7 @@ export default function DepthLengthWeight({ catchCard, onHandleChangeFloat }) {
             id="weight"
             name="weight"
             value={catchCard.weight}
+            placeholder="0.83"
           />
         </div>
       </label>
@@ -39,6 +41,7 @@ export default function DepthLengthWeight({ catchCard, onHandleChangeFloat }) {
             id="depth"
             name="depth"
             value={catchCard.depth}
+            placeholder="2.3"
           />
         </div>
       </label>

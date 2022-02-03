@@ -4,11 +4,8 @@ import styled from "styled-components";
 export default function Header() {
   return (
     <AppHeader>
-      <Headline>
-        Catch
-        <img src={logo} alt="angler" />
-        Share
-      </Headline>
+      <Headline> <h1>Catch</h1> <h1>Share</h1>  </Headline>
+      <img src={logo} alt="angler" />
     </AppHeader>
   );
 }
@@ -28,14 +25,14 @@ const AppHeader = styled.header`
   z-index: 10;
 
   img {
-    position: fixed;
+    position: absolute;
     top: -0.5rem;
     width: 6rem;
     z-index: 10;
   }
 `;
 
-const Headline = styled.h1`
+const Headline = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

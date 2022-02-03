@@ -7,16 +7,17 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import styled from "styled-components";
-import mapStyle from "../../lib/mapStyle";
-import libraries from "../../lib/googleLibs";
 import Search from "./MapSearch";
 import CatchForm from "../catchCardForm/CatchForm";
+import CatchCard from "../catchCardForm/CatchCard";
+import MapGeoLocate from "./MapGeoLocate";
 import {
   addCatchCardToDatabase,
   fetchAllMapMarkers,
   fetchCatchCardsOnMarker,
 } from "../../lib/fetchesMongodb";
-import CatchCard from "../catchCardForm/CatchCard";
+import mapStyle from "../../lib/mapStyle";
+import libraries from "../../lib/googleLibs";
 import background from "../../img/background.jpg";
 
 const mapContainerStyle = {
@@ -40,12 +41,12 @@ export default function Map({ userInfo }) {
     name: userInfo.name,
     fishtype: "A N D E R E",
     date: "",
-    time: "",
-    length: 0,
-    weight: 0,
+    time: "morgens",
+    length: null,
+    weight: null,
     latlng: { lat: 0, lng: 0 },
     bait: "",
-    depth: 0,
+    depth: null,
     tackle: "A N D E R E",
     img: "",
   };
@@ -71,6 +72,8 @@ export default function Map({ userInfo }) {
     let latlng = { lat: newlat, lng: newlng };
     handleInputChange("latlng", latlng);
   }
+
+  console.log(singleCatchCard.date);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -163,7 +166,7 @@ export default function Map({ userInfo }) {
 
   const fishMarkerNotActive = {
     path: "M12,20L12.76,17C9.5,16.79 6.59,15.4 5.75,13.58C5.66,14.06 5.53,14.5 5.33,14.83C4.67,16 3.33,16 2,16C3.1,16 3.5,14.43 3.5,12.5C3.5,10.57 3.1,9 2,9C3.33,9 4.67,9 5.33,10.17C5.53,10.5 5.66,10.94 5.75,11.42C6.4,10 8.32,8.85 10.66,8.32L9,5C11,5 13,5 14.33,5.67C15.46,6.23 16.11,7.27 16.69,8.38C19.61,9.08 22,10.66 22,12.5C22,14.38 19.5,16 16.5,16.66C15.67,17.76 14.86,18.78 14.17,19.33C13.33,20 12.67,20 12,20M17,11A1,1 0 0,0 16,12A1,1 0 0,0 17,13A1,1 0 0,0 18,12A1,1 0 0,0 17,11Z",
-    fillColor: "darkred",
+    fillColor: "black",
     fillOpacity: 1,
     strokeWeight: 0,
     rotation: 0,
@@ -173,7 +176,7 @@ export default function Map({ userInfo }) {
 
   const fishMarkerActive = {
     path: "M12,20L12.76,17C9.5,16.79 6.59,15.4 5.75,13.58C5.66,14.06 5.53,14.5 5.33,14.83C4.67,16 3.33,16 2,16C3.1,16 3.5,14.43 3.5,12.5C3.5,10.57 3.1,9 2,9C3.33,9 4.67,9 5.33,10.17C5.53,10.5 5.66,10.94 5.75,11.42C6.4,10 8.32,8.85 10.66,8.32L9,5C11,5 13,5 14.33,5.67C15.46,6.23 16.11,7.27 16.69,8.38C19.61,9.08 22,10.66 22,12.5C22,14.38 19.5,16 16.5,16.66C15.67,17.76 14.86,18.78 14.17,19.33C13.33,20 12.67,20 12,20M17,11A1,1 0 0,0 16,12A1,1 0 0,0 17,13A1,1 0 0,0 18,12A1,1 0 0,0 17,11Z",
-    fillColor: "darkorange",
+    fillColor: "lime",
     fillOpacity: 1,
     strokeWeight: 0,
     rotation: 0,
@@ -217,6 +220,7 @@ export default function Map({ userInfo }) {
       )}
       <MapWrapper>
         <Search onGoTo={goTo} />
+        <MapGeoLocate onGoTo={goTo} />
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={12}
@@ -252,6 +256,7 @@ export default function Map({ userInfo }) {
             <InfoWindow
               position={{ lat: clickedMarker.lat, lng: clickedMarker.lng }}
               onCloseClick={() => setClickedMarker(null)}
+              options={{ pixelOffset: new window.google.maps.Size(-4, -16) }}
             >
               <AddCatch onClick={addAdditionalCatchToMarker}>
                 Fang <br />
