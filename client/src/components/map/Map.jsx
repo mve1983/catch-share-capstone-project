@@ -73,8 +73,6 @@ export default function Map({ userInfo }) {
     handleInputChange("latlng", latlng);
   }
 
-  console.log(singleCatchCard.date);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setMapClicked(!mapClicked);
@@ -283,6 +281,8 @@ const BackgroundImage = styled.div`
 `;
 
 const Loader = styled.div`
+  border: 1rem solid var(--color-three);
+  border-top: 1rem solid var(--color-two);
   top: 30%;
   position: fixed;
   border-radius: 50%;
