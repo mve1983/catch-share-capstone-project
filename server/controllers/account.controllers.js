@@ -21,11 +21,6 @@ const deleteOneCatchCard = async (req, res) => {
 const deleteUserAndAllData = async (req, res) => {
   const user = await User.findById(req.params.id);
 
-  console.log(user)
-  console.log(user.id)
-  console.log(user._id)
-
-
   try {
     await CatchCard.deleteMany({ name: user.name });
     await Marker.deleteMany({ markerOwner: user.name });
