@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const markerSchema = new mongoose.Schema({
+  markerOwner: String,
   lat: Number,
   lng: Number,
 });

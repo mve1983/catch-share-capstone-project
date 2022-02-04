@@ -22,6 +22,7 @@ const getCatchcardsOnMarker = async (req, res) => {
 
 const saveNewCatchCard = async (req, res) => {
   let newMarker = new Marker({
+    markerOwner: req.body.name,
     lat: req.body.latlng.lat,
     lng: req.body.latlng.lng,
   });
