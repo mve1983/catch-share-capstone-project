@@ -79,6 +79,7 @@ export default function Map({ userInfo }) {
     formUploadSetter();
     addCatchCardToDatabase(singleCatchCard).then((result) => {
       if (result.done) {
+        setSingleCatchCard(initialCatchCard);
         setFormUploadProgress(false);
         setSubmitOk({ done: true, message: result.message });
         if (clickedMarker) activateMarker(clickedMarker);
