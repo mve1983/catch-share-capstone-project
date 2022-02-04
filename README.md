@@ -17,7 +17,7 @@ Further, if enough people share their catches the whole data could be interestin
 > - Express.js for the backend, further mongoose to handle the db
 > - MongoDB as db
 > - Google API for map, places, geocode, geolocate
-> - any free weather API, not decided yet
+> - tomorrow.io Weather API
 
 <br>
 
