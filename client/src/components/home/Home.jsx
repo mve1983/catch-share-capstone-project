@@ -108,7 +108,9 @@ export default function Home({
                 onChange={onHandleInputChange}
                 onSubmitLogin={submitHandlerLogin}
               />
-              <button onClick={registerSetter}>Registrieren</button>
+              <button data-testid="register-button" onClick={registerSetter}>
+                Registrieren
+              </button>
             </>
           )}
 

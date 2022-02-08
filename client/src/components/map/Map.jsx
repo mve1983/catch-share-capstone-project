@@ -217,7 +217,7 @@ export default function Map({ userInfo }) {
           </section>
         </>
       )}
-      <MapWrapper>
+      <MapWrapper data-testid="map-wrapper">
         <Search onGoTo={goTo} />
         <MapGeoLocate onGoTo={goTo} />
         <GoogleMap

@@ -107,7 +107,10 @@ export default function CatchForm({
           >
             <strong>Abbrechen</strong>
           </CancelButton>
-          <ConfirmButton onClick={validatedCatchData}>
+          <ConfirmButton
+            data-testid="submit-catch"
+            onClick={validatedCatchData}
+          >
             <strong>Veröffentlichen</strong>
           </ConfirmButton>
         </FormButtons>

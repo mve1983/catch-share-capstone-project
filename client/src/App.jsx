@@ -1,7 +1,7 @@
 import "./lib/css/fonts.css";
 import { Navigate, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import ScrollToTop from "./lib/utils/ScrollToTop";
+import ScrollToTop from "./components/utils/ScrollToTop";
 import Header from "./components/header/Header";
 import Navbar from "./components/navigation/Navbar";
 import Home from "./components/home/Home";
@@ -76,7 +76,11 @@ export default function App() {
             !userInfo ? (
               <Navigate to="/" />
             ) : (
-              <Account userInfo={userInfo} onGetUserInfo={getUserInfo} onSetUserBackToInitial={setUserBackToInitial} />
+              <Account
+                userInfo={userInfo}
+                onGetUserInfo={getUserInfo}
+                onSetUserBackToInitial={setUserBackToInitial}
+              />
             )
           }
         />

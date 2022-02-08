@@ -4,7 +4,10 @@ import styled from "styled-components";
 export default function Header() {
   return (
     <AppHeader>
-      <Headline> <h1>Catch</h1> <h1>Share</h1>  </Headline>
+      <Headline>
+        {" "}
+        <h1>Catch</h1> <h1>Share</h1>{" "}
+      </Headline>
       <img src={logo} alt="angler" />
     </AppHeader>
   );
