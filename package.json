@@ -1,5 +1,5 @@
 {
-  "name": "fish-finder-app",
+  "name": "catch-share",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,7 +11,8 @@
     "client": "cd ./client && npm run dev",
     "start": "node server/server.js",
     "postinstall": "cd ./client && npm install && cd ../server && npm install",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "e2eopen": "cd ./client && npm run e2eopen",
+    "e2e": "cd ./client && npm run e2e"
   },
   "author": "Manuel Verweyen",
   "license": "ISC",

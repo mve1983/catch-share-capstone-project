@@ -6,7 +6,7 @@ function checkRegisterForm(name, email, password, confirmPassword) {
     return [false, "Passwort muss mindestens 6 Zeichen haben."];
   if (password !== confirmPassword)
     return [false, "Passwörter stimmen nicht überein."];
-  return [true];
+  return [true, ""];
 }
 
 export { checkRegisterForm };

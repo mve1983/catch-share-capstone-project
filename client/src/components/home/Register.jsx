@@ -43,11 +43,11 @@ export default function Register({
               onChange={(event) => onChange("password", event.target.value)}
             />
           </label>
-          <label htmlFor="confirmpasword">
+          <label htmlFor="confirmpassword">
             <input
               type="password"
-              name="confirmpasword"
-              id="confirmpasword"
+              name="confirmpassword"
+              id="confirmpassword"
               value={initialUser.ConfirmPassword}
               placeholder="Passwort bestätigen..."
               onChange={(event) =>
@@ -55,7 +55,9 @@ export default function Register({
               }
             />
           </label>
-          <button onClick={onSubmitRegister}>Registrieren</button>
+          <button data-testid="submit-register" onClick={onSubmitRegister}>
+            Registrieren
+          </button>
         </RegisterForm>
       </section>
     </>

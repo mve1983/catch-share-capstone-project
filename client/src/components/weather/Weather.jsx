@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useLoadScript } from "@react-google-maps/api";
 import libraries from "../../lib/googleLibs";
 import Search from "./WeatherSearch";
-import WeatherGeoLocate from "./WeatherGeoLocate"
+import WeatherGeoLocate from "./WeatherGeoLocate";
 import kompass from "../../img/kompass.png";
 import arrow from "../../img/arrow.png";
 import background from "../../img/background.jpg";

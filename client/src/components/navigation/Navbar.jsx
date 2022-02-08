@@ -28,7 +28,7 @@ export default function Navbar({
 
   return (
     <>
-      <MenuButton>
+      <MenuButton data-testid="open-menu">
         <img onClick={menuSetter} src={menu} alt="Menu-Button" />
       </MenuButton>
       {menuOpen && (
@@ -37,7 +37,12 @@ export default function Navbar({
             Start
           </NavLink>
 
-          <NavLink className="fade-in-nav" onClick={menuSetter} to="/map">
+          <NavLink
+            data-testid="open-map"
+            className="fade-in-nav"
+            onClick={menuSetter}
+            to="/map"
+          >
             Karte
           </NavLink>
 
@@ -45,7 +50,12 @@ export default function Navbar({
             Wetter
           </NavLink>
 
-          <NavLink className="fade-in-nav" onClick={menuSetter} to="/account">
+          <NavLink
+            data-testid="open-account"
+            className="fade-in-nav"
+            onClick={menuSetter}
+            to="/account"
+          >
             Account
           </NavLink>
         </AppNavbar>

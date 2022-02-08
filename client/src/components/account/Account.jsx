@@ -8,7 +8,11 @@ import {
   fetchDeleteUser,
 } from "../../lib/fetchesMongodb";
 
-export default function Account({ userInfo, onGetUserInfo, onSetUserBackToInitial }) {
+export default function Account({
+  userInfo,
+  onGetUserInfo,
+  onSetUserBackToInitial,
+}) {
   const [userCatchCards, setUserCatchCards] = useState([]);
   const [newFilteredCardArray, setNewFilteredCardArray] = useState([]);
   const [currentSearch, setCurrentSearch] = useState("");
@@ -77,7 +81,7 @@ export default function Account({ userInfo, onGetUserInfo, onSetUserBackToInitia
     });
     setTimeout(() => {
       localStorage.removeItem("__CandSUserInfo__");
-      onSetUserBackToInitial()
+      onSetUserBackToInitial();
       onGetUserInfo();
     }, 3000);
   }
@@ -96,6 +100,7 @@ export default function Account({ userInfo, onGetUserInfo, onSetUserBackToInitia
             </UserItem1>
             <UserItem2>
               <button
+                data-testid="delete-account"
                 onClick={(event) => deleteAccountConfirm(event, userInfo._id)}
               >
                 Account löschen
@@ -195,7 +200,11 @@ export default function Account({ userInfo, onGetUserInfo, onSetUserBackToInitia
             <Alert>
               Alle Daten und Fangkarten werden unwiderruflich gelöscht!
             </Alert>
-            <button onClick={confirmedAccountDeleteOrNotDelete} value="yes">
+            <button
+              data-testid="delete-confirm"
+              onClick={confirmedAccountDeleteOrNotDelete}
+              value="yes"
+            >
               Löschen
             </button>
             <button onClick={confirmedAccountDeleteOrNotDelete} value="no">
