@@ -1,7 +1,7 @@
 # Catch & Share - Capstone-Project
 Capstone Project of neuefische GmbH WebDev Bootcamp
 
-## UPDATE! This App was my capstone project at the end of my web-development bootcamp course. It's finished so to say, but not in a state that I will describe ready for production. Maybe I will continue working on this, maybe not, depoends on available time with my new job as a dev. 
+## UPDATE! This App was my capstone project at the end of my web-development bootcamp course. It's finished so to say, but not in a state that I will describe ready for production. Maybe I will continue working on this, maybe not, depends on available time with my new job as a dev. 
 <br>
 
 ### About
