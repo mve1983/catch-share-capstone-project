@@ -1,8 +1,7 @@
 # Catch & Share - Capstone-Project
 Capstone Project of neuefische GmbH WebDev Bootcamp
 
-! This WebApp is currently in a WIP state and not ready for production. !
-
+## UPDATE! This App was my capstone project at the end of my web-development bootcamp course. It's finished so to say, but not in a state that I will describe ready for production. Maybe I will continue working on this, maybe not, depoends on available time with my new job as a dev. 
 <br>
 
 ### About
@@ -38,7 +37,6 @@ Further, if enough people share their catches the whole data could be interestin
 ### About me
 > - Manuel Verweyen, 38 years, worked in forwarding/shipping agencies and port logistics for the last 20 years.
 > - Motivation for the bootcamp: I want to fullfill my old dream to be an developer. I was always interested in programming since I wrote my first programms with basic on my C64 back in the days.
-> - For more information about me visit my [personal website](https://personal-website-react-five.vercel.app/), currently only available in german language. I don't have the time to make an english version of it, maybe after the capstone project.
 > - Please feel free to get in contact if you want to know more. 
 
 <br>
